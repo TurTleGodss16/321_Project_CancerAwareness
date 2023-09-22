@@ -1,7 +1,10 @@
 # Running the app:
-   npm start
-   a - running android simulator in Android studio
-   r - Hot reloading without changing current state
+   Running a simulator device in Android studio first <br />
+   And then, type <br />
+      npm start <br />
+   in the terminal <br />
+   a - running android simulator in Android studio <br />
+   r - Hot reloading without changing current state <br />
 
 
 # Some bug when running the app:
