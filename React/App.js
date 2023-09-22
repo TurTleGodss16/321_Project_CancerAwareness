@@ -31,8 +31,8 @@ const App = () => {
 
       {/* Main Content */}
       <View style={styles.mainContent}>
-        <Text style={styles.heading}>Welcome to Our Company</Text>
-        <Text>We provide innovative solutions for your needs.</Text>
+        <Text style={styles.heading}>Cancer App</Text>
+        <Text>You can find any cancer information at here</Text>
       </View>
     </View>
   );
