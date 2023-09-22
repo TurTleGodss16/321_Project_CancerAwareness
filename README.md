@@ -1,10 +1,10 @@
 # Running the app:
    Running a simulator device in Android studio first <br />
    And then, type <br />
-      npm start <br />
+   &emsp; **npm start** <br />
    in the terminal <br />
-   a - running android simulator in Android studio <br />
-   r - Hot reloading without changing current state <br />
+   **a** - running android simulator in Android studio <br />
+   **r** - Hot reloading without changing current state <br />
 
 
 # Some bug when running the app:
