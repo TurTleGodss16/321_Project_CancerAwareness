@@ -40,6 +40,7 @@ export default StyleSheet.create({
   mainContent: {
     flex: 1,
     paading: 20,
+    textAlign: 'center',
   },
 
   heading: {
