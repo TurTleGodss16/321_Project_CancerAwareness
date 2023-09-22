@@ -4,6 +4,9 @@
    **a** - running android simulator in Android studio <br />
    **r** - Hot reloading without changing current state <br />
 
+# Features:
+## Navigation in React Native:
+   https://reactnative.dev/docs/navigation
 
 # Some bug when running the app:
 ## System limit for number of file:
