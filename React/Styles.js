@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
@@ -45,5 +45,6 @@ export default StyleSheet.create({
   heading: {
     fontSize: 24,
     marginBottom: 10,
+    textAlign: 'center',
   },
 });

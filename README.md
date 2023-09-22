@@ -11,3 +11,6 @@
 
 ## Invalid element type:
    https://stackoverflow.com/questions/37620473/react-native-error-element-type-is-invalid-expected-a-string-or-a-class-functi
+
+## VS Code on save trouble (React import)
+   https://stackoverflow.com/questions/71263466/vs-code-on-save-trouble-react-import
