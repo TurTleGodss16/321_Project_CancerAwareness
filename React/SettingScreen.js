@@ -1,9 +1,16 @@
 //Setting Screen
 
-import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, Image, Switch} from 'react-native';
 
 const SettingScreen = ({navigation}) => {
+  //Create switch for theme
+  const [isEnabled, setIsEnabled] = useState(false);
+
+  const toggleSwitch = () => {
+    setIsEnabled(previousState => !previousState);
+  };
+
   return (
     <View style={styles.body}>
       <View style={styles.containers}>
@@ -33,6 +40,15 @@ const SettingScreen = ({navigation}) => {
           <Text style={styles.descriptionText}>
             Toggle Light and Dark mode.
           </Text>
+        </View>
+        {/*Toggle Switch*/}
+        <View style={styles.toggle_switch}>
+          <Switch
+            trackColor={{false: '#767577', true: '#81b0f'}}
+            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
         </View>
       </View>
 
@@ -108,6 +124,12 @@ const styles = StyleSheet.create({
     width: 26,
     height: 25,
     top: 5,
+  },
+
+  toggle_switch: {
+    flex: 1,
+    paddingRight: 20,
+    alignItems: 'flex-end',
   },
 });
 
