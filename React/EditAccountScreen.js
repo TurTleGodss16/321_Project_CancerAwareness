@@ -1,4 +1,4 @@
-//Edit profile
+//Edit account
 
 import React from 'react';
 import {View, Text, Image, StyleSheet, TextInput, Button, TouchableOpacity, ScrollView} from 'react-native';
@@ -48,4 +48,4 @@ const EditProfileScreen = ({navigation, route}) => {
     );
 };
 
-export default EditProfileScreen;
+export default EditAccountScreen;

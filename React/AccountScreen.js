@@ -10,7 +10,7 @@ const AccountScreen = ({navigation, route}) => {
     const user = {
         username: " ",
         location: " ",
-        age: 0,
+        age: " ",
 
         recentArticles:[
             {
