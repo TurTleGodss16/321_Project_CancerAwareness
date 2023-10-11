@@ -1,13 +1,15 @@
 //Account Screen
 
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image, StyleSheet, TextInput, Button, TouchableOpacity, ScrollView} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AccountScreen = ({navigation, route}) => {
-    const User = {
-        username: "JohnDoe123",
-        location: "Northfields Ave, WOllongong, NSW, 252",
-        age: 23,
+
+    const user = {
+        username: " ",
+        location: " ",
+        age: 0,
 
         recentArticles:[
             {
@@ -24,11 +26,46 @@ const AccountScreen = ({navigation, route}) => {
             },
         ],
     }
+
+    return(
+        <View style = {styles.container}>
+            <Text style = {StyleSheet.title}>Profile</Text>
+            <View style = {StyleSheet.profileInfo}>
+                <Image style = {StyleSheet.profileImage} source = {{uri: 'https://example.com/profile-image.png'}}/>
+                <View>
+                    <View style = {styles.usernameInput}>
+                        <TextInput placeholder = "username" value = {user.username} onCHangeText = {user.setUsername}/>
+                    </View>
+                    <View style = {styles.locationInput}>
+                        <TextInput placeholder = "Location" value = {user.location} onCHangeText = {user.setLocation}/>
+                    </View>
+                    <View style = {styles.ageInput}>
+                        <TextInput placeholder = "Age" value = {user.age} onCHangeText = {user.setAge}/>
+                    </View>
+                    <View>
+                        <Button title = "Edit" onPress = {handleSaveButtonCLick} />
+                    </View>
+                </View>
+            </View>
+            <View style = {styles.recentArticles}>
+                <Text style = {styles.recentArticlesTitle}>Recent Articles</Text>
+                {user.recentArticles.map((article) => (
+              <View key = {article.title} style = {styles.recentArticle}>
+                <Text style = {styles.recentArticleTitle}>{article.title}</Text>
+                <Text style = {styles.recentArticleExcerpt}>{article.excerpt}</Text>
+              </View>
+            ))}
+            </View>
+        </View>
+
+    );
+
+    const [usename, setUsername] = useState(user.username);
+    const [location, setLocation] = useState(user.location);
+    const [age, setAge] = useState(user.age);
 };
 
-const [usename, setUsername] = useState(user.username);
-const [location, setLocation] = useState(user.location);
-const [age, setAge] = useState(user.age);
+
 
 const handleSaveButtonCLick = () => {
     // update user object with new values
@@ -37,33 +74,9 @@ const handleSaveButtonCLick = () => {
     user.age = age;
 
     // save the changes to the server
-    
-
 };
 
-return(
-    <View style = {style.container}>
-        <Text style = {StyleSheet.title}>Profile</Text>
-        <View style = {StyleSheet.profileInfo}>
-            <Image style = {StyleSheet.profileImage} source = {{uri: 'https://example.com/profile-image.png'}}/>
-            <view style = {styles.userDetails}>
-                <input placeholder = "Username" value = {username} onCHangeText = {setUsername}/>
-                <input placeholder = "Location" value = {location} onCHangeText = {setLocation}/>
-                <input placeholder = "Age" value = {age} onCHangeText = {setAge}/>
-            </view>
-        </View>
-        <view style = {styles.recentArticles}>
-            <Text style = {styles.recentArticlesTitle}>Recent Articles</Text>
-            {user.recentArticles.map((article) => (
-          <View key = {article.title} style = {styles.recentArticle}>
-            <Text style = {styles.recentArticleTitle}>{article.title}</Text>
-            <Text style = {styles.recentArticleExcerpt}>{article.excerpt}</Text>
-          </View>
-        ))}
-        </view>
-        <button title = "Save" onPress = {handleSaveButtonCLick} />
-    </View>
-);
+
 
 const styles = StyleSheet.create({
     body: {
@@ -108,5 +121,34 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: "#666",
     },
+    body: {
+        backgroundColor: 'white',
+        gap: 10,
+      },
+    
+      image_custom: {
+        width: 100,
+        height: 100,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+      },
+    
+      text_custom: {
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+      },
+    
+      headerText: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+      },
+    
+      descriptionText: {
+        fontSize: 10,
+        textAlign: 'center',
+      },
 })
 export default AccountScreen;
