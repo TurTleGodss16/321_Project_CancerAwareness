@@ -1,9 +1,19 @@
 //Setting Screen
 
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Image, Switch} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Switch,
+  TouchableOpacity,
+} from 'react-native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 
-const SettingScreen = ({navigation}) => {
+const SettingScreen = () => {
+  const navigation = useNavigation();
   //Create switch for theme
   const [isEnabled, setIsEnabled] = useState(false);
 
@@ -13,20 +23,22 @@ const SettingScreen = ({navigation}) => {
 
   return (
     <View style={styles.body}>
-      <View style={styles.containers}>
-        <View>
-          <Image
-            style={styles.image_custom_notification}
-            source={require('../Images/Notification_Bell.png')}
-          />
+      <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
+        <View style={styles.containers}>
+          <View>
+            <Image
+              style={styles.image_custom_notification}
+              source={require('../Images/Notification_Bell.png')}
+            />
+          </View>
+          <View>
+            <Text style={styles.headerText}>Notifications</Text>
+            <Text style={styles.descriptionText}>
+              Manage notification by type.
+            </Text>
+          </View>
         </View>
-        <View>
-          <Text style={styles.headerText}>Notifications</Text>
-          <Text style={styles.descriptionText}>
-            Manage notification by type.
-          </Text>
-        </View>
-      </View>
+      </TouchableOpacity>
 
       <View style={styles.containers}>
         <View>
@@ -52,18 +64,22 @@ const SettingScreen = ({navigation}) => {
         </View>
       </View>
 
-      <View style={styles.containers}>
-        <View>
-          <Image
-            style={styles.image_custom_language}
-            source={require('../Images/Language.png')}
-          />
+      <TouchableOpacity onPress={() => navigation.navigate('Language')}>
+        <View style={styles.containers}>
+          <View>
+            <Image
+              style={styles.image_custom_language}
+              source={require('../Images/Language.png')}
+            />
+          </View>
+          <View>
+            <Text style={styles.headerText}>Language</Text>
+            <Text style={styles.descriptionText}>
+              Set the default language.
+            </Text>
+          </View>
         </View>
-        <View>
-          <Text style={styles.headerText}>Language</Text>
-          <Text style={styles.descriptionText}>Set the default language.</Text>
-        </View>
-      </View>
+      </TouchableOpacity>
 
       <View style={styles.containers}>
         <View>
@@ -82,6 +98,14 @@ const SettingScreen = ({navigation}) => {
     </View>
   );
 };
+
+/*const SettingScreen = ({navigation}) => {
+  return (
+    <NavigationContainer>
+      <Menu />
+    </NavigationContainer>
+  );
+};*/
 
 const styles = StyleSheet.create({
   body: {

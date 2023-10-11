@@ -8,6 +8,8 @@ import AccountScreen from './AccountScreen';
 import AboutScreen from './AboutScreen';
 import SettingScreen from './SettingScreen';
 import BookmarkScreen from './BookmarkScreen';
+import Language from './Sub_SettingScreen/Language';
+import Notification from './Sub_SettingScreen/Notifications';
 
 const Stack = createNativeStackNavigator();
 
@@ -89,6 +91,8 @@ const Menu = () => {
         <Stack.Screen name="About" component={AboutScreen} />
         <Stack.Screen name="Setting" component={SettingScreen} />
         <Stack.Screen name="Bookmark" component={BookmarkScreen} />
+        <Stack.Screen name="Language" component={Language} />
+        <Stack.Screen name="Notification" component={Notification} />
       </Stack.Navigator>
 
       {/* Menu Toggle Button */}
