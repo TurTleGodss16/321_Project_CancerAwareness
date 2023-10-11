@@ -26,14 +26,14 @@ const EditProfileScreen = ({navigation, route}) => {
                     marginVertical: 22,  
                 }}>
                     <TouchableOpacity onPress = {handleImageSelection}>
-                       <Image source {{ uri: selectedImage}}
+                    <Image source = {{ uri: selectedImage }}
                         style = {{
-                            height: 150, 
+                            height: 150,
                             width: 150,
-                            borderRadius: 75, 
+                            borderRadius: 75,
                             borderWidth: 2,
                             borderColor: "black",
-                       }}/>
+                        }} />
                        <View style = {{
                         position: "absolute",
                         bottom: 0,

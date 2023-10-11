@@ -5,6 +5,7 @@ import {View, Text, Image, StyleSheet, TextInput, Button, TouchableOpacity, Scro
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AccountScreen = ({navigation, route}) => {
+    
 
     const user = {
         username: " ",
@@ -28,8 +29,9 @@ const AccountScreen = ({navigation, route}) => {
     }
 
     return(
-        <View style = {styles.container}>
-            <Text style = {StyleSheet.title}>Profile</Text>
+
+        
+        <SafeAreaView style = {styles.container}>
             <View style = {StyleSheet.profileInfo}>
                 <Image style = {StyleSheet.profileImage} source = {{uri: 'https://example.com/profile-image.png'}}/>
                 <View>
@@ -56,7 +58,7 @@ const AccountScreen = ({navigation, route}) => {
               </View>
             ))}
             </View>
-        </View>
+        </SafeAreaView>
 
     );
 
@@ -86,9 +88,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
+        backgroundColor: "white",
     },
     title:{
-        fontSize: 24,
+        fontSize: 50,
         fontWeight: "bold",
     },
     profileInfo: {
