@@ -52,7 +52,7 @@ return(
                 <input placeholder = "Age" value = {age} onCHangeText = {setAge}/>
             </view>
         </View>
-        <view stye = {styles.recetnArticles}>
+        <view style = {styles.recentArticles}>
             <Text style = {styles.recentArticlesTitle}>Recent Articles</Text>
             {user.recentArticles.map((article) => (
           <View key = {article.title} style = {styles.recentArticle}>
