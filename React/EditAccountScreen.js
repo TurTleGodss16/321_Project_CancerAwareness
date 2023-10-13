@@ -1,5 +1,5 @@
 //Edit account
-
+/*
 import React from 'react';
 import {View, Text, Image, StyleSheet, TextInput, Button, TouchableOpacity, ScrollView} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -49,3 +49,4 @@ const EditProfileScreen = ({navigation, route}) => {
 };
 
 export default EditAccountScreen;
+*/

@@ -3,6 +3,7 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TextInput, Button, TouchableOpacity, ScrollView} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import EditAccountScreen from './EditAccountScreen';
 
 const AccountScreen = ({navigation, route}) => {
     
@@ -45,7 +46,7 @@ const AccountScreen = ({navigation, route}) => {
                         <TextInput placeholder = "Age" value = {user.age} onCHangeText = {user.setAge}/>
                     </View>
                     <View>
-                        <Button title = "Edit" onPress = {handleSaveButtonCLick} />
+                        <Button title = "Edit" onPress = {handleEditButtonClick} />
                     </View>
                 </View>
             </View>
@@ -69,13 +70,11 @@ const AccountScreen = ({navigation, route}) => {
 
 
 
-const handleSaveButtonCLick = () => {
-    // update user object with new values
-    user.username = username;
-    user.location = location;
-    user.age = age;
-
-    // save the changes to the server
+const handleEditButtonClick = () => {
+   <TouchableOpacity 
+    onPress = {() => {
+        navigation.navigate('EditAccountScreen');
+    }}></TouchableOpacity>
 };
 
 
