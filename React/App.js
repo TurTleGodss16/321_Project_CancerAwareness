@@ -23,7 +23,7 @@ const Menu = () => {
 
     Animated.timing(menuAnimation, {
       toValue,
-      duration: 300,
+      duration: 10,
       easing: Easing.ease,
       useNativeDriver: false,
     }).start();
@@ -31,82 +31,91 @@ const Menu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const menuStyle = {
-    transform: [
-      {
-        translateX: menuAnimation.interpolate({
-          inputRange: [0, 1],
-          outputRange: [-300, 0], // Adjust the value for the desired menu width
-        }),
-      },
-    ],
+  const closeMenu = () => {
+    if (isMenuOpen) {
+      toggleMenu();
+    }
   };
 
   return (
-    <View style={{flex: 1, flexDirection: 'row'}}>
-      {/* Menu */}
-      <Animated.View
-        style={[
-          {backgroundColor: '#ecf0f1', padding: 10, paddingTop: 10},
-          menuStyle,
-        ]}>
-        <TouchableOpacity
-          onPress={() => {
-            toggleMenu();
-            navigation.navigate('Account');
-          }}>
-          <Text>Account</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            toggleMenu();
-            navigation.navigate('About');
-          }}>
-          <Text>About Us</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            toggleMenu();
-            navigation.navigate('Setting');
-          }}>
-          <Text>Setting</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            toggleMenu();
-            navigation.navigate('Bookmark');
-          }}>
-          <Text>Bookmark</Text>
-        </TouchableOpacity>
-      </Animated.View>
+    <TouchableOpacity style={{flex: 1}} onPress={closeMenu} activeOpacity={1}>
+      <View style={{flex: 1, flexDirection: 'row'}}>
+        {/* Menu */}
+        <Animated.View
+          style={[
+            {backgroundColor: '#ecf0f1', padding: 10, paddingTop: 10},
+            {
+              transform: [
+                {
+                  translateX: menuAnimation.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [-300, 0], // Adjust the value for the desired menu width
+                  }),
+                },
+              ],
+            },
+          ]}>
+          <TouchableOpacity
+            onPress={() => {
+              toggleMenu();
+              navigation.navigate('Account');
+            }}>
+            <Text>Account</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              toggleMenu();
+              navigation.navigate('About');
+            }}>
+            <Text>About Us</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              toggleMenu();
+              navigation.navigate('Setting');
+            }}>
+            <Text>Setting</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              toggleMenu();
+              navigation.navigate('Bookmark');
+            }}>
+            <Text>Bookmark</Text>
+          </TouchableOpacity>
+        </Animated.View>
 
-      {/* Main Content */}
-      <Stack.Navigator initialRouteName="Main">
-        <Stack.Screen
-          name="Main"
-          component={MainScreen}
-          options={{title: 'Cancer Awareness'}}
-        />
-        <Stack.Screen name="Account" component={AccountScreen} />
-        <Stack.Screen name="About" component={AboutScreen} />
-        <Stack.Screen name="Setting" component={SettingScreen} />
-        <Stack.Screen name="Bookmark" component={BookmarkScreen} />
-        <Stack.Screen name="Language" component={Language} />
-        <Stack.Screen name="Notification" component={Notification} />
-      </Stack.Navigator>
+        {/* Main Content */}
+        <Stack.Navigator initialRouteName="Main">
+          <Stack.Screen
+            name="Main"
+            component={MainScreen}
+            options={{title: 'Cancer Awareness'}}
+          />
+          <Stack.Screen name="Account" component={AccountScreen} />
+          <Stack.Screen name="About" component={AboutScreen} />
+          <Stack.Screen name="Setting" component={SettingScreen} />
+          <Stack.Screen name="Bookmark" component={BookmarkScreen} />
+          <Stack.Screen name="Language" component={Language} />
+          <Stack.Screen name="Notification" component={Notification} />
+        </Stack.Navigator>
 
-      {/* Menu Toggle Button */}
-      <TouchableOpacity
-        onPress={toggleMenu}
-        style={{
-          position: 'absolute',
-          top: 20,
-          left: 20,
-          zIndex: 2,
-        }}>
-        <Text style={{color: 'black', fontSize: 20}}>☰</Text>
-      </TouchableOpacity>
-    </View>
+        {/* Menu Toggle Button */}
+        {!isMenuOpen && (
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={toggleMenu}
+            style={{
+              position: 'absolute',
+              top: 20,
+              left: 20,
+              zIndex: 2,
+            }}>
+            <Text style={{color: 'black', fontSize: 20}}>☰</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+    </TouchableOpacity>
   );
 };
 
