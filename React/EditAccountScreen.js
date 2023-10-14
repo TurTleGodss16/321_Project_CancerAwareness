@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 //Edit account
 
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -18,7 +18,8 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const EditAccountScreen = ({navigation, route}) => {
-  const [selectedImage, setSelectedImage] = useState(imagesURL[0]);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('johndoe@gmail.com');
   const [password, setPassword] = useState('randompassword');
 

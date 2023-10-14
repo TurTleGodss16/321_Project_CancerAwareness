@@ -12,7 +12,6 @@ import {
   ScrollView,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {EditAccountScreen} from './EditAccountScreen';
 
 const AccountScreen = ({navigation, route}) => {
   const user = {
@@ -66,7 +65,12 @@ const AccountScreen = ({navigation, route}) => {
             />
           </View>
           <View>
-            <Button title="Edit" onPress={handleEditButtonClick} />
+            <Button
+              title="Edit"
+              onPress={() => {
+                navigation.navigate('EditAccountScreen');
+              }}
+            />
           </View>
         </View>
       </View>
@@ -82,19 +86,10 @@ const AccountScreen = ({navigation, route}) => {
     </SafeAreaView>
   );
 
-  const [usename, setUsername] = useState(user.username);
+/*const [usename, setUsername] = useState(user.username);
   const [location, setLocation] = useState(user.location);
-  const [age, setAge] = useState(user.age);
+  const [age, setAge] = useState(user.age);*/
 };
-
-/*
-const handleEditButtonClick = () => {
-   <TouchableOpacity
-    onPress = {() => {
-        navigation.navigate('EditAccountScreen');
-    }}></TouchableOpacity>
-};
-*/
 
 const styles = StyleSheet.create({
   body: {
