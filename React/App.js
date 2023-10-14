@@ -8,6 +8,7 @@ import AccountScreen from './AccountScreen';
 import AboutScreen from './AboutScreen';
 import SettingScreen from './SettingScreen';
 import BookmarkScreen from './BookmarkScreen';
+import EditAccountScreen from './EditAccountScreen';
 import Language from './Sub_SettingScreen/Language';
 import Notification from './Sub_SettingScreen/Notifications';
 

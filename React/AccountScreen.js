@@ -70,12 +70,14 @@ const AccountScreen = ({navigation, route}) => {
 
 
 
+/*
 const handleEditButtonClick = () => {
    <TouchableOpacity 
     onPress = {() => {
         navigation.navigate('EditAccountScreen');
     }}></TouchableOpacity>
 };
+*/
 
 
 
