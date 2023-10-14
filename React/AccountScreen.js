@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 //Account Screen
 
 import React from 'react';
@@ -83,6 +84,45 @@ const AccountScreen = ({navigation, route}) => {
           </View>
         ))}
       </View>
+      {/*Bottom bar for all screen */}
+      <View style={styles.bottomBar}>
+        <View style={{marginLeft: 20}}>
+          <Image
+            style={{
+              width: 40,
+              height: 40,
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}
+            source={require('../Images/home.png')}
+          />
+          <Text style={styles.textDescription}>Home</Text>
+        </View>
+        <View style={{marginLeft: 120, marginTop: 8}}>
+          <Image
+            style={{
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}
+            source={require('../Images/compass.png')}
+          />
+          <Text style={styles.textDescription}>Search</Text>
+        </View>
+        <View style={{marginLeft: 120, marginTop: 6}}>
+          <Image
+            style={{
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}
+            source={require('../Images/survey_bar.png')}
+          />
+          <Text style={styles.textDescription}>Survey</Text>
+        </View>
+      </View>
     </SafeAreaView>
   );
 
@@ -165,6 +205,22 @@ const styles = StyleSheet.create({
   descriptionText: {
     fontSize: 10,
     textAlign: 'center',
+  },
+
+  textDescription: {
+    textAlign: 'center',
+    color: 'black',
+  },
+
+  bottomBar: {
+    height: 60,
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderTopWidth: 1,
+    flexDirection: 'row',
   },
 });
 export default AccountScreen;

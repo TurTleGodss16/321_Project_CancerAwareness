@@ -94,9 +94,44 @@ const MainScreen = ({navigation, route}) => {
         </View>
       </View>
 
-      {/*Bottom bar */}
+      {/*Bottom bar for all screen */}
       <View style={styles.bottomBar}>
-        <Text>Ahihi</Text>
+        <View style={{marginLeft: 20}}>
+          <Image
+            style={{
+              width: 40,
+              height: 40,
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}
+            source={require('../Images/home.png')}
+          />
+          <Text style={styles.textDescription}>Home</Text>
+        </View>
+        <View style={{marginLeft: 120, marginTop: 8}}>
+          <Image
+            style={{
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}
+            source={require('../Images/compass.png')}
+          />
+          <Text style={styles.textDescription}>Search</Text>
+        </View>
+        <View style={{marginLeft: 120, marginTop: 6}}>
+          <Image
+            style={{
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}
+            source={require('../Images/survey_bar.png')}
+          />
+          <Text style={styles.textDescription}>Survey</Text>
+        </View>
       </View>
     </View>
   );
@@ -167,23 +202,22 @@ const styles = StyleSheet.create({
     height: 90,
   },
   imgCustom_SideEffect: {
-    width: 90,
-    height: 85,
+    width: 88,
+    height: 90.5,
   },
   imgCustom_Survey: {
     width: 70,
-    height: 85,
+    height: 90,
   },
   bottomBar: {
     height: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: 'center',
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    marginTop: 50,
     borderTopWidth: 1,
+    flexDirection: 'row',
   },
 });
 
