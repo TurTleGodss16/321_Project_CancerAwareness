@@ -19,6 +19,9 @@ import BookmarkScreen from './BookmarkScreen';
 import EditAccountScreen from './EditAccountScreen';
 import Language from './Sub_SettingScreen/Language';
 import Notification from './Sub_SettingScreen/Notifications';
+import AboutApp from './Sub_AboutScreen/AboutApp';
+import AboutPartners from './Sub_AboutScreen/AboutPartners';
+import AboutDevelopment from './Sub_AboutScreen/AboutDevelopment';
 
 const Stack = createNativeStackNavigator();
 
@@ -167,6 +170,30 @@ const Menu = () => {
                 headerTitleAlign: 'center',
               }}
             />
+            <Stack.Screen
+              name="AboutApp"
+              component={AboutApp}
+              options={{
+                headerTitle: 'About App',
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="AboutPartners"
+              component={AboutPartners}
+              options={{
+                headerTitle: 'About Partners',
+                headerTitleAlign: 'center',
+              }}
+            />    
+            <Stack.Screen
+              name="AboutDevelopment"
+              component={AboutDevelopment}
+              options={{
+                headerTitle: 'About Development',
+                headerTitleAlign: 'center',
+              }}
+            />     
           </Stack.Navigator>
         </View>
       </TouchableOpacity>
