@@ -167,6 +167,30 @@ const Menu = () => {
                 headerTitleAlign: 'center',
               }}
             />
+            <Stack.Screen
+              name="AboutApp"
+              component={AboutApp}
+              options={{
+                headerTitle: 'About App',
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="AboutPartners"
+              component={AboutPartners}
+              options={{
+                headerTitle: 'About Partners',
+                headerTitleAlign: 'center',
+              }}
+            />    
+            <Stack.Screen
+              name="AboutDevelopment"
+              component={AboutDevelopment}
+              options={{
+                headerTitle: 'About Development',
+                headerTitleAlign: 'center',
+              }}
+            />     
           </Stack.Navigator>
         </View>
       </TouchableOpacity>
