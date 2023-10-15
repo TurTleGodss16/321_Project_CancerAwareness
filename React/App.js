@@ -19,6 +19,9 @@ import BookmarkScreen from './BookmarkScreen';
 import EditAccountScreen from './EditAccountScreen';
 import Language from './Sub_SettingScreen/Language';
 import Notification from './Sub_SettingScreen/Notifications';
+import AboutApp from './Sub_AboutScreen/AboutApp';
+import AboutPartners from './Sub_AboutScreen/AboutPartners';
+import AboutDevelopment from './Sub_AboutScreen/AboutDevelopment';
 
 const Stack = createNativeStackNavigator();
 
