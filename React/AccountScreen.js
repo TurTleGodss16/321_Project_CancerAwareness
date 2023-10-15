@@ -7,9 +7,7 @@ import {
   Text,
   Image,
   StyleSheet,
-  TextInput,
   Button,
-  TouchableOpacity,
   ScrollView,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -38,97 +36,128 @@ const AccountScreen = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={StyleSheet.profileInfo}>
-        <Image
-          style={StyleSheet.profileImage}
-          source={{uri: 'https://example.com/profile-image.png'}}
-        />
+      <ScrollView>
         <View>
-          <View style={styles.usernameInput}>
-            <TextInput
-              placeholder="username"
-              value={user.username}
-              onCHangeText={user.setUsername}
-            />
-          </View>
-          <View style={styles.locationInput}>
-            <TextInput
-              placeholder="Location"
-              value={user.location}
-              onCHangeText={user.setLocation}
-            />
-          </View>
-          <View style={styles.ageInput}>
-            <TextInput
-              placeholder="Age"
-              value={user.age}
-              onCHangeText={user.setAge}
-            />
-          </View>
           <View>
-            <Button
-              title="Edit"
-              onPress={() => {
-                navigation.navigate('EditAccountScreen');
+            <View>
+              <View
+                style={{
+                  alignItems: 'center',
+                  marginVertical: 22,
+                }}>
+                <Image
+                    source={require('../Images/ProfilePic.png')}
+                    style={{
+                      height: 150,
+                      width: 150,
+                      borderRadius: 75,
+                      borderWidth: 2,
+                      borderColor: 'black',
+                    }}
+                  />
+              </View>
+              <Text style={styles.title}>Name</Text>
+              <View
+                style={{
+                  height: 44,
+                  width: '100%',
+                  borderColor: 'Grey',
+                  borderWidth: 1,
+                  borderRadius: 4,
+                  marginVertical: 6,
+                  justifyContent: 'center',
+                  paddingLeft: 8,
+                }}>
+                <Text>John Doe</Text>
+              </View>
+              <Text style={styles.title}>Location</Text>
+              <View
+                style={{
+                  height: 44,
+                  width: '100%',
+                  borderColor: 'Grey',
+                  borderWidth: 1,
+                  borderRadius: 4,
+                  marginVertical: 6,
+                  justifyContent: 'center',
+                  paddingLeft: 8,
+                }}>
+                <Text>Northfields Ave, Wollongong, NSW 2522</Text>
+              </View>
+              <Text style={styles.title}>Age</Text>
+              <View
+                style={{
+                  height: 44,
+                  width: '100%',
+                  borderColor: 'Grey',
+                  borderWidth: 1,
+                  borderRadius: 4,
+                  marginVertical: 6,
+                  justifyContent: 'center',
+                  paddingLeft: 8,
+                }}>
+                <Text>23</Text>
+              </View>
+              <Button
+                title="Edit"
+                onPress={() => {
+                  navigation.navigate('EditAccountScreen');
+                }}
+              />
+            </View>
+          </View>
+        </View>
+        <View style={styles.recentArticles}>
+          <Text style={styles.title}>Recent Articles</Text>
+          {user.recentArticles.map(article => (
+            <View key={article.title} style={styles.recentArticle}>
+              <Text style={styles.recentArticleTitle}>{article.title}</Text>
+              <Text style={styles.recentArticleExcerpt}>{article.excerpt}</Text>
+            </View>
+          ))}
+        </View>
+        {/*Bottom bar for all screen */}
+        <View style={styles.bottomBar}>
+          <View style={{marginLeft: 20}}>
+            <Image
+              style={{
+                width: 40,
+                height: 40,
+                alignItems: 'center',
+                alignSelf: 'center',
               }}
+              source={require('../Images/home.png')}
             />
+            <Text style={styles.textDescription}>Home</Text>
+          </View>
+          <View style={{marginLeft: 120, marginTop: 8}}>
+            <Image
+              style={{
+                width: 30,
+                height: 30,
+                alignItems: 'center',
+                alignSelf: 'center',
+              }}
+              source={require('../Images/compass.png')}
+            />
+            <Text style={styles.textDescription}>Search</Text>
+          </View>
+          <View style={{marginLeft: 120, marginTop: 6}}>
+            <Image
+              style={{
+                width: 30,
+                height: 30,
+                alignItems: 'center',
+                alignSelf: 'center',
+              }}
+              source={require('../Images/survey_bar.png')}
+            />
+            <Text style={styles.textDescription}>Survey</Text>
           </View>
         </View>
-      </View>
-      <View style={styles.recentArticles}>
-        <Text style={styles.recentArticlesTitle}>Recent Articles</Text>
-        {user.recentArticles.map(article => (
-          <View key={article.title} style={styles.recentArticle}>
-            <Text style={styles.recentArticleTitle}>{article.title}</Text>
-            <Text style={styles.recentArticleExcerpt}>{article.excerpt}</Text>
-          </View>
-        ))}
-      </View>
-      {/*Bottom bar for all screen */}
-      <View style={styles.bottomBar}>
-        <View style={{marginLeft: 20}}>
-          <Image
-            style={{
-              width: 40,
-              height: 40,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
-            source={require('../Images/home.png')}
-          />
-          <Text style={styles.textDescription}>Home</Text>
-        </View>
-        <View style={{marginLeft: 120, marginTop: 8}}>
-          <Image
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
-            source={require('../Images/compass.png')}
-          />
-          <Text style={styles.textDescription}>Search</Text>
-        </View>
-        <View style={{marginLeft: 120, marginTop: 6}}>
-          <Image
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
-            source={require('../Images/survey_bar.png')}
-          />
-          <Text style={styles.textDescription}>Survey</Text>
-        </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
-
-/*const [usename, setUsername] = useState(user.username);
-  const [location, setLocation] = useState(user.location);
-  const [age, setAge] = useState(user.age);*/
 };
 
 const styles = StyleSheet.create({
@@ -160,8 +189,8 @@ const styles = StyleSheet.create({
   recentArticles: {
     marginTop: 24,
   },
-  recentArticlesTitle: {
-    fontSize: 16,
+  title: {
+    fontSize: 30,
     fontWeight: 'bold',
   },
   recentArticle: {

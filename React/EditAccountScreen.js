@@ -16,8 +16,8 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Feather from "react-native-vector-icons/Feather";
 
 const EditAccountScreen = ({navigation, route}) => {
-  const [selectedImage, setSelectedImage] = useState("");
-  const [name, setName] = useState('');
+  const [selectedImage, setSelectedImage] = useState("../Images/ProfilePic.png");
+  const [name, setName] = useState('John Doe');
   const [email, setEmail] = useState('johndoe@gmail.com');
   const [password, setPassword] = useState('randompassword');
 
