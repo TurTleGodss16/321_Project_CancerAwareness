@@ -93,7 +93,9 @@ const Menu = () => {
                   style={{width: 20, height: 20}}
                   source={require('../Images/profile_account.png')}
                 />
-                <Text style={{fontWeight: 'bold', color: 'black'}}>Account</Text>
+                <Text style={{fontWeight: 'bold', color: 'black'}}>
+                  Account
+                </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -106,7 +108,9 @@ const Menu = () => {
                   style={{width: 20, height: 20}}
                   source={require('../Images/about.png')}
                 />
-                <Text style={{fontWeight: 'bold', color: 'black'}}>About Us</Text>
+                <Text style={{fontWeight: 'bold', color: 'black'}}>
+                  About Us
+                </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -119,7 +123,9 @@ const Menu = () => {
                   style={{width: 20, height: 20}}
                   source={require('../Images/setting.png')}
                 />
-                <Text style={{fontWeight: 'bold', color: 'black'}}>Setting</Text>
+                <Text style={{fontWeight: 'bold', color: 'black'}}>
+                  Setting
+                </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -132,7 +138,9 @@ const Menu = () => {
                   style={{width: 20, height: 20}}
                   source={require('../Images/bookmark.png')}
                 />
-                <Text style={{fontWeight: 'bold', color: 'black'}}>Bookmark</Text>
+                <Text style={{fontWeight: 'bold', color: 'black'}}>
+                  Bookmark
+                </Text>
               </TouchableOpacity>
             </Animated.View>
           )}
