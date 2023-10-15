@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-const AccountScreen = ({navigation, route}) => {
+const AccountScreen = ({navigation}) => {
   const user = {
     recentArticles: [
       {
@@ -43,55 +43,22 @@ const AccountScreen = ({navigation, route}) => {
                 }}>
                 <Image
                     source={require('../Images/ProfilePic.png')}
-                    style={{
-                      height: 150,
-                      width: 150,
-                      borderRadius: 75,
-                      borderWidth: 2,
-                      borderColor: 'black',
-                    }}
-                  />
+                    style={styles.profileImage}
+                />
               </View>
               <Text style={styles.title}>Name</Text>
               <View
-                style={{
-                  height: 44,
-                  width: '100%',
-                  borderColor: 'Grey',
-                  borderWidth: 1,
-                  borderRadius: 4,
-                  marginVertical: 6,
-                  justifyContent: 'center',
-                  paddingLeft: 8,
-                }}>
+                style={styles.textBox}>
                 <Text>John Doe</Text>
               </View>
               <Text style={styles.title}>Location</Text>
               <View
-                style={{
-                  height: 44,
-                  width: '100%',
-                  borderColor: 'Grey',
-                  borderWidth: 1,
-                  borderRadius: 4,
-                  marginVertical: 6,
-                  justifyContent: 'center',
-                  paddingLeft: 8,
-                }}>
+                style={styles.textBox}>
                 <Text>Northfields Ave, Wollongong, NSW 2522</Text>
               </View>
               <Text style={styles.title}>Age</Text>
               <View
-                style={{
-                  height: 44,
-                  width: '100%',
-                  borderColor: 'Grey',
-                  borderWidth: 1,
-                  borderRadius: 4,
-                  marginVertical: 6,
-                  justifyContent: 'center',
-                  paddingLeft: 8,
-                }}>
+                style={styles.textBox}>
                 <Text>23</Text>
               </View>
               <Button
@@ -113,7 +80,6 @@ const AccountScreen = ({navigation, route}) => {
           ))}
         </View>
   </ScrollView>
-        {/*Bottom bar for all screen */}
         <View style={styles.bottomBar}>
           <View style={{marginLeft: 20}}>
             <Image
@@ -157,30 +123,27 @@ const AccountScreen = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-  body: {
-    backgroundColour: 'white',
-    gap: 10,
-  },
   container: {
     flex: 1,
     padding: 10,
     backgroundColor: 'white',
   },
-  title: {
-    fontSize: 50,
-    fontWeight: 'bold',
-  },
-  profileInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  textBox: {
+    height: 44,
+    width: '100%',
+    borderColor: 'Grey',
+    borderWidth: 1,
+    borderRadius: 4,
+    marginVertical: 6,
+    justifyContent: 'center',
+    paddingLeft: 8,
   },
   profileImage: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-  },
-  userDetails: {
-    marginLeft: 16,
+    height: 150,
+    width: 150,
+    borderRadius: 75,
+    borderWidth: 2,
+    borderColor: 'black',
   },
   recentArticles: {
     marginTop: 24,
@@ -200,43 +163,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#666',
   },
-
-  /*Dupplicate: I just changed body -> body_1*/
-  body_1: {
-    backgroundColor: 'white',
-    gap: 10,
-  },
-
-  image_custom: {
-    width: 100,
-    height: 100,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
-  },
-
-  text_custom: {
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-  },
-
-  headerText: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-
-  descriptionText: {
-    fontSize: 10,
-    textAlign: 'center',
-  },
-
-  textDescription: {
-    textAlign: 'center',
-    color: 'black',
-  },
-
   bottomBar: {
     backgroundColor: "white",
     height: 60,
@@ -249,4 +175,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
+
 export default AccountScreen;
