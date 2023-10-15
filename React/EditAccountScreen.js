@@ -7,29 +7,34 @@ import {
   View,
   Text,
   Image,
-  StyleSheet,
   TextInput,
-  Button,
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import Feather from "react-native-vector-icons/Feather";
 
 const EditAccountScreen = ({navigation, route}) => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState("");
   const [name, setName] = useState('');
   const [email, setEmail] = useState('johndoe@gmail.com');
   const [password, setPassword] = useState('randompassword');
 
   const handleImageSelection = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+
+
+    let options = {
+      storageOptions:{
+        path: "image"
+      }
+    }
+
+    launchImageLibrary(options, response => {
+      setSelectedImage(response.assets[0].uri);
+    })
+
+    
   };
 
   return (
@@ -61,10 +66,12 @@ const EditAccountScreen = ({navigation, route}) => {
               style={{
                 position: 'absolute',
                 bottom: 0,
-                right: 10,
+                right: 0,
                 zIndex: 9999,
               }}
-            />
+            >
+              <Feather name="edit" size={30} color="black" />
+            </View>
           </TouchableOpacity>
         </View>
         <View
@@ -134,7 +141,7 @@ const EditAccountScreen = ({navigation, route}) => {
             }}>
             <TextInput
               value={password}
-              onChangeText={value => setName(password)}
+              onChangeText={value => setPassword(password)}
               secureTextEntry
               editable={true}
             />
