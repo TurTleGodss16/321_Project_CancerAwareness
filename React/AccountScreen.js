@@ -48,7 +48,7 @@ const AccountScreen = ({navigation, route}) => {
             <TextInput
               placeholder="username"
               value={user.username}
-              onCHangeText={user.setUsername}
+              onChangeText={user.setUsername}
             />
           </View>
           <View style={styles.locationInput}>

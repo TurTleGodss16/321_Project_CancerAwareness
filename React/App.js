@@ -8,6 +8,8 @@ import {
   Animated,
   Easing,
   SafeAreaView,
+  StyleSheet,
+  Image,
 } from 'react-native';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -22,6 +24,7 @@ import Notification from './Sub_SettingScreen/Notifications';
 import AboutApp from './Sub_AboutScreen/AboutApp';
 import AboutPartners from './Sub_AboutScreen/AboutPartners';
 import AboutDevelopment from './Sub_AboutScreen/AboutDevelopment';
+import MultiLineHeaderTitle from './multiLineHeaderTitle';
 
 const Stack = createNativeStackNavigator();
 
@@ -57,7 +60,7 @@ const Menu = () => {
             <Animated.View
               style={[
                 {
-                  backgroundColor: '#ecf0f1',
+                  backgroundColor: '#f0f0f0',
                   padding: 10,
                   paddingTop: 10,
                   position: 'absolute',
@@ -65,6 +68,8 @@ const Menu = () => {
                   left: 0,
                   zIndex: 1,
                   height: '100%',
+                  width: '30%',
+                  gap: 10,
                 },
                 {
                   transform: [
@@ -79,32 +84,55 @@ const Menu = () => {
               ]}>
               {/* Menu items */}
               <TouchableOpacity
+                style={styles.screenSection}
                 onPress={() => {
                   toggleMenu();
                   navigation.navigate('Account');
                 }}>
-                <Text>Account</Text>
+                <Image
+                  style={{width: 20, height: 20}}
+                  source={require('../Images/profile_account.png')}
+                />
+                <Text style={{fontWeight: 'bold', color: 'black'}}>Account</Text>
               </TouchableOpacity>
+
               <TouchableOpacity
+                style={styles.screenSection}
                 onPress={() => {
                   toggleMenu();
                   navigation.navigate('About');
                 }}>
-                <Text>About Us</Text>
+                <Image
+                  style={{width: 20, height: 20}}
+                  source={require('../Images/about.png')}
+                />
+                <Text style={{fontWeight: 'bold', color: 'black'}}>About Us</Text>
               </TouchableOpacity>
+
               <TouchableOpacity
+                style={styles.screenSection}
                 onPress={() => {
                   toggleMenu();
                   navigation.navigate('Setting');
                 }}>
-                <Text>Setting</Text>
+                <Image
+                  style={{width: 20, height: 20}}
+                  source={require('../Images/setting.png')}
+                />
+                <Text style={{fontWeight: 'bold', color: 'black'}}>Setting</Text>
               </TouchableOpacity>
+
               <TouchableOpacity
+                style={styles.screenSection}
                 onPress={() => {
                   toggleMenu();
                   navigation.navigate('Bookmark');
                 }}>
-                <Text>Bookmark</Text>
+                <Image
+                  style={{width: 20, height: 20}}
+                  source={require('../Images/bookmark.png')}
+                />
+                <Text style={{fontWeight: 'bold', color: 'black'}}>Bookmark</Text>
               </TouchableOpacity>
             </Animated.View>
           )}
@@ -152,7 +180,10 @@ const Menu = () => {
             <Stack.Screen
               name="Language"
               component={Language}
-              options={{headerTitle: 'Language', headerTitleAlign: 'center'}}
+              options={{
+                headerTitle: () => <MultiLineHeaderTitle />,
+                headerTitleAlign: 'center',
+              }}
             />
             <Stack.Screen
               name="Notification"
@@ -185,7 +216,7 @@ const Menu = () => {
                 headerTitle: 'About Partners',
                 headerTitleAlign: 'center',
               }}
-            />    
+            />
             <Stack.Screen
               name="AboutDevelopment"
               component={AboutDevelopment}
@@ -193,13 +224,20 @@ const Menu = () => {
                 headerTitle: 'About Development',
                 headerTitleAlign: 'center',
               }}
-            />     
+            />
           </Stack.Navigator>
         </View>
       </TouchableOpacity>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  screenSection: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+});
 
 const App = () => {
   return (
