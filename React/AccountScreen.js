@@ -14,10 +14,6 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 const AccountScreen = ({navigation, route}) => {
   const user = {
-    username: ' ',
-    location: ' ',
-    age: ' ',
-
     recentArticles: [
       {
         title: 'Article 1 - Page 1',
@@ -116,6 +112,7 @@ const AccountScreen = ({navigation, route}) => {
             </View>
           ))}
         </View>
+  </ScrollView>
         {/*Bottom bar for all screen */}
         <View style={styles.bottomBar}>
           <View style={{marginLeft: 20}}>
@@ -155,7 +152,6 @@ const AccountScreen = ({navigation, route}) => {
             <Text style={styles.textDescription}>Survey</Text>
           </View>
         </View>
-      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -242,6 +238,7 @@ const styles = StyleSheet.create({
   },
 
   bottomBar: {
+    backgroundColor: "white",
     height: 60,
     alignSelf: 'center',
     position: 'absolute',
