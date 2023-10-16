@@ -89,11 +89,13 @@ const styles = StyleSheet.create({
   headerText: {
     textAlign: 'center',
     fontWeight: 'bold',
+    color: 'black',
   },
 
   descriptionText: {
     fontSize: 10,
     textAlign: 'center',
+    color: 'black',
   },
 
   bottomBar: {

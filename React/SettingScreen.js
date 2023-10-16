@@ -149,10 +149,12 @@ const styles = StyleSheet.create({
 
   headerText: {
     fontWeight: 'bold',
+    color: 'black',
   },
 
   descriptionText: {
     fontSize: 10,
+    color: 'black',
   },
 
   containers: {
@@ -168,24 +170,28 @@ const styles = StyleSheet.create({
     width: 27,
     height: 27,
     top: 3,
+    marginRight: 5,
   },
 
   image_custom_theme: {
     width: 26,
     height: 25,
     top: 5,
+    marginRight: 5,
   },
 
   image_custom_language: {
     width: 26,
     height: 25,
     top: 5,
+    marginRight: 5,
   },
 
   image_custom_access: {
     width: 26,
     height: 25,
     top: 5,
+    marginRight: 5,
   },
 
   toggle_switch: {

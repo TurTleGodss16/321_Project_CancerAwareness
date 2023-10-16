@@ -2,14 +2,7 @@
 //Account Screen
 
 import React from 'react';
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Button,
-  ScrollView,
-} from 'react-native';
+import {View, Text, Image, StyleSheet, Button, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 const AccountScreen = ({navigation}) => {
@@ -42,23 +35,20 @@ const AccountScreen = ({navigation}) => {
                   marginVertical: 22,
                 }}>
                 <Image
-                    source={require('../Images/ProfilePic.png')}
-                    style={styles.profileImage}
+                  source={require('../Images/ProfilePic.png')}
+                  style={styles.profileImage}
                 />
               </View>
               <Text style={styles.title}>Name</Text>
-              <View
-                style={styles.textBox}>
+              <View style={styles.textBox}>
                 <Text>John Doe</Text>
               </View>
               <Text style={styles.title}>Location</Text>
-              <View
-                style={styles.textBox}>
+              <View style={styles.textBox}>
                 <Text>Northfields Ave, Wollongong, NSW 2522</Text>
               </View>
               <Text style={styles.title}>Age</Text>
-              <View
-                style={styles.textBox}>
+              <View style={styles.textBox}>
                 <Text>23</Text>
               </View>
               <Button
@@ -79,45 +69,45 @@ const AccountScreen = ({navigation}) => {
             </View>
           ))}
         </View>
-  </ScrollView>
-        <View style={styles.bottomBar}>
-          <View style={{marginLeft: 20}}>
-            <Image
-              style={{
-                width: 40,
-                height: 40,
-                alignItems: 'center',
-                alignSelf: 'center',
-              }}
-              source={require('../Images/home.png')}
-            />
-            <Text style={styles.textDescription}>Home</Text>
-          </View>
-          <View style={{marginLeft: 120, marginTop: 8}}>
-            <Image
-              style={{
-                width: 30,
-                height: 30,
-                alignItems: 'center',
-                alignSelf: 'center',
-              }}
-              source={require('../Images/compass.png')}
-            />
-            <Text style={styles.textDescription}>Search</Text>
-          </View>
-          <View style={{marginLeft: 120, marginTop: 6}}>
-            <Image
-              style={{
-                width: 30,
-                height: 30,
-                alignItems: 'center',
-                alignSelf: 'center',
-              }}
-              source={require('../Images/survey_bar.png')}
-            />
-            <Text style={styles.textDescription}>Survey</Text>
-          </View>
+      </ScrollView>
+      <View style={styles.bottomBar}>
+        <View style={{marginLeft: 20}}>
+          <Image
+            style={{
+              width: 40,
+              height: 40,
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}
+            source={require('../Images/home.png')}
+          />
+          <Text style={styles.textDescription}>Home</Text>
         </View>
+        <View style={{marginLeft: 120, marginTop: 8}}>
+          <Image
+            style={{
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}
+            source={require('../Images/compass.png')}
+          />
+          <Text style={styles.textDescription}>Search</Text>
+        </View>
+        <View style={{marginLeft: 120, marginTop: 6}}>
+          <Image
+            style={{
+              width: 30,
+              height: 30,
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}
+            source={require('../Images/survey_bar.png')}
+          />
+          <Text style={styles.textDescription}>Survey</Text>
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -164,7 +154,7 @@ const styles = StyleSheet.create({
     color: '#666',
   },
   bottomBar: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     height: 60,
     alignSelf: 'center',
     position: 'absolute',

@@ -25,6 +25,7 @@ import AboutApp from './Sub_AboutScreen/AboutApp';
 import AboutPartners from './Sub_AboutScreen/AboutPartners';
 import AboutDevelopment from './Sub_AboutScreen/AboutDevelopment';
 import MultiLineHeaderTitle from './multiLineHeaderTitle';
+import LoginScreen from './Login';
 
 const Stack = createNativeStackNavigator();
 
@@ -142,11 +143,33 @@ const Menu = () => {
                   Bookmark
                 </Text>
               </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.screenSection_logout}
+                onPress={() => {
+                  toggleMenu();
+                  navigation.navigate('Login');
+                }}>
+                <Image
+                  style={{width: 20, height: 20}}
+                  source={require('../Images/logout.png')}
+                />
+                <Text style={{fontWeight: 'bold', color: 'black'}}>Logout</Text>
+              </TouchableOpacity>
             </Animated.View>
           )}
 
           {/* Main Content */}
-          <Stack.Navigator initialRouteName="Main">
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{
+                headerTitle: 'Login',
+                headerTitleAlign: 'center',
+              }}
+            />
+
             <Stack.Screen
               name="Main"
               component={MainScreen}
@@ -244,6 +267,12 @@ const styles = StyleSheet.create({
   screenSection: {
     flexDirection: 'row',
     gap: 10,
+  },
+
+  screenSection_logout: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 450,
   },
 });
 

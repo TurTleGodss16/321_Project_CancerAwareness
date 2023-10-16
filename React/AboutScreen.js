@@ -72,10 +72,12 @@ const styles = StyleSheet.create({
 
   headerText: {
     fontWeight: 'bold',
+    color: 'black',
   },
 
   descriptionText: {
     fontSize: 10,
+    color: 'black',
   },
 
   containers: {
