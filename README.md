@@ -1,5 +1,7 @@
 # Running the app:
    Running a simulator device in Android studio first <br />
+   **OR**
+   Setting up your environment to enable the simulator from the VS Code by following this link: https://www.youtube.com/watch?v=8ejuHsaXiwU
    And then, type **npm start** in the terminal <br />
    **a** - running android simulator in Android studio <br />
    **r** - Hot reloading without changing current state <br />
