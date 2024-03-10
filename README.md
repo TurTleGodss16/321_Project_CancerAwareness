@@ -1,5 +1,5 @@
 # Running the app:
-   Running a simulator device in Android studio first <br />
+   Running a simulator device in Android studio first (recommend the simulator with API >= 26) <br />
    **OR**<br />
    Setting up your environment to enable the simulator from the VS Code by following this link: https://www.youtube.com/watch?v=8ejuHsaXiwU <br/>
    And then, type **npm start** in the terminal <br />
