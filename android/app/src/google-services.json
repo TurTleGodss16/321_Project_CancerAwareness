@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1082683020441",
+    "project_id": "projectcancerawareness-8cb24",
+    "storage_bucket": "projectcancerawareness-8cb24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082683020441:android:765e57de94dd37221a9408",
+        "android_client_info": {
+          "package_name": "com.javaintegration"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAftByjtjKfCrOaYElF20Z2Xeq98vzsndA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
