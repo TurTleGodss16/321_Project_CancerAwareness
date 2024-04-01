@@ -12,7 +12,12 @@
           "package_name": "com.javaintegration"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "552731092988-j76omm78blqb4gskq6mal294mnrv0l3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBezqGlFu4aSYxANzcNW1pfntTEruaEPRY"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "552731092988-j76omm78blqb4gskq6mal294mnrv0l3e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

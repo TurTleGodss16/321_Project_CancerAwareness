@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Text, TextInput, View, Image, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { signInWithEmailAndPassword } from 'firebase/auth'; // Import the specific function
-import { auth } from './FirebaseConfig'; // Adjusted import
+import { signInWithEmailAndPassword, signInAnonymously } from 'firebase/auth';
+import { auth } from './FirebaseConfig';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -14,7 +14,16 @@ const LoginScreen = () => {
       await signInWithEmailAndPassword(auth, email, password);
       navigation.navigate('Main');
     } catch (error) {
-      alert('Invalid email or password.'); // You might want to provide more specific error messages based on the error code
+      alert('Invalid email or password.');
+    }
+  };
+
+  const handleAnonymousLogin = async () => {
+    try {
+      await signInAnonymously(auth);
+      navigation.navigate('Main');
+    } catch (error) {
+      alert('Error logging in anonymously.');
     }
   };
 
@@ -42,6 +51,9 @@ const LoginScreen = () => {
       </View>
       <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <Text style={styles.loginText}>LOGIN</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.loginBtn} onPress={handleAnonymousLogin}>
+        <Text style={styles.loginText}>LOGIN ANONYMOUSLY</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
         <Text style={styles.signupText}>Don't have an account? Sign Up</Text>
