@@ -26,6 +26,7 @@ import AboutPartners from './Sub_AboutScreen/AboutPartners';
 import AboutDevelopment from './Sub_AboutScreen/AboutDevelopment';
 import MultiLineHeaderTitle from './multiLineHeaderTitle';
 import LoginScreen from './Login';
+import SignupScreen from './Signup';
 
 const Stack = createNativeStackNavigator();
 
@@ -253,6 +254,14 @@ const Menu = () => {
               component={AboutDevelopment}
               options={{
                 headerTitle: 'About Development',
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="Signup"
+              component={SignupScreen}
+              options={{
+                headerTitle: 'Signup',
                 headerTitleAlign: 'center',
               }}
             />

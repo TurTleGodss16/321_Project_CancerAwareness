@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, TouchableOpacity, Text, Alert} from 'react-native';
-import firebase from './firebaseConfig'; // Import your Firebase config
+import { auth } from './firebaseConfig'; // Adjusted import
+import { createUserWithEmailAndPassword } from 'firebase/auth'; // Import the specific function
 
 const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -8,7 +9,7 @@ const SignupScreen = ({navigation}) => {
 
   const handleSignup = async () => {
     try {
-      await firebase.auth().createUserWithEmailAndPassword(email, password);
+        await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert("Success", "Account created successfully");
       // Optionally navigate to the login screen or main app screen after signup
       navigation.navigate('Login'); // Change 'Login' to your login screen's route name if different

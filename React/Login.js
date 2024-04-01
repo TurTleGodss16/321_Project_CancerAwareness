@@ -12,6 +12,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
+
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [username, setUsername] = useState('');
@@ -90,9 +91,11 @@ const LoginScreen = () => {
       </View>
 
       <View style={{marginTop: 30, alignItems: 'center', alignSelf: 'center'}}>
-        <Text style={{textAlign: 'center', color: '#0000FF'}}>
-          You don't have an account? Register here!!!
-        </Text>
+        <TouchableOpacity
+          style={styles.registerButton}
+          onPress={() => navigation.navigate('SignupScreen')}>
+          <Text style={styles.registerButtonText}>Click here to register</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -117,6 +120,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'black',
+  },
+  registerButton: {
+    marginTop: 20, // Adjust based on your layout
+    backgroundColor: 'lightblue',
+    padding: 10,
+    borderRadius: 5,
+  },
+  registerButtonText: {
+    color: '#0000FF',
+    textAlign: 'center',
   },
 });
 
