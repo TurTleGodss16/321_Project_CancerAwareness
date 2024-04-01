@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { createUserWithEmailAndPassword } from 'firebase/auth'; // Import the specific function
+import { createUserWithEmailAndPassword, signInWithCredential, GoogleAuthProvider } from 'firebase/auth'; // Import necessary functions
 import { auth } from './FirebaseConfig'; // Adjusted import
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const SignupScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: 'YOUR_WEB_CLIENT_ID', // Get this from Firebase console
+    });
+  }, []);
 
   const handleSignup = async () => {
     try {
@@ -19,33 +26,31 @@ const SignupScreen = () => {
     }
   };
 
+  const handleGoogleSignup = async () => {
+    try {
+      const { idToken } = await GoogleSignin.signIn();
+      const googleCredential = GoogleAuthProvider.credential(idToken);
+      await signInWithCredential(auth, googleCredential);
+      Alert.alert("Success", "Signed in with Google");
+      navigation.navigate('Main');
+    } catch (error) {
+      Alert.alert("Google Sign-in Failed", error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>Cancer Awareness</Text>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-        />
-      </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Password"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
-      </View>
+      {/* Existing UI elements */}
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
-        <Text style={styles.buttonText}>Sign Up</Text>
+        <Text style={styles.buttonText}>Sign Up with Email</Text>
+      </TouchableOpacity>
+      {/* Google sign-in button */}
+      <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignup}>
+        <Text style={styles.buttonText}>Sign Up with Google</Text>
       </TouchableOpacity>
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -58,6 +63,15 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#000000',
     marginBottom: 40,
+  },
+  googleButton: {
+    width: '80%',
+    backgroundColor: '#db3236', // Google red
+    borderRadius: 25,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20, // Adjust based on your layout
   },
   inputView: {
     width: '80%',
