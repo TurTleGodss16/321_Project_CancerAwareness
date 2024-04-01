@@ -12,7 +12,7 @@ const SignupScreen = ({navigation}) => {
         await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert("Success", "Account created successfully");
       // Optionally navigate to the login screen or main app screen after signup
-      navigation.navigate('Login'); // Change 'Login' to your login screen's route name if different
+      navigation.navigate('LoginScreen'); // Change 'Login' to your login screen's route name if different
     } catch (error) {
       // Handle errors here, including displaying a notification
       Alert.alert("Signup Failed", error.message);
