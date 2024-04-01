@@ -26,7 +26,7 @@ import AboutPartners from './Sub_AboutScreen/AboutPartners';
 import AboutDevelopment from './Sub_AboutScreen/AboutDevelopment';
 import MultiLineHeaderTitle from './multiLineHeaderTitle';
 import LoginScreen from './Login';
-import SignupScreen from './signup';
+import SignupScreen from './Signup';
 
 const Stack = createNativeStackNavigator();
 
