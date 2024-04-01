@@ -1,10 +1,11 @@
 // Firebase v9+ modular imports
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getReactNativePersistence } from 'firebase/auth/react-native';
 import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const firebaseConfig = {
+  // Your Firebase configuration
   apiKey: "AIzaSyBezqGlFu4aSYxANzcNW1pfntTEruaEPRY",
   authDomain: "cancerawareness-41508.firebaseapp.com",
   projectId: "cancerawareness-41508",
@@ -14,8 +15,11 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const firestore = getFirestore(app);
 
+// Initialize Firebase Auth
+const auth = getAuth(app);
+
+// Initialize Firestore (if you're using it)
+const firestore = getFirestore(app);
 
 export { auth, firestore };
