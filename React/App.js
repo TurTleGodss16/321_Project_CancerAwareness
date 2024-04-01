@@ -1,18 +1,9 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useRef, useEffect} from 'react';
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  Animated,
-  Easing,
-  SafeAreaView,
-  StyleSheet,
-  Image,
-} from 'react-native';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React, { useState, useRef, useEffect } from 'react';
+import { Text, TouchableOpacity, View, Animated, Easing, SafeAreaView, StyleSheet, Image } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainScreen from './MainScreen';
 import AccountScreen from './AccountScreen';
 import AboutScreen from './AboutScreen';
@@ -27,6 +18,7 @@ import AboutDevelopment from './Sub_AboutScreen/AboutDevelopment';
 import MultiLineHeaderTitle from './multiLineHeaderTitle';
 import LoginScreen from './Login';
 import SignupScreen from './Signup';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,114 +47,67 @@ const Menu = () => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <TouchableOpacity style={{flex: 1}} onPress={closeMenu} activeOpacity={1}>
-        <View style={{flex: 1, flexDirection: 'row'}}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <TouchableOpacity style={{ flex: 1 }} onPress={closeMenu} activeOpacity={1}>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
           {isMenuOpen && (
             <Animated.View
               style={[
                 {
                   backgroundColor: '#f0f0f0',
-                  padding: 10,
-                  paddingTop: 10,
+                  padding: 20,
+                  paddingTop: 40,
                   position: 'absolute',
                   top: 0,
                   left: 0,
                   zIndex: 1,
                   height: '100%',
-                  width: '30%',
-                  gap: 10,
+                  width: '60%',
+                  gap: 20,
                 },
                 {
                   transform: [
                     {
                       translateX: menuAnimation.interpolate({
                         inputRange: [0, 1],
-                        outputRange: [-300, 0], // Adjust the value for the desired menu width
+                        outputRange: [-300, 0],
                       }),
                     },
                   ],
                 },
               ]}>
               {/* Menu items */}
-              <TouchableOpacity
-                style={styles.screenSection}
-                onPress={() => {
-                  toggleMenu();
-                  navigation.navigate('Account');
-                }}>
-                <Image
-                  style={{width: 20, height: 20}}
-                  source={require('../Images/profile_account.png')}
-                />
-                <Text style={{fontWeight: 'bold', color: 'black'}}>
-                  Account
-                </Text>
+              <TouchableOpacity style={styles.menuItem} onPress={() => { toggleMenu(); navigation.navigate('Account'); }}>
+                <Icon name="user" size={20} color="black" />
+                <Text style={styles.menuText}>Account</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.screenSection}
-                onPress={() => {
-                  toggleMenu();
-                  navigation.navigate('About');
-                }}>
-                <Image
-                  style={{width: 20, height: 20}}
-                  source={require('../Images/about.png')}
-                />
-                <Text style={{fontWeight: 'bold', color: 'black'}}>
-                  About Us
-                </Text>
+              <TouchableOpacity style={styles.menuItem} onPress={() => { toggleMenu(); navigation.navigate('About'); }}>
+                <Icon name="info" size={20} color="black" />
+                <Text style={styles.menuText}>About Us</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.screenSection}
-                onPress={() => {
-                  toggleMenu();
-                  navigation.navigate('Setting');
-                }}>
-                <Image
-                  style={{width: 20, height: 20}}
-                  source={require('../Images/setting.png')}
-                />
-                <Text style={{fontWeight: 'bold', color: 'black'}}>
-                  Setting
-                </Text>
+              <TouchableOpacity style={styles.menuItem} onPress={() => { toggleMenu(); navigation.navigate('Setting'); }}>
+                <Icon name="cog" size={20} color="black" />
+                <Text style={styles.menuText}>Setting</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.screenSection}
-                onPress={() => {
-                  toggleMenu();
-                  navigation.navigate('Bookmark');
-                }}>
-                <Image
-                  style={{width: 20, height: 20}}
-                  source={require('../Images/bookmark.png')}
-                />
-                <Text style={{fontWeight: 'bold', color: 'black'}}>
-                  Bookmark
-                </Text>
+              <TouchableOpacity style={styles.menuItem} onPress={() => { toggleMenu(); navigation.navigate('Bookmark'); }}>
+                <Icon name="bookmark" size={20} color="black" />
+                <Text style={styles.menuText}>Bookmark</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.screenSection_logout}
-                onPress={() => {
-                  toggleMenu();
-                  navigation.navigate('Login');
-                }}>
-                <Image
-                  style={{width: 20, height: 20}}
-                  source={require('../Images/logout.png')}
-                />
-                <Text style={{fontWeight: 'bold', color: 'black'}}>Logout</Text>
+              <TouchableOpacity style={styles.menuItem} onPress={() => { toggleMenu(); navigation.navigate('Login'); }}>
+                <Icon name="sign-out" size={20} color="black" />
+                <Text style={styles.menuText}>Logout</Text>
               </TouchableOpacity>
             </Animated.View>
           )}
 
           {/* Main Content */}
           <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen
+            {/* Stack Screens */}
+	<Stack.Screen
               name="Login"
               component={LoginScreen}
               options={{
@@ -273,15 +218,23 @@ const Menu = () => {
 };
 
 const styles = StyleSheet.create({
-  screenSection: {
+  menuItem: {
     flexDirection: 'row',
-    gap: 10,
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
-
-  screenSection_logout: {
-    flexDirection: 'row',
-    gap: 10,
-    marginTop: 450,
+  menuText: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: 'black',
+    marginLeft: 10,
+  },
+  hamburgerButton: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    zIndex: 2,
   },
 });
 
