@@ -1,21 +1,17 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
-import {View, Text, TextInput, StyleSheet, Image} from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const MainScreen = ({navigation, route}) => {
+const MainScreen = ({ navigation, route }) => {
   const [searchText, setSearchText] = useState('');
 
   const handleSearch = text => {
-    // Testing console
-    console.log('Search Text: ', text);
     setSearchText(text);
   };
 
   return (
-    <View style={{marginBottom: 50}}>
+    <View style={styles.container}>
       <View style={styles.searchContainer}>
-        {/*Search bar*/}
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -23,135 +19,87 @@ const MainScreen = ({navigation, route}) => {
             value={searchText}
             onChangeText={handleSearch}
           />
-          <Icon name="search1" size={30} style={styles.iconCustom} />
+          <Icon name="search1" size={24} style={styles.iconCustom} />
         </View>
 
-        {/*Quick link*/}
-        <View style={{gap: 10}}>
-          <Text style={styles.headerText}>Quick Links</Text>
+        <Text style={styles.headerText}>Quick Links</Text>
 
-          {/*First row Links*/}
-          <View style={styles.rowCustom}>
-            <View>
-              <Image
-                style={styles.imgCustom}
-                source={require('../Images/cancer_symbol.png')}
-              />
-              <Text style={styles.textDescription}>What is Cancer</Text>
-            </View>
+        <View style={styles.linksContainer}>
+          <TouchableOpacity style={styles.link}>
+            <Image style={styles.linkIcon} source={require('../Images/cancer_symbol.png')} />
+            <Text style={styles.linkText}>What is Cancer</Text>
+          </TouchableOpacity>
 
-            <View>
-              <Image
-                style={styles.imgCustom}
-                source={require('../Images/type_of_cancer.png')}
-              />
-              <Text style={styles.textDescription}>Types</Text>
-            </View>
+          <TouchableOpacity style={styles.link}>
+            <Image style={styles.linkIcon} source={require('../Images/type_of_cancer.png')} />
+            <Text style={styles.linkText}>Types</Text>
+          </TouchableOpacity>
 
-            <View>
-              <Image
-                style={styles.imgCustom}
-                source={require('../Images/reason.png')}
-              />
-              <Text style={styles.textDescription}>Causes</Text>
-            </View>
-          </View>
-
-          {/*Second row link */}
-          <View style={styles.rowCustom}>
-            <View>
-              <Image
-                style={styles.imgCustom_treatment}
-                source={require('../Images/treatment.png')}
-              />
-              <Text style={styles.textDescription}>Treament</Text>
-            </View>
-
-            <View>
-              <Image
-                style={styles.imgCustom_SideEffect}
-                source={require('../Images/side_effect.png')}
-              />
-              <Text style={styles.textDescription}>Side Effects</Text>
-            </View>
-
-            <View>
-              <Image
-                style={styles.imgCustom_Survey}
-                source={require('../Images/survey.png')}
-              />
-              <Text style={styles.textDescription}>Survey</Text>
-            </View>
-          </View>
-
-          <View style={styles.rowCustom_2}>
-            <Image
-              style={{width: 25, height: 25}}
-              source={require('../Images/booking.png')}
-            />
-            <Text style={styles.textDescription_2}>Booking a Screening</Text>
-          </View>
+          <TouchableOpacity style={styles.link}>
+            <Image style={styles.linkIcon} source={require('../Images/reason.png')} />
+            <Text style={styles.linkText}>Causes</Text>
+          </TouchableOpacity>
         </View>
+
+        <View style={styles.linksContainer}>
+          <TouchableOpacity style={styles.link}>
+            <Image style={styles.linkIcon} source={require('../Images/treatment.png')} />
+            <Text style={styles.linkText}>Treatment</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.link}>
+            <Image style={styles.linkIcon} source={require('../Images/side_effect.png')} />
+            <Text style={styles.linkText}>Side Effects</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.link}>
+            <Image style={styles.linkIcon} source={require('../Images/survey.png')} />
+            <Text style={styles.linkText}>Survey</Text>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Booking')}>
+          <Image style={styles.linkIcon} source={require('../Images/booking.png')} />
+          <Text style={styles.linkText}>Booking a Screening</Text>
+        </TouchableOpacity>
       </View>
 
-      {/*Bottom bar for all screen */}
       <View style={styles.bottomBar}>
-        <View style={{marginLeft: 20}}>
-          <Image
-            style={{
-              width: 40,
-              height: 40,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
-            source={require('../Images/home.png')}
-          />
-          <Text style={styles.textDescription}>Home</Text>
-        </View>
-        <View style={{marginLeft: 120, marginTop: 8}}>
-          <Image
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
-            source={require('../Images/compass.png')}
-          />
-          <Text style={styles.textDescription}>Search</Text>
-        </View>
-        <View style={{marginLeft: 120, marginTop: 6}}>
-          <Image
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
-            source={require('../Images/survey_bar.png')}
-          />
-          <Text style={styles.textDescription}>Survey</Text>
-        </View>
+        <TouchableOpacity style={styles.bottomBarItem} onPress={() => navigation.navigate('Home')}>
+          <Image style={styles.bottomBarIcon} source={require('../Images/home.png')} />
+          <Text style={styles.bottomBarText}>Home</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.bottomBarItem} onPress={() => navigation.navigate('Search')}>
+          <Image style={styles.bottomBarIcon} source={require('../Images/compass.png')} />
+          <Text style={styles.bottomBarText}>Search</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.bottomBarItem} onPress={() => navigation.navigate('Survey')}>
+          <Image style={styles.bottomBarIcon} source={require('../Images/survey_bar.png')} />
+          <Text style={styles.bottomBarText}>Survey</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'space-between',
+  },
   searchContainer: {
-    padding: 10,
-    borderColor: '#000',
-    backgroundColor: 'white',
-    gap: 20,
-    paddingBottom: 220,
+    padding: 20,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderColor: 'gray',
+    borderColor: '#CCCCCC',
     borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: 'white',
+    borderRadius: 10,
+    marginBottom: 20,
   },
   input: {
     flex: 1,
@@ -161,63 +109,51 @@ const styles = StyleSheet.create({
   iconCustom: {
     marginLeft: 10,
     marginRight: 10,
+    color: '#CCCCCC',
   },
   headerText: {
     fontWeight: 'bold',
-    fontSize: 25,
-    color: 'black',
-    textAlign: 'center',
-  },
-  rowCustom: {
-    fontSize: 15,
-    flexDirection: 'row',
-    gap: 33,
-    alignSelf: 'center',
-  },
-  rowCustom_2: {
-    fontSize: 15,
-    flexDirection: 'row',
-    gap: 10,
-    alignSelf: 'center',
-    marginTop: 15,
-  },
-  textDescription: {
-    textAlign: 'center',
-    color: 'black',
-  },
-  textDescription_2: {
-    textAlign: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
-    color: 'black',
     fontSize: 20,
-    fontWeight: 'bold',
+    color: '#333333',
+    marginBottom: 10,
   },
-  imgCustom: {
+  linksContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  link: {
+    alignItems: 'center',
+  },
+  linkIcon: {
     width: 80,
     height: 80,
   },
-  imgCustom_treatment: {
-    width: 90,
-    height: 90,
-  },
-  imgCustom_SideEffect: {
-    width: 88,
-    height: 90.5,
-  },
-  imgCustom_Survey: {
-    width: 70,
-    height: 90,
+  linkText: {
+    color: '#333333',
+    marginTop: 5,
   },
   bottomBar: {
-    height: 60,
-    alignSelf: 'center',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    borderTopWidth: 1,
     flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderTopWidth: 1,
+    borderColor: '#CCCCCC',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  bottomBarItem: {
+    alignItems: 'center',
+  },
+  bottomBarIcon: {
+    width: 30,
+    height: 30,
+  },
+  bottomBarText: {
+    color: '#333333',
+    marginTop: 5,
+    fontSize: 12,
   },
 });
 
