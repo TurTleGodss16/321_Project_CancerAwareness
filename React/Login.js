@@ -1,46 +1,38 @@
 /* eslint-disable no-alert */
 /* eslint-disable react-native/no-inline-styles */
 
-import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {
-  Text,
-  TextInput,
-  View,
-  Image,
-  StyleSheet,
-  SafeAreaView,
-  TouchableOpacity,
-} from 'react-native';
+import React, { useState } from 'react';
+import { Text, TextInput, View, Image, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { signInWithEmailAndPassword } from 'firebase/auth'; // Import the specific function
+import { auth } from './FirebaseConfig'; // Adjusted import
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Perform authentication logic here
-    // For simplicity, consider any non-empty username/password as a successful login
-    if (username && password) {
+  const handleLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
       navigation.navigate('Main');
-    } else {
-      alert('Invalid username or password.');
+    } catch (error) {
+      alert('Invalid email or password.'); // You might want to provide more specific error messages based on the error code
     }
   };
 
   return (
     <View>
-      <View style={{alignItems: 'center', alignSelf: 'center'}}>
+      <View style={{ alignItems: 'center', alignSelf: 'center' }}>
         <Text style={styles.welcome_text}>Welcome to Awareness Cancer App</Text>
       </View>
-      <SafeAreaView
-        style={{justifyContent: 'center', alignItems: 'center', marginTop: 50}}>
+      <SafeAreaView style={{ justifyContent: 'center', alignItems: 'center', marginTop: 50 }}>
         <View>
           <TextInput
             style={styles.input}
-            placeholder="Username"
-            value={username}
-            onChangeText={text => setUsername(text)}
+            placeholder="Email"
+            value={email}
+            onChangeText={text => setEmail(text)}
           />
           <TextInput
             style={styles.input}
@@ -50,47 +42,32 @@ const LoginScreen = () => {
             onChangeText={text => setPassword(text)}
           />
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
-            <Text style={{textAlign: 'center'}}>Login</Text>
+            <Text style={{ textAlign: 'center' }}>Login</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
 
-      <View
-        style={{
-          marginTop: 30,
-          alignItems: 'center',
-          alignSelf: 'center',
-        }}>
-        <Text style={{textAlign: 'center', color: 'black', marginBottom: 15}}>
+      <View style={{ marginTop: 30, alignItems: 'center', alignSelf: 'center' }}>
+        <Text style={{ textAlign: 'center', color: 'black', marginBottom: 15 }}>
           Or login with
         </Text>
-        <View
-          style={{
-            alignItems: 'center',
-            alignSelf: 'center',
-            flexDirection: 'row',
-          }}>
+        <View style={{ alignItems: 'center', alignSelf: 'center', flexDirection: 'row' }}>
           <Image
-            style={{
-              width: 30,
-              height: 30,
-              marginRight: 25,
-              backgroundColor: 'grey',
-            }}
+            style={{ width: 30, height: 30, marginRight: 25, backgroundColor: 'grey' }}
             source={require('../Images/facebook_icon.png')}
           />
           <Image
-            style={{width: 30, height: 30, marginRight: 25}}
+            style={{ width: 30, height: 30, marginRight: 25 }}
             source={require('../Images/google_icon.png')}
           />
           <Image
-            style={{width: 30, height: 30}}
+            style={{ width: 30, height: 30 }}
             source={require('../Images/twitter_icon.png')}
           />
         </View>
       </View>
 
-      <View style={{marginTop: 30, alignItems: 'center', alignSelf: 'center'}}>
+      <View style={{ marginTop: 30, alignItems: 'center', alignSelf: 'center' }}>
         <TouchableOpacity
           style={styles.registerButton}
           onPress={() => navigation.navigate('Signup')}>
