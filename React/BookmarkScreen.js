@@ -1,60 +1,42 @@
-/* eslint-disable react-native/no-inline-styles */
-//Bookmark Screen
-
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
-const BookmarkScreen = ({navigation}) => {
+const BookmarkScreen = ({ navigation }) => {
   return (
-    <View style={styles.body}>
-      <View>
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
         <Image
-          style={styles.image_custom}
+          style={styles.image}
           source={require('../Images/Bookmark_Warning.png')}
         />
       </View>
 
-      <View style={styles.text_custom}>
+      <View style={styles.textContainer}>
         <Text style={styles.headerText}>You have no bookmarks!</Text>
         <Text style={styles.descriptionText}>
           Click the flag icon on any article/page and it will appear here!
         </Text>
       </View>
 
-      {/*Bottom bar for all screen */}
+      {/* Bottom navigation bar */}
       <View style={styles.bottomBar}>
-        <View style={{marginLeft: 20}}>
+        <View style={styles.iconContainer}>
           <Image
-            style={{
-              width: 40,
-              height: 40,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
+            style={styles.icon}
             source={require('../Images/home.png')}
           />
           <Text style={styles.textDescription}>Home</Text>
         </View>
-        <View style={{marginLeft: 120, marginTop: 8}}>
+        <View style={styles.iconContainer}>
           <Image
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
+            style={styles.icon}
             source={require('../Images/compass.png')}
           />
           <Text style={styles.textDescription}>Search</Text>
         </View>
-        <View style={{marginLeft: 120, marginTop: 6}}>
+        <View style={styles.iconContainer}>
           <Image
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
+            style={styles.icon}
             source={require('../Images/survey_bar.png')}
           />
           <Text style={styles.textDescription}>Survey</Text>
@@ -65,53 +47,57 @@ const BookmarkScreen = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  body: {
+  container: {
     backgroundColor: 'white',
-    gap: 10,
-  },
-
-  image_custom: {
-    width: 100,
-    height: 100,
-    flexDirection: 'row',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
   },
-
-  text_custom: {
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    paddingBottom: 450,
+  imageContainer: {
+    marginBottom: 20,
   },
-
+  image: {
+    width: 150,
+    height: 150,
+  },
+  textContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
   headerText: {
-    textAlign: 'center',
     fontWeight: 'bold',
+    fontSize: 18,
     color: 'black',
+    marginBottom: 10,
   },
-
   descriptionText: {
-    fontSize: 10,
-    textAlign: 'center',
+    fontSize: 14,
     color: 'black',
+    textAlign: 'center',
   },
-
   bottomBar: {
-    height: 60,
-    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: 'gray',
+    width: '100%',
     position: 'absolute',
     bottom: 0,
-    left: 0,
-    right: 0,
-    borderTopWidth: 1,
-    flexDirection: 'row',
+    backgroundColor: 'white',
   },
-
+  iconContainer: {
+    alignItems: 'center',
+  },
+  icon: {
+    width: 30,
+    height: 30,
+  },
   textDescription: {
-    textAlign: 'center',
     color: 'black',
+    fontSize: 12,
+    marginTop: 3,
   },
 });
+
 export default BookmarkScreen;
