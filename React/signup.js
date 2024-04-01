@@ -1,39 +1,44 @@
-import React, {useState} from 'react';
-import {View, TextInput, StyleSheet, TouchableOpacity, Text, Alert} from 'react-native';
-import { auth } from './FirebaseConfig'; // Adjusted import
+import React, { useState } from 'react';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { createUserWithEmailAndPassword } from 'firebase/auth'; // Import the specific function
+import { auth } from './FirebaseConfig'; // Adjusted import
 
-const SignupScreen = ({navigation}) => {
+const SignupScreen = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSignup = async () => {
     try {
-        await createUserWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert("Success", "Account created successfully");
-      // Optionally navigate to the login screen or main app screen after signup
-      navigation.navigate('LoginScreen'); // Change 'Login' to your login screen's route name if different
+      navigation.navigate('LoginScreen');
     } catch (error) {
-      // Handle errors here, including displaying a notification
       Alert.alert("Signup Failed", error.message);
     }
   };
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
+      <Text style={styles.logo}>Cancer Awareness App</Text>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+        />
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+      </View>
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
@@ -44,25 +49,38 @@ const SignupScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo: {
+    fontWeight: 'bold',
+    fontSize: 30,
+    color: '#000000',
+    marginBottom: 40,
+  },
+  inputView: {
+    width: '80%',
+    backgroundColor: '#d3d3d3',
+    borderRadius: 25,
+    height: 50,
+    marginBottom: 20,
+    justifyContent: 'center',
     padding: 20,
   },
-  input: {
-    height: 40,
-    width: '100%',
-    marginVertical: 10,
-    borderWidth: 1,
-    borderColor: 'gray',
-    padding: 10,
+  inputText: {
+    height: 50,
+    color: 'black',
   },
   button: {
-    width: '100%',
-    padding: 10,
-    backgroundColor: 'skyblue',
+    width: '80%',
+    backgroundColor: '#0000FF',
+    borderRadius: 25,
+    height: 50,
     alignItems: 'center',
-    marginTop: 20,
-    borderRadius: 5,
+    justifyContent: 'center',
+    marginTop: 40,
+    marginBottom: 10,
   },
   buttonText: {
     color: 'white',
