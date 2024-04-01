@@ -93,7 +93,7 @@ const LoginScreen = () => {
       <View style={{marginTop: 30, alignItems: 'center', alignSelf: 'center'}}>
         <TouchableOpacity
           style={styles.registerButton}
-          onPress={() => navigation.navigate('SignupScreen')}>
+          onPress={() => navigation.navigate('Signup')}>
           <Text style={styles.registerButtonText}>Click here to register</Text>
         </TouchableOpacity>
       </View>
