@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import { Text, TextInput, View, Image, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { signInWithEmailAndPassword } from 'firebase/auth'; // Import the specific function
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'; // Import the specific functions
 import { auth } from './FirebaseConfig'; // Adjusted import
 
-const LoginScreen = () => {
+const SignupScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
+  const handleSignup = async () => {
     try {
+      // Create user account
+      await createUserWithEmailAndPassword(auth, email, password);
+      // Sign in user
       await signInWithEmailAndPassword(auth, email, password);
+      // Navigate to Main screen
       navigation.navigate('Main');
     } catch (error) {
-      alert('Invalid email or password.'); // You might want to provide more specific error messages based on the error code
+      Alert.alert("Signup Failed", error.message);
     }
   };
 
@@ -25,26 +29,21 @@ const LoginScreen = () => {
         <TextInput
           style={styles.inputText}
           placeholder="Email"
-          placeholderTextColor="#003f5c"
           value={email}
-          onChangeText={text => setEmail(text)}
+          onChangeText={setEmail}
         />
       </View>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
           placeholder="Password"
-          placeholderTextColor="#003f5c"
           secureTextEntry
           value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={setPassword}
         />
       </View>
-      <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
-        <Text style={styles.loginText}>LOGIN</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-        <Text style={styles.signupText}>Don't have an account? Sign Up</Text>
+      <TouchableOpacity style={styles.button} onPress={handleSignup}>
+        <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
     </View>
   );
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
     height: 50,
     color: 'black',
   },
-  loginBtn: {
+  button: {
     width: '80%',
     backgroundColor: '#0000FF',
     borderRadius: 25,
@@ -86,14 +85,10 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginBottom: 10,
   },
-  loginText: {
+  buttonText: {
     color: 'white',
     fontWeight: 'bold',
   },
-  signupText: {
-    color: 'black',
-    marginTop: 10,
-  },
 });
 
-export default LoginScreen;
+export default SignupScreen;

@@ -13,7 +13,7 @@ const SignupScreen = () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert("Success", "Account created successfully");
-      navigation.navigate('LoginScreen');
+      navigation.navigate('Main');
     } catch (error) {
       Alert.alert("Signup Failed", error.message);
     }
