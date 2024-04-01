@@ -2,6 +2,7 @@
 /* eslint-disable react-native/no-inline-styles */
 
 import React, {useState} from 'react';
+import SignupScreen from './Signup';
 import {useNavigation} from '@react-navigation/native';
 import {
   Text,
@@ -12,19 +13,23 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
+
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // Perform authentication logic here
-    // For simplicity, consider any non-empty username/password as a successful login
     if (username && password) {
-      navigation.navigate('Main');
+      navigation.navigate('Main'); // Ensure 'Main' matches your target screen's route name
     } else {
       alert('Invalid username or password.');
     }
+  };
+
+  const handleGoToSignup = () => {
+    console.log("Navigate to SignupScren");
+    navigation.navigate('SignupScreen'); // Ensure 'SignupScreen' matches your Signup screen's route name
   };
 
   return (
@@ -65,8 +70,6 @@ const LoginScreen = () => {
         </Text>
         <View
           style={{
-            alignItems: 'center',
-            alignSelf: 'center',
             flexDirection: 'row',
           }}>
           <Image
@@ -90,9 +93,9 @@ const LoginScreen = () => {
       </View>
 
       <View style={{marginTop: 30, alignItems: 'center', alignSelf: 'center'}}>
-        <Text style={{textAlign: 'center', color: '#0000FF'}}>
-          You don't have an account? Register here!!!
-        </Text>
+        <TouchableOpacity style={styles.registerButton} onPress={handleGoToSignup}>
+          <Text style={styles.registerButtonText}>Click here to register</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -117,6 +120,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'black',
+  },
+  registerButton: {
+    backgroundColor: '#007BFF',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  registerButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
 
