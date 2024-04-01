@@ -1,6 +1,7 @@
 // Firebase v9+ modular imports
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getReactNativePersistence } from 'firebase/auth/react-native';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -15,5 +16,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
+
 
 export { auth, firestore };
