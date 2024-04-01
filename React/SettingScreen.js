@@ -1,21 +1,9 @@
-/* eslint-disable react-native/no-inline-styles */
-//Setting Screen
-
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Switch,
-  TouchableOpacity,
-} from 'react-native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {useNavigation} from '@react-navigation/native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, Switch, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const SettingScreen = () => {
   const navigation = useNavigation();
-  //Create switch for theme
   const [isEnabled, setIsEnabled] = useState(false);
 
   const toggleSwitch = () => {
@@ -23,41 +11,26 @@ const SettingScreen = () => {
   };
 
   return (
-    <View style={styles.body}>
+    <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
-        <View style={styles.containers}>
-          <View>
-            <Image
-              style={styles.image_custom_notification}
-              source={require('../Images/Notification_Bell.png')}
-            />
-          </View>
-          <View>
+        <View style={styles.itemContainer}>
+          <Image style={styles.icon} source={require('../Images/Notification_Bell.png')} />
+          <View style={styles.textContainer}>
             <Text style={styles.headerText}>Notifications</Text>
-            <Text style={styles.descriptionText}>
-              Manage notification by type.
-            </Text>
+            <Text style={styles.descriptionText}>Manage notification by type</Text>
           </View>
         </View>
       </TouchableOpacity>
 
-      <View style={styles.containers}>
-        <View>
-          <Image
-            style={styles.image_custom_theme}
-            source={require('../Images/Theme.png')}
-          />
-        </View>
-        <View>
+      <View style={styles.itemContainer}>
+        <Image style={styles.icon} source={require('../Images/Theme.png')} />
+        <View style={styles.textContainer}>
           <Text style={styles.headerText}>Theme</Text>
-          <Text style={styles.descriptionText}>
-            Toggle Light and Dark mode.
-          </Text>
+          <Text style={styles.descriptionText}>Toggle Light and Dark mode</Text>
         </View>
-        {/*Toggle Switch*/}
-        <View style={styles.toggle_switch}>
+        <View style={styles.toggleSwitch}>
           <Switch
-            trackColor={{false: '#767577', true: '#81b0f'}}
+            trackColor={{ false: '#767577', true: '#81b0f' }}
             thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
             onValueChange={toggleSwitch}
             value={isEnabled}
@@ -66,154 +39,64 @@ const SettingScreen = () => {
       </View>
 
       <TouchableOpacity onPress={() => navigation.navigate('Language')}>
-        <View style={styles.containers}>
-          <View>
-            <Image
-              style={styles.image_custom_language}
-              source={require('../Images/Language.png')}
-            />
-          </View>
-          <View>
+        <View style={styles.itemContainer}>
+          <Image style={styles.icon} source={require('../Images/Language.png')} />
+          <View style={styles.textContainer}>
             <Text style={styles.headerText}>Language</Text>
-            <Text style={styles.descriptionText}>
-              Set the default language.
-            </Text>
+            <Text style={styles.descriptionText}>Set the default language</Text>
           </View>
         </View>
       </TouchableOpacity>
 
-      <View style={styles.containers_last}>
-        <View>
-          <Image
-            style={styles.image_custom_access}
-            source={require('../Images/Accessibility.png')}
-          />
+      <TouchableOpacity onPress={() => navigation.navigate('Accessibility')}>
+        <View style={styles.itemContainer}>
+          <Image style={styles.icon} source={require('../Images/Accessibility.png')} />
+          <View style={styles.textContainer}>
+            <Text style={styles.headerText}>Accessibility Options</Text>
+            <Text style={styles.descriptionText}>Customize your experience for greater accessibility</Text>
+          </View>
         </View>
-        <View>
-          <Text style={styles.headerText}>Accessibility Options</Text>
-          <Text style={styles.descriptionText}>
-            Customize your experience for greater accessibility
-          </Text>
-        </View>
-      </View>
-
-      {/*Bottom bar for all screen */}
-      <View style={styles.bottomBar}>
-        <View style={{marginLeft: 20}}>
-          <Image
-            style={{
-              width: 40,
-              height: 40,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
-            source={require('../Images/home.png')}
-          />
-          <Text style={styles.textDescription}>Home</Text>
-        </View>
-        <View style={{marginLeft: 120, marginTop: 8}}>
-          <Image
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
-            source={require('../Images/compass.png')}
-          />
-          <Text style={styles.textDescription}>Search</Text>
-        </View>
-        <View style={{marginLeft: 120, marginTop: 6}}>
-          <Image
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
-            source={require('../Images/survey_bar.png')}
-          />
-          <Text style={styles.textDescription}>Survey</Text>
-        </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  body: {
+  container: {
     backgroundColor: 'white',
-    fontFamily: 'sans-serif',
-    gap: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginHorizontal: 10,
+    marginVertical: 10,
+    elevation: 3,
   },
-
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  textContainer: {
+    marginLeft: 10,
+    flex: 1,
+  },
   headerText: {
     fontWeight: 'bold',
+    fontSize: 16,
     color: 'black',
   },
-
   descriptionText: {
-    fontSize: 10,
+    fontSize: 12,
     color: 'black',
   },
-
-  containers: {
-    flexDirection: 'row',
+  icon: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
   },
-
-  containers_last: {
-    flexDirection: 'row',
-    paddingBottom: 435,
-  },
-
-  image_custom_notification: {
-    width: 27,
-    height: 27,
-    top: 3,
-    marginRight: 5,
-  },
-
-  image_custom_theme: {
-    width: 26,
-    height: 25,
-    top: 5,
-    marginRight: 5,
-  },
-
-  image_custom_language: {
-    width: 26,
-    height: 25,
-    top: 5,
-    marginRight: 5,
-  },
-
-  image_custom_access: {
-    width: 26,
-    height: 25,
-    top: 5,
-    marginRight: 5,
-  },
-
-  toggle_switch: {
+  toggleSwitch: {
     flex: 1,
-    paddingRight: 20,
     alignItems: 'flex-end',
-  },
-
-  bottomBar: {
-    height: 60,
-    alignSelf: 'center',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    borderTopWidth: 1,
-    flexDirection: 'row',
-  },
-
-  textDescription: {
-    textAlign: 'center',
-    color: 'black',
   },
 });
 
