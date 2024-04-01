@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet, TouchableOpacity, Text, Alert} from 'react-native';
-import { auth } from './firebaseConfig'; // Adjusted import
+import { auth } from './FirebaseConfig'; // Adjusted import
 import { createUserWithEmailAndPassword } from 'firebase/auth'; // Import the specific function
 
 const SignupScreen = ({navigation}) => {
