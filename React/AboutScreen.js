@@ -1,108 +1,74 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import React from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const AboutScreen = () => {
   const navigation = useNavigation();
-  //Create switch for theme
-  const [isEnabled, setIsEnabled] = useState(false);
+
+  const navigateToScreen = (screenName) => {
+    navigation.navigate(screenName);
+  };
 
   return (
-    <View style={styles.body}>
-      <TouchableHighlight
-        onPress={() => navigation.navigate('AboutApp')}
-        underlayColor="#EAE6E6">
-        <View style={styles.containers}>
-          <View>
-            <Image
-              style={styles.image_custom_aboutpartners}
-              source={require('../Images/AboutApp.png')}
-            />
-          </View>
-          <View>
-            <Text style={styles.headerText}>About App</Text>
-            <Text style={styles.descriptionText}>What does this app do?</Text>
-          </View>
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.itemContainer} onPress={() => navigateToScreen('AboutApp')}>
+        <Image style={styles.image} source={require('../Images/AboutApp.png')} />
+        <View style={styles.textContainer}>
+          <Text style={styles.headerText}>About App</Text>
+          <Text style={styles.descriptionText}>What does this app do?</Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
 
-      <TouchableHighlight
-        onPress={() => navigation.navigate('AboutPartners')}
-        underlayColor="#EAE6E6">
-        <View style={styles.containers}>
-          <View>
-            <Image
-              style={styles.image_custom_aboutpartners}
-              source={require('../Images/AboutPartners.png')}
-            />
-          </View>
-          <View>
-            <Text style={styles.headerText}>About Partners</Text>
-            <Text style={styles.descriptionText}>Learn about our partners</Text>
-          </View>
+      <TouchableOpacity style={styles.itemContainer} onPress={() => navigateToScreen('AboutPartners')}>
+        <Image style={styles.image} source={require('../Images/AboutPartners.png')} />
+        <View style={styles.textContainer}>
+          <Text style={styles.headerText}>About Partners</Text>
+          <Text style={styles.descriptionText}>Learn about our partners</Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
 
-      <TouchableHighlight
-        onPress={() => navigation.navigate('AboutDevelopment')}
-        underlayColor="#EAE6E6">
-        <View style={styles.containers}>
-          <View>
-            <Image
-              style={styles.image_custom_aboutpartners}
-              source={require('../Images/AboutDev.png')}
-            />
-          </View>
-          <View>
-            <Text style={styles.headerText}>About Development</Text>
-            <Text style={styles.descriptionText}>Learn about development.</Text>
-          </View>
+      <TouchableOpacity style={styles.itemContainer} onPress={() => navigateToScreen('AboutDevelopment')}>
+        <Image style={styles.image} source={require('../Images/AboutDev.png')} />
+        <View style={styles.textContainer}>
+          <Text style={styles.headerText}>About Development</Text>
+          <Text style={styles.descriptionText}>Learn about development</Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  body: {
+  container: {
     backgroundColor: 'white',
-    fontFamily: 'sans-serif',
-    gap: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginHorizontal: 10,
+    marginVertical: 10,
+    elevation: 3,
   },
-
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  textContainer: {
+    marginLeft: 10,
+  },
   headerText: {
     fontWeight: 'bold',
+    fontSize: 16,
     color: 'black',
   },
-
   descriptionText: {
-    fontSize: 10,
+    fontSize: 12,
     color: 'black',
   },
-
-  containers: {
-    flexDirection: 'row',
-  },
-
-  image_custom_aboutapp: {
-    width: 25,
-    height: 25,
-    top: 3,
-    marginRight: 10,
-  },
-
-  image_custom_aboutpartners: {
-    width: 26,
-    height: 25,
-    top: 5,
-    marginRight: 10,
-  },
-
-  image_custom_aboutdev: {
-    width: 26,
-    height: 25,
-    top: 5,
-    marginRight: 10,
+  image: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
   },
 });
 
