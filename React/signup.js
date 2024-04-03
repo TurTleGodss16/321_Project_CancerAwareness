@@ -12,7 +12,7 @@ const SignupScreen = () => {
 
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId: 'YOUR_WEB_CLIENT_ID', // Get this from Firebase console
+      webClientId: '552731092988-j76omm78blqb4gskq6mal294mnrv0l3e.apps.googleusercontent.com', // Get this from Firebase console
     });
   }, []);
 
@@ -34,7 +34,7 @@ const SignupScreen = () => {
       Alert.alert("Success", "Signed in with Google");
       navigation.navigate('Main');
     } catch (error) {
-      Alert.alert("Google Sign-in Failed", error.message);
+      Alert.alert("Google Sign-up Failed", error.message);
     }
   };
 
