@@ -39,8 +39,6 @@ const LoginScreen = () => {
   }
 };
 
-
-
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
