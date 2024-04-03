@@ -1,13 +1,45 @@
-import React, { useState } from 'react';
-import { Text, TextInput, View, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, TextInput, View, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword, signInAnonymously } from 'firebase/auth';
 import { auth } from './FirebaseConfig';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
+
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: '552731092988-j76omm78blqb4gskq6mal294mnrv0l3e.apps.googleusercontent.com', // Get this from Firebase console
+    });
+  }, []);
+
+  const handleGoogleSignin = async () => {
+  try {
+    await GoogleSignin.hasPlayServices();
+    const { idToken } = await GoogleSignin.signIn();
+    const googleCredential = GoogleAuthProvider.credential(idToken);
+    await signInWithCredential(auth, googleCredential);
+    Alert.alert("Success", "Signed in with Google");
+    navigation.navigate('Main');
+  } catch (error) {
+    if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+      Alert.alert("Google Sign-in Cancelled");
+    } else if (error.code === statusCodes.IN_PROGRESS) {
+      Alert.alert("Google Sign-in in Progress");
+    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      Alert.alert("Google Play Services Not Available");
+    } else {
+      Alert.alert("Google Sign-in Failed", error.message);
+    }
+  }
+};
+
+
 
   const handleLogin = async () => {
     try {
@@ -55,6 +87,9 @@ const LoginScreen = () => {
       <TouchableOpacity style={styles.loginBtn} onPress={handleAnonymousLogin}>
         <Text style={styles.loginText}>LOGIN ANONYMOUSLY</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignin}>
+        <Text style={styles.buttonText}>SIGN IN WITH GOOGLE</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
         <Text style={styles.signupText}>Don't have an account? Sign Up</Text>
       </TouchableOpacity>
@@ -68,6 +103,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  googleButton: {
+    width: '80%',
+    backgroundColor: '#db3236', // Google red
+    borderRadius: 25,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20, // Adjust based on your layout
+  },
+  buttonText: {
+    color: 'white', // Set the text color to white
+    fontWeight: 'bold',
   },
   logo: {
     fontWeight: 'bold',
