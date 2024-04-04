@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text, Alert, ProgressBarAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createUserWithEmailAndPassword, signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from './FirebaseConfig';
@@ -10,7 +10,8 @@ const SignupScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordStrength, setPasswordStrength] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState(0); // Updated state initialization
+  const [passwordFeedback, setPasswordFeedback] = useState('');
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -48,11 +49,14 @@ const SignupScreen = () => {
     const strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[a-zA-Z]).{8,}$/;
     const mediumRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[a-zA-Z]).{6,}$/;
     if (strongRegex.test(password)) {
-      return 'Strong';
+      setPasswordFeedback('');
+      return 1; // Strong
     } else if (mediumRegex.test(password)) {
-      return 'Medium';
+      setPasswordFeedback('Add special characters and numbers for stronger password');
+      return 0.5; // Medium
     } else {
-      return 'Weak';
+      setPasswordFeedback('Password must be at least 8 characters long with special characters, numbers, uppercase, and lowercase letters');
+      return 0.2; // Weak
     }
   };
 
@@ -72,7 +76,6 @@ const SignupScreen = () => {
           onChangeText={setEmail}
         />
       </View>
-      <Text>Password Strength: {passwordStrength}</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
@@ -91,6 +94,14 @@ const SignupScreen = () => {
           onChangeText={setConfirmPassword}
         />
       </View>
+      <ProgressBarAndroid
+        styleAttr="Horizontal"
+        indeterminate={false}
+        progress={passwordStrength}
+        color="#2196F3"
+        style={styles.progressBar}
+      />
+      <Text style={styles.passwordFeedback}>{passwordFeedback}</Text>
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up with Email</Text>
       </TouchableOpacity>
@@ -112,7 +123,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     color: '#000000',
-    marginBottom: 40,
+    marginBottom: 20, // Adjusted margin
   },
   googleButton: {
     width: '80%',
@@ -149,6 +160,15 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  progressBar: {
+    width: '80%', // Set width to match input fields
+    marginBottom: 20, // Added margin to separate from input fields
+  },
+  passwordFeedback: {
+    textAlign: 'center',
+    marginTop: 10,
+    marginBottom: 10, // Adjusted margin
   },
 });
 
