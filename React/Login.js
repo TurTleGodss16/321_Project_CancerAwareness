@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   resetPasswordText: {
     color: '#0000FF',
     textDecorationLine: 'underline',
-    marginBottom: 20, // Adjust this to ensure the spacing above the reset password text matches other spacings
+    marginBottom: 5, // Adjust this to ensure the spacing above the reset password text matches other spacings
   },
 });
 
