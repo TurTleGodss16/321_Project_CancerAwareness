@@ -172,13 +172,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   progressBar: {
-    width: '80%', // Set width to match input fields
-    marginBottom: 20, // Added margin to separate from input fields
+    width: '50%', // Increased width
+    height: 20, // Adjusted height
+    borderRadius: 25, // Matching border radius
   },
   passwordFeedback: {
+    maxWidth: '50%',
     textAlign: 'center',
     marginTop: 10,
-    marginBottom: 10, // Adjusted margin
   },
 });
 
