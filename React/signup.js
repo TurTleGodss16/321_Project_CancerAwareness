@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { createUserWithEmailAndPassword, signInWithCredential, GoogleAuthProvider } from 'firebase/auth'; // Import necessary functions
-import { auth } from './FirebaseConfig'; // Adjusted import
+import { createUserWithEmailAndPassword, signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from './FirebaseConfig';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const SignupScreen = () => {
@@ -10,10 +10,11 @@ const SignupScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState('');
 
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId: '552731092988-j76omm78blqb4gskq6mal294mnrv0l3e.apps.googleusercontent.com', // Get this from Firebase console
+      webClientId: '552731092988-j76omm78blqb4gskq6mal294mnrv0l3e.apps.googleusercontent.com',
     });
   }, []);
 
@@ -43,9 +44,25 @@ const SignupScreen = () => {
     }
   };
 
+  const checkPasswordStrength = (password) => {
+    const strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[a-zA-Z]).{8,}$/;
+    const mediumRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[a-zA-Z]).{6,}$/;
+    if (strongRegex.test(password)) {
+      return 'Strong';
+    } else if (mediumRegex.test(password)) {
+      return 'Medium';
+    } else {
+      return 'Weak';
+    }
+  };
+
+  const handlePasswordChange = (text) => {
+    setPassword(text);
+    setPasswordStrength(checkPasswordStrength(text));
+  };
+
   return (
     <View style={styles.container}>
-      {/* Existing UI elements */}
       <Text style={styles.logo}>Cancer Awareness</Text>
       <View style={styles.inputView}>
         <TextInput
@@ -55,13 +72,14 @@ const SignupScreen = () => {
           onChangeText={setEmail}
         />
       </View>
+      <Text>Password Strength: {passwordStrength}</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
           placeholder="Password"
           secureTextEntry
           value={password}
-          onChangeText={setPassword}
+          onChangeText={handlePasswordChange}
         />
       </View>
       <View style={styles.inputView}>
@@ -76,7 +94,6 @@ const SignupScreen = () => {
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up with Email</Text>
       </TouchableOpacity>
-      {/* Google sign-in button */}
       <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignup}>
         <Text style={styles.buttonText}>Sign Up with Google</Text>
       </TouchableOpacity>
@@ -99,12 +116,12 @@ const styles = StyleSheet.create({
   },
   googleButton: {
     width: '80%',
-    backgroundColor: '#db3236', // Google red
+    backgroundColor: '#db3236',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20, // Adjust based on your layout
+    marginTop: 20,
   },
   inputView: {
     width: '80%',
