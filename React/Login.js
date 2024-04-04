@@ -6,45 +6,47 @@ import { auth } from './FirebaseConfig';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
 
-
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginAttempts, setLoginAttempts] = useState(0); // State variable to count login attempts
 
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId: '552731092988-j76omm78blqb4gskq6mal294mnrv0l3e.apps.googleusercontent.com', // Get this from Firebase console
+      webClientId: '552731092988-j76omm78blqb4gskq6mal294mnrv0l3e.apps.googleusercontent.com',
     });
   }, []);
 
   const handleGoogleSignin = async () => {
-  try {
-    await GoogleSignin.hasPlayServices();
-    const { idToken } = await GoogleSignin.signIn();
-    const googleCredential = GoogleAuthProvider.credential(idToken);
-    await signInWithCredential(auth, googleCredential);
-    Alert.alert("Success", "Signed in with Google");
-    navigation.navigate('Main');
-  } catch (error) {
-    if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-      Alert.alert("Google Sign-in Cancelled");
-    } else if (error.code === statusCodes.IN_PROGRESS) {
-      Alert.alert("Google Sign-in in Progress");
-    } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-      Alert.alert("Google Play Services Not Available");
-    } else {
-      Alert.alert("Google Sign-in Failed", error.message);
+    try {
+      await GoogleSignin.hasPlayServices();
+      const { idToken } = await GoogleSignin.signIn();
+      const googleCredential = GoogleAuthProvider.credential(idToken);
+      await signInWithCredential(auth, googleCredential);
+      Alert.alert("Success", "Signed in with Google");
+      navigation.navigate('Main');
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        Alert.alert("Google Sign-in Cancelled");
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        Alert.alert("Google Sign-in in Progress");
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        Alert.alert("Google Play Services Not Available");
+      } else {
+        Alert.alert("Google Sign-in Failed", error.message);
+      }
     }
-  }
-};
+  };
 
   const handleLogin = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigation.navigate('Main');
+      setLoginAttempts(0); // Reset login attempts after a successful login
     } catch (error) {
-      alert('Invalid email or password.');
+      Alert.alert('Invalid email or password.');
+      setLoginAttempts(prevAttempts => prevAttempts + 1); // Increment login attempts on failure
     }
   };
 
@@ -69,6 +71,11 @@ const LoginScreen = () => {
           onChangeText={text => setEmail(text)}
         />
       </View>
+      {loginAttempts >= 5 && (
+        <TouchableOpacity onPress={() => navigation.navigate('ResetPasswordScreen')}>
+          <Text style={styles.resetPasswordText}>Forgot password? Reset here.</Text>
+        </TouchableOpacity>
+      )}
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
@@ -104,15 +111,15 @@ const styles = StyleSheet.create({
   },
   googleButton: {
     width: '80%',
-    backgroundColor: '#db3236', // Google red
+    backgroundColor: '#db3236',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20, // Adjust based on your layout
+    marginTop: 20,
   },
   buttonText: {
-    color: 'white', // Set the text color to white
+    color: 'white',
     fontWeight: 'bold',
   },
   logo: {
@@ -123,6 +130,7 @@ const styles = StyleSheet.create({
   },
   inputView: {
     width: '80%',
+
     backgroundColor: '#d3d3d3',
     borderRadius: 25,
     height: 50,
@@ -149,8 +157,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   signupText: {
-    color: 'black',
     marginTop: 10,
+    color: '#0000FF',
+    textDecorationLine: 'underline',
+  },
+  resetPasswordText: {
+    marginBottom: 5,
+    color: '#0000FF',
+    textDecorationLine: 'underline',
   },
 });
 
