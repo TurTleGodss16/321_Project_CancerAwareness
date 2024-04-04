@@ -9,6 +9,7 @@ const SignupScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -17,6 +18,10 @@ const SignupScreen = () => {
   }, []);
 
   const handleSignup = async () => {
+    if (password !== confirmPassword) {
+      Alert.alert("Signup Failed", "The passwords do not match.");
+      return;
+    }
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       Alert.alert("Success", "Account created successfully");
@@ -59,6 +64,15 @@ const SignupScreen = () => {
           onChangeText={setPassword}
         />
       </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Confirm Password"
+          secureTextEntry
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+        />
+      </View>
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up with Email</Text>
       </TouchableOpacity>
@@ -69,6 +83,7 @@ const SignupScreen = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
