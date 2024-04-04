@@ -12,12 +12,18 @@ const SignupScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordStrength, setPasswordStrength] = useState(0); // Updated state initialization
   const [passwordFeedback, setPasswordFeedback] = useState('');
+  const [isSignupDisabled, setIsSignupDisabled] = useState(true); // State to manage signup button disable
 
   useEffect(() => {
     GoogleSignin.configure({
       webClientId: '552731092988-j76omm78blqb4gskq6mal294mnrv0l3e.apps.googleusercontent.com',
     });
   }, []);
+
+  useEffect(() => {
+    // Enable or disable signup button based on password strength
+    setIsSignupDisabled(passwordStrength < 1);
+  }, [passwordStrength]);
 
   const handleSignup = async () => {
     if (password !== confirmPassword) {
@@ -112,7 +118,11 @@ const SignupScreen = () => {
         style={styles.progressBar}
       />
       <Text style={styles.passwordFeedback}>{passwordFeedback}</Text>
-      <TouchableOpacity style={styles.button} onPress={handleSignup}>
+      <TouchableOpacity 
+        style={[styles.button, isSignupDisabled && styles.disabledButton]} 
+        onPress={handleSignup} 
+        disabled={isSignupDisabled} // Disable the button based on password strength
+      >
         <Text style={styles.buttonText}>Sign Up with Email</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignup}>
@@ -180,6 +190,9 @@ const styles = StyleSheet.create({
     maxWidth: '50%',
     textAlign: 'center',
     marginTop: 10,
+  },
+  disabledButton: {
+    backgroundColor: '#A9A9A9', // Change color for disabled state
   },
 });
 
