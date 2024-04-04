@@ -6,12 +6,14 @@ import { auth } from './FirebaseConfig';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginAttempts, setLoginAttempts] = useState(0);
+  const [passwordVisibility, setPasswordVisibility] = useState(true);  
 
   useEffect(() => {
     // Configure Google Sign In
@@ -97,11 +99,13 @@ const LoginScreen = () => {
         <TextInput
           style={styles.inputText}
           placeholder="Password"
-          placeholderTextColor="#003f5c"
-          secureTextEntry
+          secureTextEntry={passwordVisibility}
           value={password}
           onChangeText={text => setPassword(text)}
         />
+        <TouchableOpacity onPress={() => setPasswordVisibility(!passwordVisibility)}>
+          <Icon name={passwordVisibility ? 'eye-slash' : 'eye'} style={styles.icon} size = {20} color = "grey"/>
+        </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <Text style={styles.loginText}>LOGIN</Text>
@@ -146,6 +150,8 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   inputView: {
+    flexDirection: "row",
+    alignItems: "center",
     width: '80%',
     backgroundColor: '#d3d3d3',
     borderRadius: 25,
@@ -155,8 +161,14 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   inputText: {
+    flex: 1,
     height: 50,
     color: 'black',
+  },
+  icon: {
+    position: 'absolute',
+    right: 10,
+    top: -10,
   },
   loginBtn: {
     width: '80%',
