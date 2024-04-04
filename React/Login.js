@@ -1,22 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { Text, TextInput, View, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { signInWithEmailAndPassword, signInAnonymously } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
 import { auth } from './FirebaseConfig';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loginAttempts, setLoginAttempts] = useState(0); // State variable to count login attempts
+  const [loginAttempts, setLoginAttempts] = useState(0);
 
   useEffect(() => {
+    // Configure Google Sign In
     GoogleSignin.configure({
       webClientId: '552731092988-j76omm78blqb4gskq6mal294mnrv0l3e.apps.googleusercontent.com',
     });
-  }, []);
+
+    // Check Firebase Auth state
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // User is signed in, navigate to Main
+        navigation.navigate('Main');
+        // Optionally, store a flag indicating login status
+        await AsyncStorage.setItem('isLoggedIn', 'true');
+      } else {
+        // User is signed out, remove the flag
+        await AsyncStorage.removeItem('isLoggedIn');
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup subscription
+  }, [navigation]);
 
   const handleGoogleSignin = async () => {
     try {
