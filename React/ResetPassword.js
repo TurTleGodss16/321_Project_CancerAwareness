@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
   },
   loginText: {
     color: 'white',
