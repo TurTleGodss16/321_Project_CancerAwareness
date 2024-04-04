@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
+    marginTop: 20, // Consistent spacing with the bottom margin of the login button
   },
   buttonText: {
     color: 'white',
@@ -130,11 +130,10 @@ const styles = StyleSheet.create({
   },
   inputView: {
     width: '80%',
-
     backgroundColor: '#d3d3d3',
     borderRadius: 25,
     height: 50,
-    marginBottom: 20,
+    marginBottom: 20, // Consistent spacing for input fields
     justifyContent: 'center',
     padding: 20,
   },
@@ -149,22 +148,22 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 40,
-    marginBottom: 10,
+    marginTop: 20, // Adjusted for consistency
+    marginBottom: 10, // Ensures consistent spacing between the buttons
   },
   loginText: {
     color: 'white',
     fontWeight: 'bold',
   },
   signupText: {
-    marginTop: 10,
+    marginTop: 20, // Match the spacing above for consistency
     color: '#0000FF',
     textDecorationLine: 'underline',
   },
   resetPasswordText: {
-    marginBottom: 5,
     color: '#0000FF',
     textDecorationLine: 'underline',
+    marginBottom: 20, // Adjust this to ensure the spacing above the reset password text matches other spacings
   },
 });
 
