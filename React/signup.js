@@ -47,7 +47,7 @@ const SignupScreen = () => {
 
   const checkPasswordStrength = (password) => {
     const strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[a-zA-Z]).{8,}$/;
-    const mediumRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[a-zA-Z]).{6,}$/;
+    const mediumRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
     if (strongRegex.test(password)) {
       setPasswordFeedback('');
       return 1; // Strong
@@ -63,6 +63,16 @@ const SignupScreen = () => {
   const handlePasswordChange = (text) => {
     setPassword(text);
     setPasswordStrength(checkPasswordStrength(text));
+  };
+
+  const getProgressBarColor = (strength) => {
+    if (strength === 1) {
+      return '#00FF00'; // Green for strong
+    } else if (strength === 0.5) {
+      return '#FFFF00'; // Yellow for medium
+    } else {
+      return '#FF0000'; // Red for weak
+    }
   };
 
   return (
@@ -98,7 +108,7 @@ const SignupScreen = () => {
         styleAttr="Horizontal"
         indeterminate={false}
         progress={passwordStrength}
-        color="#2196F3"
+        color={getProgressBarColor(passwordStrength)} // Dynamically set color
         style={styles.progressBar}
       />
       <Text style={styles.passwordFeedback}>{passwordFeedback}</Text>
