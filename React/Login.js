@@ -72,7 +72,7 @@ const LoginScreen = () => {
         />
       </View>
       {loginAttempts >= 5 && (
-        <TouchableOpacity onPress={() => navigation.navigate('ResetPasswordScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
           <Text style={styles.resetPasswordText}>Forgot password? Reset here.</Text>
         </TouchableOpacity>
       )}

@@ -18,6 +18,7 @@ import AboutDevelopment from './Sub_AboutScreen/AboutDevelopment';
 import MultiLineHeaderTitle from './multiLineHeaderTitle';
 import LoginScreen from './Login';
 import SignupScreen from './Signup';
+import ResetPasswordScreen from './ResetPassword';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Stack = createNativeStackNavigator();
@@ -199,6 +200,14 @@ const Menu = () => {
               component={AboutDevelopment}
               options={{
                 headerTitle: 'About Development',
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="ResetPassword"
+              component={ResetPasswordScreen}
+              options={{
+                headerTitle: 'Reset Password',
                 headerTitleAlign: 'center',
               }}
             />
