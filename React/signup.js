@@ -4,26 +4,23 @@ import { useNavigation } from '@react-navigation/native';
 import { createUserWithEmailAndPassword, signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from './FirebaseConfig';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const SignupScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');  
+  const [passwordVisibility, setPasswordVisibility] = useState(true);
+  const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(true);
   const [passwordStrength, setPasswordStrength] = useState(0); // Updated state initialization
   const [passwordFeedback, setPasswordFeedback] = useState('');
-  const [isSignupDisabled, setIsSignupDisabled] = useState(true); // State to manage signup button disable
 
   useEffect(() => {
     GoogleSignin.configure({
       webClientId: '552731092988-j76omm78blqb4gskq6mal294mnrv0l3e.apps.googleusercontent.com',
     });
   }, []);
-
-  useEffect(() => {
-    // Enable or disable signup button based on password strength
-    setIsSignupDisabled(passwordStrength < 1);
-  }, [passwordStrength]);
 
   const handleSignup = async () => {
     if (password !== confirmPassword) {
@@ -96,19 +93,25 @@ const SignupScreen = () => {
         <TextInput
           style={styles.inputText}
           placeholder="Password"
-          secureTextEntry
+          secureTextEntry={passwordVisibility}
           value={password}
           onChangeText={handlePasswordChange}
         />
+        <TouchableOpacity onPress={() => setPasswordVisibility(!passwordVisibility)}>
+          <Icon name={passwordVisibility ? 'eye-slash' : 'eye'} style={styles.icon} size = {20} color = "grey"/>
+        </TouchableOpacity>
       </View>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
           placeholder="Confirm Password"
-          secureTextEntry
+          secureTextEntry={confirmPasswordVisibility}
           value={confirmPassword}
           onChangeText={setConfirmPassword}
         />
+        <TouchableOpacity onPress={() => setConfirmPasswordVisibility(!confirmPasswordVisibility)}>
+          <Icon name={passwordVisibility ? 'eye-slash' : 'eye'} style={styles.icon} size = {20} color = "grey"/>
+        </TouchableOpacity>
       </View>
       <ProgressBarAndroid
         styleAttr="Horizontal"
@@ -118,11 +121,7 @@ const SignupScreen = () => {
         style={styles.progressBar}
       />
       <Text style={styles.passwordFeedback}>{passwordFeedback}</Text>
-      <TouchableOpacity 
-        style={[styles.button, isSignupDisabled && styles.disabledButton]} 
-        onPress={handleSignup} 
-        disabled={isSignupDisabled} // Disable the button based on password strength
-      >
+      <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up with Email</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignup}>
@@ -154,7 +153,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 20,
   },
+  icon: {
+    position: 'absolute',
+    right: 10,
+    top: -10,
+  },
   inputView: {
+    flexDirection: "row",
+    alignItems: "center",
     width: '80%',
     backgroundColor: '#d3d3d3',
     borderRadius: 25,
@@ -164,6 +170,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   inputText: {
+    flex: 1,
     height: 50,
     color: 'black',
   },
@@ -190,9 +197,6 @@ const styles = StyleSheet.create({
     maxWidth: '50%',
     textAlign: 'center',
     marginTop: 10,
-  },
-  disabledButton: {
-    backgroundColor: '#A9A9A9', // Change color for disabled state
   },
 });
 
