@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     padding: 20,
+    marginBottom: 20,
   },
   inputText: {
     height: 50,
