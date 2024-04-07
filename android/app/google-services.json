@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "552731092988",
+    "project_id": "cancerawareness-41508",
+    "storage_bucket": "cancerawareness-41508.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552731092988:android:9c183bc01cf0ffd579f479",
+        "android_client_info": {
+          "package_name": "com.javaintegration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "552731092988-1qr3ce1jc4cuaeukttnmml1emnpg6s34.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.javaintegration",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "552731092988-j76omm78blqb4gskq6mal294mnrv0l3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBezqGlFu4aSYxANzcNW1pfntTEruaEPRY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "552731092988-j76omm78blqb4gskq6mal294mnrv0l3e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
