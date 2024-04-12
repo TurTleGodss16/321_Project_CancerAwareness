@@ -11,7 +11,7 @@ const SignupScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');  
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(true);
   const [passwordStrength, setPasswordStrength] = useState(0); // Updated state initialization
@@ -25,15 +25,15 @@ const SignupScreen = () => {
 
   const handleSignup = async () => {
     if (password !== confirmPassword) {
-      Alert.alert("Signup Failed", "The passwords do not match.");
+      Alert.alert('Signup Failed', 'The passwords do not match.');
       return;
     }
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      Alert.alert("Success", "Account created successfully");
+      Alert.alert('Success', 'Account created successfully');
       navigation.navigate('Main');
     } catch (error) {
-      Alert.alert("Signup Failed", error.message);
+      Alert.alert('Signup Failed', error.message);
     }
   };
 
@@ -42,10 +42,10 @@ const SignupScreen = () => {
       const { idToken } = await GoogleSignin.signIn();
       const googleCredential = GoogleAuthProvider.credential(idToken);
       await signInWithCredential(auth, googleCredential);
-      Alert.alert("Success", "Signed in with Google");
+      Alert.alert('Success', 'Signed in with Google');
       navigation.navigate('Main');
     } catch (error) {
-      Alert.alert("Google Sign-up Failed", error.message);
+      Alert.alert('Google Sign-up Failed', error.message);
     }
   };
 
@@ -160,8 +160,8 @@ const styles = StyleSheet.create({
     top: -10,
   },
   inputView: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     width: '80%',
     backgroundColor: '#d3d3d3',
     borderRadius: 25,

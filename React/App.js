@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useRef, useEffect} from 'react';
@@ -29,10 +30,18 @@ import MultiLineHeaderTitle from './multiLineHeaderTitle';
 import LoginScreen from './Login';
 import SignupScreen from './signup';
 import ResetPasswordScreen from './ResetPassword';
+import NearByClinic from './NearByClinic';
+import AnalCancer from './Article/AnalCancer';
+import BladderCancer from './Article/BladderCancer';
+import BoneCancer from './Article/BoneCancer';
+import BrainCancer from './Article/BrainCancer';
+import BreastCancer from './Article/BreastCancer';
+import LungCancer from './Article/LungCancer';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**Import FCM */
 import messaging from '@react-native-firebase/messaging';
+import Articles from './Articles';
 
 const Stack = createNativeStackNavigator();
 
@@ -155,6 +164,26 @@ const Menu = () => {
                 style={styles.menuItem}
                 onPress={() => {
                   toggleMenu();
+                  navigation.navigate('NearByClinic');
+                }}>
+                <Icon name="hospital-o" size={20} color="black" />
+                <Text style={styles.menuText}>Clinic</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => {
+                  toggleMenu();
+                  navigation.navigate('Articles');
+                }}>
+                <Icon name="newspaper-o" size={20} color="black" />
+                <Text style={styles.menuText}>Articles</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => {
+                  toggleMenu();
                   navigation.navigate('Login');
                 }}>
                 <Icon name="sign-out" size={20} color="black" />
@@ -213,6 +242,18 @@ const Menu = () => {
               component={BookmarkScreen}
               options={{headerTitle: 'Bookmark', headerTitleAlign: 'center'}}
             />
+            <Stack.Screen
+              name="NearByClinic"
+              component={NearByClinic}
+              options={{headerTitle: 'Near By Clinic', headerTitleAlign: 'center'}}
+            />
+            {/* Testing articles */}
+            <Stack.Screen
+              name="Articles"
+              component={Articles}
+              options={{headerTitle: 'Articles', headerTitleAlign: 'center'}}
+            />
+
             <Stack.Screen
               name="Language"
               component={Language}
@@ -274,6 +315,54 @@ const Menu = () => {
               component={SignupScreen}
               options={{
                 headerTitle: 'Signup',
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="AnalCancer"
+              component={AnalCancer}
+              options={{
+                headerTitle: 'Anal Cancer',
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="BladderCancer"
+              component={BladderCancer}
+              options={{
+                headerTitle: 'Bladder Cancer',
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="BrainCancer"
+              component={BrainCancer}
+              options={{
+                headerTitle: 'Brain Cancer',
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="BoneCancer"
+              component={BoneCancer}
+              options={{
+                headerTitle: 'Bone Cancer',
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="BreastCancer"
+              component={BreastCancer}
+              options={{
+                headerTitle: 'Breast Cancer',
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="LungCancer"
+              component={LungCancer}
+              options={{
+                headerTitle: 'Lung Cancer',
                 headerTitleAlign: 'center',
               }}
             />
