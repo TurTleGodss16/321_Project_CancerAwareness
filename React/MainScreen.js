@@ -1,12 +1,61 @@
+/* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { View, TextInput, StyleSheet, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const MainScreen = ({ navigation, route }) => {
+const MainScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+
+  const cancerTypes = [
+    'Anal Cancer',
+    'Bladder Cancer',
+    'Bone Cancer',
+    'Brain Cancer',
+    'Breast Cancer',
+    'Lung Cancer',
+  ];
 
   const handleSearch = text => {
     setSearchText(text);
+    // If search text is empty, reset the suggestions
+    if (text === '') {
+      setSuggestions([]);
+    } else {
+      // Filter cancer types based on input text for autocomplete suggestions
+      const filteredSuggestions = cancerTypes.filter(cancerType =>
+        cancerType.toLowerCase().includes(text.toLowerCase())
+      );
+      setSuggestions(filteredSuggestions);
+    }
+  };
+  
+
+  const navigateToCancerArticle = cancerType => {
+    // Based on the selected cancer type, navigate to the corresponding article
+    switch (cancerType) {
+      case 'Anal Cancer':
+        navigation.navigate('AnalCancer');
+        break;
+      case 'Bladder Cancer':
+        navigation.navigate('BladderCancer');
+        break;
+      case 'Bone Cancer':
+        navigation.navigate('BoneCancer');
+        break;
+      case 'Brain Cancer':
+        navigation.navigate('BrainCancer');
+        break;
+      case 'Breast Cancer':
+        navigation.navigate('BreastCancer');
+        break;
+      case 'Lung Cancer':
+        navigation.navigate('LungCancer');
+        break;
+      // Add cases for other cancer types and navigate to respective screens
+      default:
+        break;
+    }
   };
 
   return (
@@ -21,44 +70,53 @@ const MainScreen = ({ navigation, route }) => {
           />
           <Icon name="search1" size={24} style={styles.iconCustom} />
         </View>
+        <FlatList
+          data={suggestions}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => navigateToCancerArticle(item)}>
+              <Text style={styles.suggestion}>{item}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
 
         <Text style={styles.headerText}>Quick Links</Text>
 
         <View style={styles.linksContainer}>
-          <TouchableOpacity style={styles.link}>
+          <TouchableOpacity style={[styles.link, styles.orangeBackground]} onPress={() => navigation.navigate('CancerDefinitions')}>
             <Image style={styles.linkIcon} source={require('../Images/cancer_symbol.png')} />
             <Text style={styles.linkText}>What is Cancer</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.link}>
+          <TouchableOpacity style={[styles.link, styles.orangeBackground]} onPress={() => navigation.navigate('CancerTypes')}>
             <Image style={styles.linkIcon} source={require('../Images/type_of_cancer.png')} />
             <Text style={styles.linkText}>Types</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.link}>
+          <TouchableOpacity style={[styles.link, styles.orangeBackground]}>
             <Image style={styles.linkIcon} source={require('../Images/reason.png')} />
             <Text style={styles.linkText}>Causes</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.linksContainer}>
-          <TouchableOpacity style={styles.link}>
+          <TouchableOpacity style={[styles.link, styles.orangeBackground]}>
             <Image style={styles.linkIcon} source={require('../Images/treatment.png')} />
             <Text style={styles.linkText}>Treatment</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.link}>
+          <TouchableOpacity style={[styles.link, styles.orangeBackground]}>
             <Image style={styles.linkIcon} source={require('../Images/side_effect.png')} />
             <Text style={styles.linkText}>Side Effects</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.link}>
+          <TouchableOpacity style={[styles.link, styles.orangeBackground]}>
             <Image style={styles.linkIcon} source={require('../Images/survey.png')} />
             <Text style={styles.linkText}>Survey</Text>
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('Booking')}>
+        <TouchableOpacity style={[styles.link, styles.orangeBackground]} onPress={() => navigation.navigate('Booking')}>
           <Image style={styles.linkIcon} source={require('../Images/booking.png')} />
           <Text style={styles.linkText}>Booking a Screening</Text>
         </TouchableOpacity>
@@ -125,6 +183,11 @@ const styles = StyleSheet.create({
   link: {
     alignItems: 'center',
   },
+  orangeBackground: {
+    backgroundColor: '#FFA500',
+    borderRadius: 5,
+    padding: 10,
+  },
   linkIcon: {
     width: 80,
     height: 80,
@@ -154,6 +217,11 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginTop: 5,
     fontSize: 12,
+  },
+  suggestion: {
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#CCCCCC',
   },
 });
 

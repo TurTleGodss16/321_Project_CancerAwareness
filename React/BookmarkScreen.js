@@ -1,79 +1,105 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
-const BookmarkScreen = ({ navigation }) => {
+const BookmarkScreen = ({route}) => {
+  const {savedArticles} = route.params;
+  const navigation = useNavigation();
+
+  const navigateToScreen = screenName => {
+    navigation.navigate(screenName);
+  };
+
+  // Define colors for each cancer type
+  const cancerColors = {
+    AnalCancer: '#ff7f50',
+    BladderCancer: '#6495ed',
+    BoneCancer: '#ff6347',
+    BrainCancer: '#8a2be2',
+    BreastCancer: '#ff69b4',
+    LungCancer: '#20b2aa',
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={require('../Images/Bookmark_Warning.png')}
-        />
-      </View>
-
-      <View style={styles.textContainer}>
-        <Text style={styles.headerText}>You have no bookmarks!</Text>
-        <Text style={styles.descriptionText}>
-          Click the flag icon on any article/page and it will appear here!
-        </Text>
-      </View>
+      {savedArticles.length === 0 ? (
+        <View style={styles.noBookmarkContainer}>
+          <Image
+            style={styles.image}
+            source={require('../Images/Bookmark_Warning.png')}
+          />
+          <Text style={styles.headerText}>You have no bookmarks!</Text>
+          <Text style={styles.descriptionText}>
+            Click the flag icon on any article/page and it will appear here!
+          </Text>
+        </View>
+      ) : (
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+          {savedArticles.map((article, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.itemContainer,
+                {backgroundColor: cancerColors[article.type]},
+              ]}
+              onPress={() => navigateToScreen(article.type)}>
+              <Text style={styles.headerText}>{article.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      )}
 
       {/* Bottom navigation bar */}
-      <View style={styles.bottomBar}>
-        <View style={styles.iconContainer}>
-          <Image
-            style={styles.icon}
-            source={require('../Images/home.png')}
-          />
-          <Text style={styles.textDescription}>Home</Text>
-        </View>
-        <View style={styles.iconContainer}>
-          <Image
-            style={styles.icon}
-            source={require('../Images/compass.png')}
-          />
-          <Text style={styles.textDescription}>Search</Text>
-        </View>
-        <View style={styles.iconContainer}>
-          <Image
-            style={styles.icon}
-            source={require('../Images/survey_bar.png')}
-          />
-          <Text style={styles.textDescription}>Survey</Text>
-        </View>
-      </View>
+      <View style={styles.bottomBar}>{/* Your bottom navigation items */}</View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: 'white',
+  },
+  noBookmarkContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  imageContainer: {
-    marginBottom: 20,
-  },
-  image: {
-    width: 150,
-    height: 150,
-  },
-  textContainer: {
+  scrollViewContent: {
+    flexGrow: 1,
     alignItems: 'center',
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
+  itemContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 100,
+    width: '80%',
+    borderRadius: 10,
     marginBottom: 20,
   },
   headerText: {
     fontWeight: 'bold',
     fontSize: 18,
     color: 'black',
-    marginBottom: 10,
   },
   descriptionText: {
     fontSize: 14,
     color: 'black',
     textAlign: 'center',
+  },
+  image: {
+    width: 150,
+    height: 150,
+    marginBottom: 20,
   },
   bottomBar: {
     flexDirection: 'row',
@@ -81,22 +107,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopWidth: 1,
     borderTopColor: 'gray',
-    width: '100%',
     position: 'absolute',
     bottom: 0,
+    left: 0,
+    right: 0,
     backgroundColor: 'white',
-  },
-  iconContainer: {
-    alignItems: 'center',
-  },
-  icon: {
-    width: 30,
-    height: 30,
-  },
-  textDescription: {
-    color: 'black',
-    fontSize: 12,
-    marginTop: 3,
+    paddingVertical: 10,
   },
 });
 

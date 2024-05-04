@@ -1,5 +1,6 @@
-/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/no-unstable-nested-components */
 import React, {useState, useRef, useEffect} from 'react';
 import {
   Text,
@@ -29,17 +30,44 @@ import MultiLineHeaderTitle from './multiLineHeaderTitle';
 import LoginScreen from './Login';
 import SignupScreen from './signup';
 import ResetPasswordScreen from './ResetPassword';
+import NearByClinic from './NearByClinic';
+import AnalCancer from './Article/AnalCancer';
+import BladderCancer from './Article/BladderCancer';
+import BoneCancer from './Article/BoneCancer';
+import BrainCancer from './Article/BrainCancer';
+import BreastCancer from './Article/BreastCancer';
+import LungCancer from './Article/LungCancer';
+import CancerDefinitions from './Article/CancerDefinitions';
+import CancerTypes from './Article/CancerTypes';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**Import FCM */
 import messaging from '@react-native-firebase/messaging';
+import Articles from './Articles';
 
 const Stack = createNativeStackNavigator();
 
 const Menu = () => {
   const navigation = useNavigation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [bookmarkColors, setBookmarkColors] = useState({
+    AnalCancer: 'black',
+    BladderCancer: 'black',
+    BoneCancer: 'black',
+    BrainCancer: 'black',
+    BreastCancer: 'black',
+    LungCancer: 'black',
+  });
+  const [savedArticles, setSavedArticles] = useState([]); //Save article
+
   const menuAnimation = useRef(new Animated.Value(0)).current;
+
+  const toggleBookmarkColor = articleName => {
+    setBookmarkColors(prevColors => ({
+      ...prevColors,
+      [articleName]: prevColors[articleName] === 'black' ? 'red' : 'black',
+    }));
+  };
 
   const toggleMenu = () => {
     const toValue = isMenuOpen ? 0 : 1;
@@ -145,10 +173,30 @@ const Menu = () => {
                 style={styles.menuItem}
                 onPress={() => {
                   toggleMenu();
-                  navigation.navigate('Bookmark');
+                  navigation.navigate('Bookmark', {savedArticles});
                 }}>
                 <Icon name="bookmark" size={20} color="black" />
                 <Text style={styles.menuText}>Bookmark</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => {
+                  toggleMenu();
+                  navigation.navigate('NearByClinic');
+                }}>
+                <Icon name="hospital-o" size={20} color="black" />
+                <Text style={styles.menuText}>Clinic</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => {
+                  toggleMenu();
+                  navigation.navigate('Articles');
+                }}>
+                <Icon name="newspaper-o" size={20} color="black" />
+                <Text style={styles.menuText}>Articles</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -214,6 +262,33 @@ const Menu = () => {
               options={{headerTitle: 'Bookmark', headerTitleAlign: 'center'}}
             />
             <Stack.Screen
+              name="NearByClinic"
+              component={NearByClinic}
+              options={{
+                headerTitle: 'Near By Clinic',
+                headerTitleAlign: 'center',
+              }}
+            />
+            {/* Testing articles */}
+            <Stack.Screen
+              name="Articles"
+              component={Articles}
+              options={{headerTitle: 'Articles', headerTitleAlign: 'center'}}
+            />
+
+            <Stack.Screen
+              name="CancerDefinitions"
+              component={CancerDefinitions}
+              options={{headerTitle: 'What is Cancer', headerTitleAlign: 'center'}}
+            />
+
+            <Stack.Screen
+              name="CancerTypes"
+              component={CancerTypes}
+              options={{headerTitle: 'Cancer Types', headerTitleAlign: 'center'}}
+            />
+
+            <Stack.Screen
               name="Language"
               component={Language}
               options={{
@@ -275,6 +350,138 @@ const Menu = () => {
               options={{
                 headerTitle: 'Signup',
                 headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="AnalCancer"
+              component={AnalCancer}
+              options={{
+                headerTitle: 'Anal Cancer',
+                headerTitleAlign: 'center',
+                headerRight: () => (
+                  <Icon
+                    name="bookmark"
+                    size={20}
+                    color={bookmarkColors.AnalCancer}
+                    onPress={() => {
+                      toggleBookmarkColor('AnalCancer');
+                      setSavedArticles([
+                        ...savedArticles,
+                        {name: 'Anal Cancer', type: 'AnalCancer'},
+                      ]);
+                    }} // Toggle color on press
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="BladderCancer"
+              component={BladderCancer}
+              options={{
+                headerTitle: 'Bladder Cancer',
+                headerTitleAlign: 'center',
+                headerRight: () => (
+                  <Icon
+                    name="bookmark"
+                    size={20}
+                    color={bookmarkColors.BladderCancer}
+                    onPress={() => {
+                      toggleBookmarkColor('BladderCancer');
+                      setSavedArticles([
+                        ...savedArticles,
+                        {name: 'Bladder Cancer', type: 'BladderCancer'},
+                      ]);
+                    }} // Toggle color on press
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="BrainCancer"
+              component={BrainCancer}
+              options={{
+                headerTitle: 'Brain Cancer',
+                headerTitleAlign: 'center',
+                headerRight: () => (
+                  <Icon
+                    name="bookmark"
+                    size={20}
+                    color={bookmarkColors.BrainCancer}
+                    onPress={() => {
+                      toggleBookmarkColor('BrainCancer');
+                      setSavedArticles([
+                        ...savedArticles,
+                        {name: 'Brain Cancer', type: 'BrainCancer'},
+                      ]);
+                    }} // Toggle color on press
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="BoneCancer"
+              component={BoneCancer}
+              options={{
+                headerTitle: 'Bone Cancer',
+                headerTitleAlign: 'center',
+                headerRight: () => (
+                  <Icon
+                    name="bookmark"
+                    size={20}
+                    color={bookmarkColors.BoneCancer}
+                    onPress={() => {
+                      toggleBookmarkColor('BoneCancer');
+                      setSavedArticles([
+                        ...savedArticles,
+                        {name: 'Bone Cancer', type: 'BoneCancer'},
+                      ]);
+                    }} // Toggle color on press
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="BreastCancer"
+              component={BreastCancer}
+              options={{
+                headerTitle: 'Breast Cancer',
+                headerTitleAlign: 'center',
+                headerRight: () => (
+                  <Icon
+                    name="bookmark"
+                    size={20}
+                    color={bookmarkColors.BreastCancer}
+                    onPress={() => {
+                      toggleBookmarkColor('BreastCancer');
+                      setSavedArticles([
+                        ...savedArticles,
+                        {name: 'Breast Cancer', type: 'BreastCancer'},
+                      ]);
+                    }} // Toggle color on press
+                  />
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="LungCancer"
+              component={LungCancer}
+              options={{
+                headerTitle: 'Lung Cancer',
+                headerTitleAlign: 'center',
+                headerRight: () => (
+                  <Icon
+                    name="bookmark"
+                    size={20}
+                    color={bookmarkColors.LungCancer}
+                    onPress={() => {
+                      toggleBookmarkColor('LungCancer');
+                      setSavedArticles([
+                        ...savedArticles,
+                        {name: 'Lung Cancer', type: 'LungCancer'},
+                      ]);
+                    }} // Toggle color on press
+                  />
+                ),
               }}
             />
           </Stack.Navigator>
