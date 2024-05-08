@@ -39,6 +39,7 @@ import BreastCancer from './Article/BreastCancer';
 import LungCancer from './Article/LungCancer';
 import CancerDefinitions from './Article/CancerDefinitions';
 import CancerTypes from './Article/CancerTypes';
+import ChatbotScreen from "./Chatbot";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 /**Import FCM */
@@ -482,6 +483,14 @@ const Menu = () => {
                     }} // Toggle color on press
                   />
                 ),
+              }}
+            />
+            <Stack.Screen
+              name="Chatbot"
+              component={ChatbotScreen}
+              options={{
+                headerTitle: 'Chatbot',
+                headerTitleAlign: 'center',
               }}
             />
           </Stack.Navigator>

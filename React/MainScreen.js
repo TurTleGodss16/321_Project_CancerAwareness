@@ -120,6 +120,13 @@ const MainScreen = ({ navigation }) => {
           <Image style={styles.linkIcon} source={require('../Images/booking.png')} />
           <Text style={styles.linkText}>Booking a Screening</Text>
         </TouchableOpacity>
+        
+        <TouchableOpacity
+          style={[styles.button, styles.orangeBackground]}
+          onPress={() => navigation.navigate('Chatbot')}
+        >
+          <Text style={styles.linkText}>Go to Chatbot</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.bottomBar}>
@@ -137,6 +144,8 @@ const MainScreen = ({ navigation }) => {
           <Image style={styles.bottomBarIcon} source={require('../Images/survey_bar.png')} />
           <Text style={styles.bottomBarText}>Survey</Text>
         </TouchableOpacity>
+
+        
       </View>
     </View>
   );
@@ -222,6 +231,15 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#CCCCCC',
+  },
+  button: {
+    padding: 10,
+    marginTop: 10,
+  },
+  buttonText: {
+    fontSize: 18,
+    color: '#fff',
+    textAlign: 'center',
   },
 });
 
