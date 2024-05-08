@@ -125,7 +125,7 @@ const MainScreen = ({ navigation }) => {
           style={[styles.button, styles.orangeBackground]}
           onPress={() => navigation.navigate('Chatbot')}
         >
-          <Text style={styles.linkText}>Go to Chatbot</Text>
+          <Text style={styles.buttonText}>Go to Chatbot</Text>
         </TouchableOpacity>
       </View>
 
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   orangeBackground: {
-    backgroundColor: '#FFA500',
+    backgroundColor: '##ff914d',
     borderRadius: 5,
     padding: 10,
   },
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: '#fff',
+    color: "black",
     textAlign: 'center',
   },
 });
