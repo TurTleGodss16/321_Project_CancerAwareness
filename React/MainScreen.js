@@ -93,7 +93,7 @@ const MainScreen = ({ navigation }) => {
             <Text style={styles.linkText}>Types</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.link, styles.orangeBackground]}>
+          <TouchableOpacity style={[styles.link, styles.orangeBackground]}onPress={() => navigation.navigate('Causes')}>
             <Image style={styles.linkIcon} source={require('../Images/reason.png')} />
             <Text style={styles.linkText}>Causes</Text>
           </TouchableOpacity>

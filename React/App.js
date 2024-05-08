@@ -39,6 +39,7 @@ import BreastCancer from './Article/BreastCancer';
 import LungCancer from './Article/LungCancer';
 import CancerDefinitions from './Article/CancerDefinitions';
 import CancerTypes from './Article/CancerTypes';
+import Causes from './Article/Causes';
 import ChatbotScreen from "./Chatbot";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -493,6 +494,13 @@ const Menu = () => {
                 headerTitleAlign: 'center',
               }}
             />
+            <Stack.Screen
+              name = "Causes"
+              component = {Causes}
+              options = {{
+                headerTitle: 'Causes',
+                headerTitleAlign: 'center',
+              }}/>
           </Stack.Navigator>
         </View>
       </TouchableOpacity>
