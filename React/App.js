@@ -41,6 +41,7 @@ import CancerDefinitions from './Article/CancerDefinitions';
 import CancerTypes from './Article/CancerTypes';
 import Treatment from './Article/Treament'; 
 import Causes from './Article/Causes';
+import SideEffects from './Article/SideEffects';
 import ChatbotScreen from "./Chatbot";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -507,6 +508,13 @@ const Menu = () => {
               component = {Treatment}
               options = {{
                 headerTitle: 'Treatment',
+                headerTitleAlign: 'center',
+              }}/>
+              <Stack.Screen
+              name = "SideEffects"
+              component = {SideEffects}
+              options = {{
+                headerTitle: 'Side Effects',
                 headerTitleAlign: 'center',
               }}/>
           </Stack.Navigator>

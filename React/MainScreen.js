@@ -105,7 +105,7 @@ const MainScreen = ({ navigation }) => {
             <Text style={styles.linkText}>Treatment</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.link, styles.orangeBackground]}>
+          <TouchableOpacity style={[styles.link, styles.orangeBackground]} onPress={() => navigation.navigate('SideEffects')}>
             <Image style={styles.linkIcon} source={require('../Images/side_effect.png')} />
             <Text style={styles.linkText}>Side Effects</Text>
           </TouchableOpacity>
