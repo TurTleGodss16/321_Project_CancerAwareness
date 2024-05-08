@@ -116,16 +116,17 @@ const MainScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={[styles.link, styles.orangeBackground]} onPress={() => navigation.navigate('Booking')}>
-          <Image style={styles.linkIcon} source={require('../Images/booking.png')} />
-          <Text style={styles.linkText}>Booking a Screening</Text>
-        </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={[styles.button, styles.orangeBackground]}
           onPress={() => navigation.navigate('Chatbot')}
         >
           <Text style={styles.buttonText}>Go to Chatbot</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.link, styles.bookingBackground]} onPress={() => navigation.navigate('Booking')}>
+          <Image style={styles.linkIcon} source={require('../Images/booking.png')} />
+          <Text style={styles.linkText}>Booking a Screening</Text>
         </TouchableOpacity>
       </View>
 
@@ -197,6 +198,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
   },
+  bookingBackground: {
+    backgroundColor: '#BCE08A', // New background color
+    borderRadius: 5,
+    padding: 10,
+  },
   linkIcon: {
     width: 80,
     height: 80,
@@ -234,7 +240,7 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 10,
-    marginTop: 10,
+    marginBottom: 10,
   },
   buttonText: {
     fontSize: 18,
