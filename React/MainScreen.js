@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   orangeBackground: {
-    backgroundColor: '##ff914d',
+    backgroundColor: '#ff914d',
     borderRadius: 5,
     padding: 10,
   },
