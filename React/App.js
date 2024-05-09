@@ -226,7 +226,6 @@ const Menu = () => {
                 headerTitleAlign: 'center',
               }}
             />
-
             <Stack.Screen
               name="Main"
               component={MainScreen}
@@ -237,7 +236,19 @@ const Menu = () => {
                   <TouchableOpacity
                     style={{marginLeft: 20}}
                     onPress={toggleMenu}>
-                    <Text style={{fontSize: 20}}>☰</Text>
+                      <View style={{
+                        width: 40, // Diameter of the outer circle
+                        height: 40, // Diameter of the outer circle
+                        borderRadius: 20, // Radius to make it a perfect circle
+                        backgroundColor: 'black', // Background color of the circle
+                        justifyContent: 'center', // Center the icon elements vertically
+                        alignItems: 'center' // Center the icon elements horizontally
+                      }}>
+                        <Image
+                          source={require('../Images/HamburgerButton.png')} // Ensure this path matches your file's location
+                          style={{ width: 20, height: 20 }} // Adjust size as needed
+                        />
+                      </View>
                   </TouchableOpacity>
                 ),
               }}
