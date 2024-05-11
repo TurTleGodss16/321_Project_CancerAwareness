@@ -28,7 +28,7 @@ const EditAccountScreen = ({navigation, route}) => {
 
     let options = {
       storageOptions:{
-        path: "image"
+        path: "image",
       }
     }
 

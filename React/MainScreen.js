@@ -1,6 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Text, Image, TouchableOpacity, FlatList } from 'react-native';
+import { View, TextInput, StyleSheet, Text, Image, TouchableOpacity, FlatList, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 const MainScreen = ({ navigation }) => {
@@ -29,7 +30,6 @@ const MainScreen = ({ navigation }) => {
       setSuggestions(filteredSuggestions);
     }
   };
-  
 
   const navigateToCancerArticle = cancerType => {
     // Based on the selected cancer type, navigate to the corresponding article
@@ -59,75 +59,89 @@ const MainScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.searchContainer}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Search..."
-            value={searchText}
-            onChangeText={handleSearch}
+    <SafeAreaView style={styles.container}>
+      <View style={styles.contentContainer}>
+        <View style={styles.searchContainer}>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Search..."
+              value={searchText}
+              onChangeText={handleSearch}
+            />
+            <Icon name="search1" size={24} style={styles.iconCustom} />
+          </View>
+          <FlatList
+            data={suggestions}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={() => navigateToCancerArticle(item)}>
+                <Text style={styles.suggestion}>{item}</Text>
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item, index) => index.toString()}
           />
-          <Icon name="search1" size={24} style={styles.iconCustom} />
+
+          <Text style={styles.headerText}>Quick Links</Text>
+
+          <View style={styles.linksContainer}>
+            <View style={styles.link}>
+              <TouchableOpacity style={styles.orangeBackground} onPress={() => navigation.navigate('CancerDefinitions')}>
+                <Image style={styles.linkIcon} source={require('../Images/cancer_symbol.png')} />
+              </TouchableOpacity>
+              <Text style={styles.linkText}>What is Cancer</Text>
+            </View>
+
+            <View style={styles.link}>
+              <TouchableOpacity style={styles.orangeBackground} onPress={() => navigation.navigate('CancerTypes')}>
+                <Image style={styles.linkIcon} source={require('../Images/type_of_cancer.png')} />
+              </TouchableOpacity>
+              <Text style={styles.linkText}>Types</Text>
+            </View>
+
+            <View style={styles.link}>
+              <TouchableOpacity style={styles.orangeBackground} onPress={() => navigation.navigate('Causes')}>
+                <Image style={styles.linkIcon} source={require('../Images/reason.png')} />
+              </TouchableOpacity>
+              <Text style={styles.linkText}>Causes</Text>
+            </View>
+
+            <View style={styles.link}>
+              <TouchableOpacity style={styles.orangeBackground} onPress={() => navigation.navigate('Treatment')}>
+                <Image style={styles.linkIcon} source={require('../Images/treatment.png')} />
+              </TouchableOpacity>
+              <Text style={styles.linkText}>Treatment</Text>
+            </View>
+
+            <View style={styles.link}>
+              <TouchableOpacity style={styles.orangeBackground} onPress={() => navigation.navigate('SideEffects')}>
+                <Image style={styles.linkIcon} source={require('../Images/side_effect.png')} />
+              </TouchableOpacity>
+              <Text style={styles.linkText}>Side Effects</Text>
+            </View>
+
+            <View style={styles.link}>
+              <TouchableOpacity style={styles.orangeBackground}>
+                <Image style={styles.linkIcon} source={require('../Images/survey.png')} />
+              </TouchableOpacity>
+              <Text style={styles.linkText}>Survey</Text>
+            </View>
+          </View>
+
+          {/* Remaining components */}
+          <TouchableOpacity
+            style={[styles.chatbotButton]} // Apply orange background
+            onPress={() => navigation.navigate('Chatbot')}
+          >
+            <Image style={styles.chatbotIcon} source={require('../Images/ChatbotIcon.png')} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.centeredBooking} onPress={() => navigation.navigate('Booking')}>
+            <Text style={styles.linkText}>Booking a Screening</Text>
+            <View style={[styles.linkBooking, styles.bookingBackground]}>
+              <Image style={[styles.linkIcon, {alignSelf: 'center', width: 200, height: 150}]} source={require('../Images/booking.png')} />
+            </View>
+          </TouchableOpacity>
         </View>
-        <FlatList
-          data={suggestions}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigateToCancerArticle(item)}>
-              <Text style={styles.suggestion}>{item}</Text>
-            </TouchableOpacity>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
-
-        <Text style={styles.headerText}>Quick Links</Text>
-
-        <View style={styles.linksContainer}>
-          <TouchableOpacity style={[styles.link, styles.orangeBackground]} onPress={() => navigation.navigate('CancerDefinitions')}>
-            <Image style={styles.linkIcon} source={require('../Images/cancer_symbol.png')} />
-            <Text style={styles.linkText}>What is Cancer</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={[styles.link, styles.orangeBackground]} onPress={() => navigation.navigate('CancerTypes')}>
-            <Image style={styles.linkIcon} source={require('../Images/type_of_cancer.png')} />
-            <Text style={styles.linkText}>Types</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={[styles.link, styles.orangeBackground]} onPress={() => navigation.navigate('Causes')}>
-            <Image style={styles.linkIcon} source={require('../Images/reason.png')} />
-            <Text style={styles.linkText}>Causes</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.linksContainer}>
-          <TouchableOpacity style={[styles.link, styles.orangeBackground]} onPress={() => navigation.navigate('Treatment')}>
-            <Image style={styles.linkIcon} source={require('../Images/treatment.png')} />
-            <Text style={styles.linkText}>Treatment</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={[styles.link, styles.orangeBackground]} onPress={() => navigation.navigate('SideEffects')}>
-            <Image style={styles.linkIcon} source={require('../Images/side_effect.png')} />
-            <Text style={styles.linkText}>Side Effects</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={[styles.link, styles.orangeBackground]}>
-            <Image style={styles.linkIcon} source={require('../Images/survey.png')} />
-            <Text style={styles.linkText}>Survey</Text>
-          </TouchableOpacity>
-        </View>
-
-
-        <TouchableOpacity
-          style={[styles.button, styles.orangeBackground]}
-          onPress={() => navigation.navigate('Chatbot')}
-        >
-          <Text style={styles.buttonText}>Go to Chatbot</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={[styles.link, styles.bookingBackground]} onPress={() => navigation.navigate('Booking')}>
-          <Image style={styles.linkIcon} source={require('../Images/booking.png')} />
-          <Text style={styles.linkText}>Booking a Screening</Text>
-        </TouchableOpacity>
       </View>
 
       <View style={styles.bottomBar}>
@@ -138,17 +152,15 @@ const MainScreen = ({ navigation }) => {
 
         <TouchableOpacity style={styles.bottomBarItem} onPress={() => navigation.navigate('Search')}>
           <Image style={styles.bottomBarIcon} source={require('../Images/compass.png')} />
-          <Text style={styles.bottomBarText}>Search</Text>
+          <Text style={styles.bottomBarText}>Articles</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.bottomBarItem} onPress={() => navigation.navigate('Survey')}>
           <Image style={styles.bottomBarIcon} source={require('../Images/survey_bar.png')} />
           <Text style={styles.bottomBarText}>Survey</Text>
         </TouchableOpacity>
-
-        
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -157,6 +169,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     justifyContent: 'space-between',
+  },
+  contentContainer: {
+    flex: 1,
   },
   searchContainer: {
     padding: 20,
@@ -184,28 +199,41 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#333333',
     marginBottom: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   linksContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     marginBottom: 20,
   },
   link: {
     alignItems: 'center',
+    marginBottom: 20,
+    marginRight: 15,
+  },
+  linkBooking: {
+    width: 200,
   },
   orangeBackground: {
     backgroundColor: '#ff914d',
     borderRadius: 5,
     padding: 10,
   },
+  centeredBooking: {
+    alignItems: 'center', // Align the booking section in the center
+    bottom: 20, // Add space between booking and bottom bar
+  },
   bookingBackground: {
-    backgroundColor: '#BCE08A', // New background color
+    backgroundColor: '#BCE08A', // Green color for booking
     borderRadius: 5,
     padding: 10,
   },
   linkIcon: {
-    width: 80,
-    height: 80,
+    width: 70,
+    height: 70,
   },
   linkText: {
     color: '#333333',
@@ -223,6 +251,7 @@ const styles = StyleSheet.create({
   },
   bottomBarItem: {
     alignItems: 'center',
+    height: 45,
   },
   bottomBarIcon: {
     width: 30,
@@ -238,14 +267,21 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#CCCCCC',
   },
-  button: {
-    padding: 10,
-    marginBottom: 10,
+  chatbotButton: {
+    position: 'absolute',
+    top: 650,
+    right: 25,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#ff914d',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 999,
   },
-  buttonText: {
-    fontSize: 18,
-    color: "black",
-    textAlign: 'center',
+  chatbotIcon: {
+    width: 60,
+    height: 60,
   },
 });
 
