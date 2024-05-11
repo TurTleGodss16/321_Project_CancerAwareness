@@ -81,7 +81,7 @@ const MainScreen = ({ navigation }) => {
             keyExtractor={(item, index) => index.toString()}
           />
 
-          <Text style={styles.headerText}>Quick Links</Text>
+          <Text style={[styles.headerText, styles.dmSansFont, {justifyContent: 'center', alignSelf: 'center'}]}>Quick Links</Text>
 
           <View style={styles.linksContainer}>
             <View style={styles.link}>
@@ -136,7 +136,7 @@ const MainScreen = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.centeredBooking} onPress={() => navigation.navigate('Booking')}>
-            <Text style={styles.linkText}>Booking a Screening</Text>
+            <Text style={[styles.linkText, styles.dmSansFont]}>Booking a Screening</Text>
             <View style={[styles.linkBooking, styles.bookingBackground]}>
               <Image style={[styles.linkIcon, {alignSelf: 'center', width: 200, height: 150}]} source={require('../Images/booking.png')} />
             </View>
@@ -145,17 +145,17 @@ const MainScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.bottomBarItem} onPress={() => navigation.navigate('Home')}>
-          <Image style={styles.bottomBarIcon} source={require('../Images/home.png')} />
+        <TouchableOpacity style={styles.bottomBarItem} onPress={() => navigation.navigate('MainScreen')}>
+          <Image style={styles.bottomBarIconHome} source={require('../Images/home.png')} />
           <Text style={styles.bottomBarText}>Home</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.bottomBarItem} onPress={() => navigation.navigate('Search')}>
+        <TouchableOpacity style={styles.bottomBarItem} onPress={() => navigation.navigate('Articles')}>
           <Image style={styles.bottomBarIcon} source={require('../Images/compass.png')} />
           <Text style={styles.bottomBarText}>Articles</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.bottomBarItem} onPress={() => navigation.navigate('Survey')}>
+        <TouchableOpacity style={styles.bottomBarItem} onPress={() => navigation.navigate('SurveyScreen')}>
           <Image style={styles.bottomBarIcon} source={require('../Images/survey_bar.png')} />
           <Text style={styles.bottomBarText}>Survey</Text>
         </TouchableOpacity>
@@ -235,6 +235,10 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
   },
+  linkIconSurvey: {
+    width: 70,
+    height: 65,
+  },
   linkText: {
     color: '#333333',
     marginTop: 5,
@@ -254,8 +258,12 @@ const styles = StyleSheet.create({
     height: 45,
   },
   bottomBarIcon: {
-    width: 30,
-    height: 30,
+    width: 33.5,
+    height: 33,
+  },
+  bottomBarIconHome: {
+    width: 32,
+    height: 32,
   },
   bottomBarText: {
     color: '#333333',
@@ -278,6 +286,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 999,
+  },
+  dmSansFont: {
+    fontFamily: 'DMSans_18pt-SemiBold',
+    fontSize: 20,
+  },
+  loraFont: {
+    fontFamily: 'Lora',
   },
   chatbotIcon: {
     width: 60,
