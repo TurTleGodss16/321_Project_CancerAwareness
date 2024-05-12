@@ -120,7 +120,7 @@ const MainScreen = ({ navigation }) => {
             </View>
 
             <View style={styles.link}>
-              <TouchableOpacity style={styles.orangeBackground}>
+              <TouchableOpacity style={styles.orangeBackground} onPress={() => navigation.navigate('Survey')}>
                 <Image style={styles.linkIcon} source={require('../Images/survey.png')} />
               </TouchableOpacity>
               <Text style={styles.linkText}>Survey</Text>

@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/DMSans_18pt-SemiBold.ttf",
+      "sha1": "0238b3dd66beb77571a61df2a629b79beff33cef"
+    },
+    {
+      "path": "assets/fonts/Lora-SemiBold.ttf",
+      "sha1": "642232c25f14075f6d62956702a1eea5e396f29e"
+    }
+  ]
+}

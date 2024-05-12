@@ -48,6 +48,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 /**Import FCM */
 import messaging from '@react-native-firebase/messaging';
 import Articles from './Articles';
+import SurveyScreen from './Survey';
 
 const Stack = createNativeStackNavigator();
 
@@ -526,6 +527,13 @@ const Menu = () => {
               component = {SideEffects}
               options = {{
                 headerTitle: 'Side Effects',
+                headerTitleAlign: 'center',
+              }}/>
+              <Stack.Screen
+              name = "Survey"
+              component = {SurveyScreen}
+              options = {{
+                headerTitle: 'Survey',
                 headerTitleAlign: 'center',
               }}/>
           </Stack.Navigator>
