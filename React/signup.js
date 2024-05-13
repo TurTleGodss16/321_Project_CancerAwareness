@@ -26,15 +26,27 @@ const SignupScreen = () => {
 
   const handleSignup = async () => {
     if (password !== confirmPassword) {
-      Alert.alert("Signup Failed", "The passwords do not match.");
+      Alert.alert('Signup Failed', 'The passwords do not match.');
       return;
     }
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      Alert.alert("Success", "Account created successfully");
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      // Update the user's profile with their name
+      await userCredential.user.updateProfile({
+        displayName: name
+      });
+  
+      // Add a new document in Firestore with additional user details
+      await firestore.collection('users').doc(userCredential.user.uid).set({
+        name: name,
+        email: email,
+        createdAt: new Date() // Store the date of account creation
+      });
+  
+      Alert.alert('Success', 'Account created successfully');
       navigation.navigate('Main');
     } catch (error) {
-      Alert.alert("Signup Failed", error.message);
+      Alert.alert('Signup Failed', error.message);
     }
   };
 
