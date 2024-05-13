@@ -5,6 +5,9 @@ import { createUserWithEmailAndPassword, signInWithCredential, GoogleAuthProvide
 import { auth } from './firebaseConfig';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { doc, setDoc } from 'firebase/firestore'; // Import required functions from Firestore
+import { firestore } from './firebaseConfig'; // Make sure you export 'db' from your firebaseConfig file
+
 
 const SignupScreen = () => {
   const navigation = useNavigation();
@@ -26,27 +29,24 @@ const SignupScreen = () => {
 
   const handleSignup = async () => {
     if (password !== confirmPassword) {
-      Alert.alert('Signup Failed', 'The passwords do not match.');
+      Alert.alert("Signup Failed", "The passwords do not match.");
       return;
     }
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // Update the user's profile with their name
-      await userCredential.user.updateProfile({
-        displayName: name
-      });
+      const user = userCredential.user;
   
-      // Add a new document in Firestore with additional user details
-      await firestore.collection('users').doc(userCredential.user.uid).set({
+      // Add user info to Firestore
+      const userDocRef = doc(firestore, "users", user.uid); // Create a document reference with the user's UID
+      await setDoc(userDocRef, {
         name: name,
-        email: email,
-        createdAt: new Date() // Store the date of account creation
+        email: email
       });
   
-      Alert.alert('Success', 'Account created successfully');
+      Alert.alert("Success", "Account created successfully");
       navigation.navigate('Main');
     } catch (error) {
-      Alert.alert('Signup Failed', error.message);
+      Alert.alert("Signup Failed", error.message);
     }
   };
 
