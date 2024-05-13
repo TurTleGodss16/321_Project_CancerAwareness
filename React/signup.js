@@ -1,9 +1,8 @@
-/* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Alert, ProgressBarAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createUserWithEmailAndPassword, signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from './FirebaseConfig';
+import { auth } from './firebaseConfig';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -11,11 +10,13 @@ const SignupScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');  
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [confirmPasswordVisibility, setConfirmPasswordVisibility] = useState(true);
   const [passwordStrength, setPasswordStrength] = useState(0); // Updated state initialization
   const [passwordFeedback, setPasswordFeedback] = useState('');
+  const [name, setName] = useState('');
+
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -25,15 +26,15 @@ const SignupScreen = () => {
 
   const handleSignup = async () => {
     if (password !== confirmPassword) {
-      Alert.alert('Signup Failed', 'The passwords do not match.');
+      Alert.alert("Signup Failed", "The passwords do not match.");
       return;
     }
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      Alert.alert('Success', 'Account created successfully');
+      Alert.alert("Success", "Account created successfully");
       navigation.navigate('Main');
     } catch (error) {
-      Alert.alert('Signup Failed', error.message);
+      Alert.alert("Signup Failed", error.message);
     }
   };
 
@@ -42,10 +43,10 @@ const SignupScreen = () => {
       const { idToken } = await GoogleSignin.signIn();
       const googleCredential = GoogleAuthProvider.credential(idToken);
       await signInWithCredential(auth, googleCredential);
-      Alert.alert('Success', 'Signed in with Google');
+      Alert.alert("Success", "Signed in with Google");
       navigation.navigate('Main');
     } catch (error) {
-      Alert.alert('Google Sign-up Failed', error.message);
+      Alert.alert("Google Sign-up Failed", error.message);
     }
   };
 
@@ -80,8 +81,17 @@ const SignupScreen = () => {
   };
 
   return (
+    
     <View style={styles.container}>
       <Text style={styles.logo}>Cancer Awareness</Text>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          placeholder="Name"
+          value={name}
+          onChangeText={setName}
+        />
+      </View>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
@@ -160,8 +170,8 @@ const styles = StyleSheet.create({
     top: -10,
   },
   inputView: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     width: '80%',
     backgroundColor: '#d3d3d3',
     borderRadius: 25,
