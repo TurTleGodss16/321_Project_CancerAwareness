@@ -117,7 +117,7 @@ const LoginScreen = () => {
       <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignin}>
         <Text style={styles.buttonText}>LOGIN WITH GOOGLE</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+      <TouchableOpacity onPress={() => navigation.navigate('signup')}>
         <Text style={styles.signupText}>Don't have an account? Sign Up</Text>
       </TouchableOpacity>
     </View>

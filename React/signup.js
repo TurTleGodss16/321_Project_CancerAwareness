@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable quotes */
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Alert, ProgressBarAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -143,10 +145,14 @@ const SignupScreen = () => {
         style={styles.progressBar}
       />
       <Text style={styles.passwordFeedback}>{passwordFeedback}</Text>
-      <TouchableOpacity style={styles.button} onPress={handleSignup}>
+      <TouchableOpacity style={styles.button}
+                        onPress={handleSignup}
+                        >
         <Text style={styles.buttonText}>Sign Up with Email</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignup}>
+      <TouchableOpacity style={styles.googleButton}
+                        onPress={handleGoogleSignup}
+                        >
         <Text style={styles.buttonText}>Sign Up with Google</Text>
       </TouchableOpacity>
     </View>
