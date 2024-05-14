@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, Button, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, Button, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, firestore } from './firebaseConfig'; // Import Firebase configuration
 import { doc, getDoc } from 'firebase/firestore'; // Import required Firestore functions
@@ -44,36 +44,23 @@ const AccountScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View>
-          <View>
-            <View>
-              <View
-                style={{
-                  alignItems: 'center',
-                  marginVertical: 22,
-                }}>
-                <Image
-                  source={require('../Images/ProfilePic.png')}
-                  style={styles.profileImage}
-                />
-              </View>
-              <Text style={styles.title}>Name</Text>
-              <View style={styles.textBox}>
-                <Text>{userName}</Text>
-              </View>
-              <Text style={styles.title}>Email</Text>
-              <View style={styles.textBox}>
-                <Text>{userEmail}</Text>
-              </View>
-              <Button
-                title="Edit"
-                onPress={() => {
-                  navigation.navigate('EditAccountScreen');
-                }}
-              />
-            </View>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={styles.profileSection}>
+          <Image
+            source={require('../Images/ProfilePic.png')}
+            style={styles.profileImage}
+          />
+          <Text style={styles.title}>Name</Text>
+          <View style={styles.textBox}>
+            <Text>{userName}</Text>
           </View>
+          <Text style={styles.title}>Email</Text>
+          <View style={styles.textBox}>
+            <Text>{userEmail}</Text>
+          </View>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditAccountScreen')}>
+            <Text style={styles.buttonText}>Edit</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.recentArticles}>
           <Text style={styles.title}>Recent Articles</Text>
@@ -88,36 +75,21 @@ const AccountScreen = ({ navigation }) => {
       <View style={styles.bottomBar}>
         <View style={{ marginLeft: 20 }}>
           <Image
-            style={{
-              width: 40,
-              height: 40,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
+            style={styles.bottomBarIcon}
             source={require('../Images/home.png')}
           />
           <Text style={styles.textDescription}>Home</Text>
         </View>
         <View style={{ marginLeft: 120, marginTop: 8 }}>
           <Image
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
+            style={styles.bottomBarIcon}
             source={require('../Images/compass.png')}
           />
           <Text style={styles.textDescription}>Search</Text>
         </View>
         <View style={{ marginLeft: 120, marginTop: 6 }}>
           <Image
-            style={{
-              width: 30,
-              height: 30,
-              alignItems: 'center',
-              alignSelf: 'center',
-            }}
+            style={styles.bottomBarIcon}
             source={require('../Images/survey_bar.png')}
           />
           <Text style={styles.textDescription}>Survey</Text>
@@ -130,18 +102,15 @@ const AccountScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
-    backgroundColor: 'white',
+    backgroundColor: '#ffffff',
   },
-  textBox: {
-    height: 44,
-    width: '100%',
-    borderColor: 'Grey',
-    borderWidth: 1,
-    borderRadius: 4,
-    marginVertical: 6,
-    justifyContent: 'center',
-    paddingLeft: 8,
+  scrollView: {
+    alignItems: 'center',
+    paddingVertical: 20,
+  },
+  profileSection: {
+    width: '80%',
+    alignItems: 'center',
   },
   profileImage: {
     height: 150,
@@ -149,13 +118,40 @@ const styles = StyleSheet.create({
     borderRadius: 75,
     borderWidth: 2,
     borderColor: 'black',
+    marginBottom: 20,
   },
-  recentArticles: {
-    marginTop: 24,
+  textBox: {
+    width: '100%',
+    backgroundColor: '#d3d3d3',
+    borderRadius: 25,
+    height: 50,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    marginBottom: 20,
   },
   title: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
+    color: '#000000',
+    marginBottom: 10,
+  },
+  button: {
+    width: '100%',
+    backgroundColor: '#0000FF',
+    borderRadius: 25,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  recentArticles: {
+    width: '80%',
+    marginTop: 24,
   },
   recentArticle: {
     marginTop: 12,
@@ -178,6 +174,17 @@ const styles = StyleSheet.create({
     right: 0,
     borderTopWidth: 1,
     flexDirection: 'row',
+  },
+  bottomBarIcon: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  textDescription: {
+    textAlign: 'center',
+    fontSize: 12,
+    marginTop: 4,
   },
 });
 
