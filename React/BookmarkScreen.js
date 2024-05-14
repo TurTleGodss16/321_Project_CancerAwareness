@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable prettier/prettier */
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,11 +8,32 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { collection, query, where, getDocs, doc } from 'firebase/firestore';
+import { firestore, auth } from './firebaseConfig';
 
-const BookmarkScreen = ({route}) => {
-  const {savedArticles} = route.params;
+const BookmarkScreen = () => {
   const navigation = useNavigation();
+  const [savedArticles, setSavedArticles] = useState([]);
+
+  useEffect(() => {
+    // Function to fetch articles associated with the user from Firestore
+    const fetchArticles = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const userDocRef = doc(firestore, "users", user.uid);
+        const articlesCollectionRef = collection(userDocRef, "articles");
+        const querySnapshot = await getDocs(articlesCollectionRef);
+        const articles = [];
+        querySnapshot.forEach((doc) => {
+          articles.push(doc.data());
+        });
+        setSavedArticles(articles);
+      }
+    };
+
+    fetchArticles();
+  }, []);
 
   const navigateToScreen = screenName => {
     navigation.navigate(screenName);

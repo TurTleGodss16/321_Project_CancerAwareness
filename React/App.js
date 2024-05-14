@@ -48,6 +48,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import messaging from '@react-native-firebase/messaging';
 import Articles from './Articles';
 import SurveyScreen from './Survey';
+import { doc, setDoc, collection } from 'firebase/firestore'; // Import required functions from Firestore
+import { firestore, auth } from './firebaseConfig'; // Make sure you export 'db' from your firebaseConfig file
 
 const Stack = createNativeStackNavigator();
 
@@ -65,11 +67,38 @@ const App = () => {
   const menuAnimation = useRef(new Animated.Value(0)).current;
 
   const toggleBookmarkColor = articleName => {
-    setBookmarkColors(prevColors => ({
-      ...prevColors,
-      [articleName]: prevColors[articleName] === 'black' ? 'red' : 'black',
-    }));
+    const newBookmarkColors = {
+      ...bookmarkColors,
+      [articleName]: bookmarkColors[articleName] === 'black' ? 'red' : 'black',
+    };
+  
+    setBookmarkColors(newBookmarkColors);
+  
+    const isBookmarked = newBookmarkColors[articleName] === 'red';
+  
+    if (isBookmarked) {
+      // Save the article to Firestore
+      const user = auth.currentUser;
+      if (user) {
+        const userDocRef = doc(firestore, "users", user.uid);
+        const articlesCollectionRef = collection(userDocRef, "articles");
+        setDoc(doc(articlesCollectionRef, articleName), { name: articleName, type: articleName })
+          .then(() => console.log("Article saved to Firestore"))
+          .catch(error => console.error("Error saving article to Firestore: ", error));
+      }
+    } else {
+      // Remove the article from Firestore
+      const user = auth.currentUser;
+      if (user) {
+        const userDocRef = doc(firestore, "users", user.uid);
+        const articleDocRef = doc(collection(userDocRef, "articles"), articleName);
+        deleteDoc(articleDocRef)
+          .then(() => console.log("Article removed from Firestore"))
+          .catch(error => console.error("Error removing article from Firestore: ", error));
+      }
+    }
   };
+  
 
   const toggleMenu = () => {
     const toValue = isMenuOpen ? 0 : 1;

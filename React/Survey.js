@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -23,7 +24,7 @@ const SurveyScreen = ({ navigation }) => {
     'Question 2': 10,
     'Question 3': 35,
     'Question 4': 15,
-    'Question 5': 5
+    'Question 5': 5,
   };
 
   // Questions array
@@ -32,7 +33,7 @@ const SurveyScreen = ({ navigation }) => {
     '2. Do you engage in regular physical activity or exercise?',
     '3. Do you currently smoke or have you smoked in the past?',
     '4. Do you frequently expose your skin to sunlight without protection?',
-    '5. Do you often feel fatigued or weak?'
+    '5. Do you often feel fatigued or weak?',
   ];
 
   // Function to handle user response for a question
@@ -59,8 +60,15 @@ const SurveyScreen = ({ navigation }) => {
   const calculateTotalScore = () => {
     let totalScore = 0;
     for (const [question, answer] of Object.entries(responses)) {
-      if (answer === 'Yes') {
-        totalScore += scores[question];
+      if (question === 'Question 2') {
+          if (answer === 'No') {
+            totalScore += scores[question];
+          }
+        }
+      else {
+        if (answer === 'Yes') {
+          totalScore += scores[question];
+        }
       }
     }
     return totalScore;
@@ -71,9 +79,9 @@ const SurveyScreen = ({ navigation }) => {
     console.log('User Responses:', responses);
     const totalScore = calculateTotalScore();
     if (totalScore >= 60) {
-      navigation.navigate('BookingScreen'); // Navigate to booking screen if score is 60 or above
+      navigation.navigate('NearByClinic'); // Navigate to booking screen if score is 60 or above
     } else {
-      navigation.navigate('MainScreen'); // Navigate to main screen if score is below 60
+      navigation.navigate('Main'); // Navigate to main screen if score is below 60
     }
   };
 
