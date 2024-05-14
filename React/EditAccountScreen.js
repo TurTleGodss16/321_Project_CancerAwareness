@@ -1,173 +1,124 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable quotes */
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable no-undef */
-//Edit account
+import React, { useContext, useState } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { UserContext } from './UserContext';
+import { auth, firestore } from './firebaseConfig';
+import { doc, updateDoc } from 'firebase/firestore';
+import { updateEmail, reauthenticateWithCredential, EmailAuthProvider, sendEmailVerification } from 'firebase/auth';
 
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import Feather from "react-native-vector-icons/Feather";
+const EditAccountScreen = ({ navigation }) => {
+  const { user, setUser } = useContext(UserContext);
+  const [userName, setUserName] = useState(user.name);
+  const [userEmail, setUserEmail] = useState(user.email);
+  const [currentPassword, setCurrentPassword] = useState('');
 
-const EditAccountScreen = ({navigation, route}) => {
-  const [selectedImage, setSelectedImage] = useState("../Images/ProfilePic.png");
-  const [name, setName] = useState('John Doe');
-  const [email, setEmail] = useState('johndoe@gmail.com');
-  const [password, setPassword] = useState('randompassword');
+  const reauthenticate = async (currentPassword) => {
+    const user = auth.currentUser;
+    const cred = EmailAuthProvider.credential(user.email, currentPassword);
+    await reauthenticateWithCredential(user, cred);
+  };
 
-  const handleImageSelection = async () => {
+  const updateEmailAddress = async () => {
+    try {
+      await reauthenticate(currentPassword);
+      const currentUser = auth.currentUser;
 
-
-    let options = {
-      storageOptions:{
-        path: "image",
+      if (user.email !== userEmail) {
+        // Send verification email to the new email address
+        await updateEmail(currentUser, userEmail);
+        await sendEmailVerification(currentUser);
+        Alert.alert("Verification Email Sent", "Please verify your new email address. After verification, log in again.");
+        return;
       }
+
+      // Update the user document in Firestore
+      const userDocRef = doc(firestore, "users", currentUser.uid);
+      await updateDoc(userDocRef, {
+        name: userName,
+        email: userEmail,
+      });
+
+      setUser({ ...user, name: userName, email: userEmail });
+      Alert.alert("Success", "Your account has been updated!");
+      navigation.goBack();
+    } catch (error) {
+      Alert.alert("Error", error.message);
     }
-
-    launchImageLibrary(options, response => {
-      setSelectedImage(response.assets[0].uri);
-    })
-
-    
   };
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: 'white',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <ScrollView>
-        <View
-          style={{
-            alignment: 'center',
-            marginVertical: 22,
-          }}>
-          <TouchableOpacity onPress={handleImageSelection}>
-            <Image
-              source={{uri: selectedImage}}
-              style={{
-                height: 150,
-                width: 150,
-                borderRadius: 75,
-                borderWidth: 2,
-                borderColor: 'black',
-              }}
-            />
-            <View
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                right: 0,
-                zIndex: 9999,
-              }}
-            >
-              <Feather name="edit" size={30} color="black" />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flexDirection: 'Column',
-            marginBottom: 6,
-          }}>
-          <Text style={{fontSize: 30, fontWeight: 'bold'}}>Name</Text>
-          <View
-            style={{
-              height: 44,
-              width: '100%',
-              borderColor: 'Grey',
-              borderWidth: 1,
-              borderRadius: 4,
-              marginVertical: 6,
-              justifyContent: 'center',
-              paddingLeft: 8,
-            }}>
-            <TextInput
-              value={name}
-              onChangeText={value => setName(value)}
-              editable={true}
-            />
-          </View>
-        </View>
-        <View
-          style={{
-            flexDirection: 'Column',
-            marginBottom: 6,
-          }}>
-          <Text style={{fontSize: 30, fontWeight: 'bold'}}>Email</Text>
-          <View
-            style={{
-              height: 44,
-              width: '100%',
-              borderColor: 'Grey',
-              borderWidth: 1,
-              borderRadius: 4,
-              marginVertical: 6,
-              justifyContent: 'center',
-              paddingLeft: 8,
-            }}>
-            <TextInput
-              value={email}
-              onChangeText={value => setEmail(value)}
-              editable={true}
-            />
-          </View>
-        </View>
-        <View
-          style={{
-            flexDirection: 'Column',
-            marginBottom: 6,
-          }}>
-          <Text style={{fontSize: 30, fontWeight: 'bold'}}>Password</Text>
-          <View
-            style={{
-              height: 44,
-              width: '100%',
-              borderColor: 'Grey',
-              borderWidth: 1,
-              borderRadius: 4,
-              marginVertical: 6,
-              justifyContent: 'center',
-              paddingLeft: 8,
-            }}>
-            <TextInput
-              value={password}
-              onChangeText={value => setPassword(password)}
-              secureTextEntry
-              editable={true}
-            />
-          </View>
-        </View>
-        <TouchableOpacity
-          style={{
-            backgroundColor: 'white',
-            height: 44,
-            borderRadius: 6,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: 'bold',
-            }}>
-            Save
-          </Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.profileSection}>
+        <Text style={styles.title}>Edit Name</Text>
+        <TextInput
+          style={styles.input}
+          value={userName}
+          onChangeText={setUserName}
+        />
+        <Text style={styles.title}>Edit Email</Text>
+        <TextInput
+          style={styles.input}
+          value={userEmail}
+          onChangeText={setUserEmail}
+          keyboardType="email-address"
+        />
+        <Text style={styles.title}>Current Password</Text>
+        <TextInput
+          style={styles.input}
+          value={currentPassword}
+          onChangeText={setCurrentPassword}
+          secureTextEntry
+          placeholder="Enter your current password"
+        />
+        <TouchableOpacity style={styles.button} onPress={updateEmailAddress}>
+          <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  profileSection: {
+    width: '80%',
+    alignItems: 'center',
+  },
+  input: {
+    width: '100%',
+    backgroundColor: '#d3d3d3',
+    borderRadius: 25,
+    height: 50,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#000000',
+    marginBottom: 10,
+    alignSelf: 'flex-start',
+  },
+  button: {
+    width: '100%',
+    backgroundColor: '#0000FF',
+    borderRadius: 25,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+});
 
 export default EditAccountScreen;

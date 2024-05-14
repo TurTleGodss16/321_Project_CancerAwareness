@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Alert, ProgressBarAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { createUserWithEmailAndPassword, signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from './firebaseConfig';
+import { createUserWithEmailAndPassword, signInWithCredential, GoogleAuthProvider, sendEmailVerification } from 'firebase/auth';
+import { auth, firestore } from './firebaseConfig'; // Import Firestore and Auth from your config
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { doc, setDoc } from 'firebase/firestore'; // Import required functions from Firestore
-import { firestore } from './firebaseConfig'; // Make sure you export 'db' from your firebaseConfig file
-
 
 const SignupScreen = () => {
   const navigation = useNavigation();
@@ -19,7 +17,6 @@ const SignupScreen = () => {
   const [passwordStrength, setPasswordStrength] = useState(0); // Updated state initialization
   const [passwordFeedback, setPasswordFeedback] = useState('');
   const [name, setName] = useState('');
-
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -35,15 +32,18 @@ const SignupScreen = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-  
+
+      // Send email verification
+      await sendEmailVerification(user);
+
       // Add user info to Firestore
       const userDocRef = doc(firestore, "users", user.uid); // Create a document reference with the user's UID
       await setDoc(userDocRef, {
         name: name,
         email: email
       });
-  
-      Alert.alert("Success", "Account created successfully");
+
+      Alert.alert("Success", "Account created successfully. Please verify your email.");
       navigation.navigate('Main');
     } catch (error) {
       Alert.alert("Signup Failed", error.message);
@@ -93,7 +93,6 @@ const SignupScreen = () => {
   };
 
   return (
-    
     <View style={styles.container}>
       <Text style={styles.logo}>Cancer Awareness</Text>
       <View style={styles.inputView}>
@@ -121,7 +120,7 @@ const SignupScreen = () => {
           onChangeText={handlePasswordChange}
         />
         <TouchableOpacity onPress={() => setPasswordVisibility(!passwordVisibility)}>
-          <Icon name={passwordVisibility ? 'eye-slash' : 'eye'} style={styles.icon} size = {20} color = "grey"/>
+          <Icon name={passwordVisibility ? 'eye-slash' : 'eye'} style={styles.icon} size={20} color="grey"/>
         </TouchableOpacity>
       </View>
       <View style={styles.inputView}>
@@ -133,7 +132,7 @@ const SignupScreen = () => {
           onChangeText={setConfirmPassword}
         />
         <TouchableOpacity onPress={() => setConfirmPasswordVisibility(!confirmPasswordVisibility)}>
-          <Icon name={passwordVisibility ? 'eye-slash' : 'eye'} style={styles.icon} size = {20} color = "grey"/>
+          <Icon name={confirmPasswordVisibility ? 'eye-slash' : 'eye'} style={styles.icon} size={20} color="grey"/>
         </TouchableOpacity>
       </View>
       <ProgressBarAndroid
