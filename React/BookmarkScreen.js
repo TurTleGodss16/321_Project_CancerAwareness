@@ -9,8 +9,8 @@ import {
   ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { collection, query, where, getDocs, doc } from 'firebase/firestore';
-import { firestore, auth } from './firebaseConfig';
+import { collection, query, where, getDocs, doc} from 'firebase/firestore';
+import { firestore, auth} from './firebaseConfig';
 
 const BookmarkScreen = () => {
   const navigation = useNavigation();
