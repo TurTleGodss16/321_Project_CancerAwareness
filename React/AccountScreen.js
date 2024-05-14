@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
   },
   profileSection: {
     width: '80%',
-    alignItems: 'center',
   },
   profileImage: {
     height: 150,
@@ -60,6 +59,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'black',
     marginBottom: 20,
+    alignSelf: 'center',
   },
   textBox: {
     width: '100%',
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000000',
     marginBottom: 10,
+    textAlign: 'left',
   },
   button: {
     width: '100%',
