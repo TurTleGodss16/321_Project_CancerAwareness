@@ -1,100 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, Button, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { auth, firestore } from './firebaseConfig'; // Import Firebase configuration
-import { doc, getDoc } from 'firebase/firestore'; // Import required Firestore functions
+import { UserContext } from './UserContext';
 
 const AccountScreen = ({ navigation }) => {
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+  const { user } = useContext(UserContext);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const user = auth.currentUser;
-      if (user) {
-        const userDocRef = doc(firestore, "users", user.uid);
-        const userDoc = await getDoc(userDocRef);
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          setUserName(userData.name);
-          setUserEmail(userData.email);
-        }
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
-  const user = {
-    recentArticles: [
-      {
-        title: 'Article 1 - Page 1',
-        excerpt: 'First sentence from the page.',
-      },
-      {
-        title: 'Article 2 - Page 42',
-        excerpt: 'First sentence from the page.',
-      },
-      {
-        title: 'Article 3 - Page 123',
-        excerpt: 'First sentence from the page.',
-      },
-    ],
-  };
+  if (!user) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text>Loading...</Text>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.profileSection}>
           <Image
-            source={require('../Images/ProfilePic.png')}
+            source={user.profilePic ? { uri: user.profilePic } : require('../Images/ProfilePic.png')}
             style={styles.profileImage}
           />
           <Text style={styles.title}>Name</Text>
           <View style={styles.textBox}>
-            <Text>{userName}</Text>
+            <Text>{user.name}</Text>
           </View>
           <Text style={styles.title}>Email</Text>
           <View style={styles.textBox}>
-            <Text>{userEmail}</Text>
+            <Text>{user.email}</Text>
           </View>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditAccountScreen')}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditAccount')}>
             <Text style={styles.buttonText}>Edit</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.recentArticles}>
-          <Text style={styles.title}>Recent Articles</Text>
-          {user.recentArticles.map(article => (
-            <View key={article.title} style={styles.recentArticle}>
-              <Text style={styles.recentArticleTitle}>{article.title}</Text>
-              <Text style={styles.recentArticleExcerpt}>{article.excerpt}</Text>
-            </View>
-          ))}
-        </View>
+        {/* Rest of the component */}
       </ScrollView>
-      <View style={styles.bottomBar}>
-        <View style={{ marginLeft: 20 }}>
-          <Image
-            style={styles.bottomBarIcon}
-            source={require('../Images/home.png')}
-          />
-          <Text style={styles.textDescription}>Home</Text>
-        </View>
-        <View style={{ marginLeft: 120, marginTop: 8 }}>
-          <Image
-            style={styles.bottomBarIcon}
-            source={require('../Images/compass.png')}
-          />
-          <Text style={styles.textDescription}>Search</Text>
-        </View>
-        <View style={{ marginLeft: 120, marginTop: 6 }}>
-          <Image
-            style={styles.bottomBarIcon}
-            source={require('../Images/survey_bar.png')}
-          />
-          <Text style={styles.textDescription}>Survey</Text>
-        </View>
-      </View>
     </SafeAreaView>
   );
 };
