@@ -1,11 +1,30 @@
-/* eslint-disable react-native/no-inline-styles */
-//Account Screen
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, StyleSheet, Button, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { auth, firestore } from './firebaseConfig'; // Import Firebase configuration
+import { doc, getDoc } from 'firebase/firestore'; // Import required Firestore functions
 
-import React from 'react';
-import {View, Text, Image, StyleSheet, Button, ScrollView} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+const AccountScreen = ({ navigation }) => {
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
 
-const AccountScreen = ({navigation}) => {
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const userDocRef = doc(firestore, "users", user.uid);
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setUserName(userData.name);
+          setUserEmail(userData.email);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
   const user = {
     recentArticles: [
       {
@@ -41,15 +60,11 @@ const AccountScreen = ({navigation}) => {
               </View>
               <Text style={styles.title}>Name</Text>
               <View style={styles.textBox}>
-                <Text>John Doe</Text>
+                <Text>{userName}</Text>
               </View>
-              <Text style={styles.title}>Location</Text>
+              <Text style={styles.title}>Email</Text>
               <View style={styles.textBox}>
-                <Text>Northfields Ave, Wollongong, NSW 2522</Text>
-              </View>
-              <Text style={styles.title}>Age</Text>
-              <View style={styles.textBox}>
-                <Text>23</Text>
+                <Text>{userEmail}</Text>
               </View>
               <Button
                 title="Edit"
@@ -71,7 +86,7 @@ const AccountScreen = ({navigation}) => {
         </View>
       </ScrollView>
       <View style={styles.bottomBar}>
-        <View style={{marginLeft: 20}}>
+        <View style={{ marginLeft: 20 }}>
           <Image
             style={{
               width: 40,
@@ -83,7 +98,7 @@ const AccountScreen = ({navigation}) => {
           />
           <Text style={styles.textDescription}>Home</Text>
         </View>
-        <View style={{marginLeft: 120, marginTop: 8}}>
+        <View style={{ marginLeft: 120, marginTop: 8 }}>
           <Image
             style={{
               width: 30,
@@ -95,7 +110,7 @@ const AccountScreen = ({navigation}) => {
           />
           <Text style={styles.textDescription}>Search</Text>
         </View>
-        <View style={{marginLeft: 120, marginTop: 6}}>
+        <View style={{ marginLeft: 120, marginTop: 6 }}>
           <Image
             style={{
               width: 30,
