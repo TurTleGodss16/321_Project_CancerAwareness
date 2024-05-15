@@ -85,43 +85,61 @@ const MainScreen = ({ navigation }) => {
 
           <View style={styles.linksContainer}>
             <View style={styles.link}>
-              <TouchableOpacity style={styles.orangeBackground} onPress={() => navigation.navigate('CancerDefinitions')}>
-                <Image style={styles.linkIcon} source={require('../Images/cancer_symbol.png')} />
+              <TouchableOpacity style={[styles.orangeBackground, { width: 85, height: 75 }]} onPress={() => navigation.navigate('CancerDefinitions')}>
+                <View style={styles.circleContainer}>
+                  <View style={styles.circle} />
+                </View>
+                <Image style={[styles.linkIcon, { width: 70, height: 80 }]} source={require('../Images/cancer_symbol.png')} />
               </TouchableOpacity>
               <Text style={styles.linkText}>What is Cancer</Text>
             </View>
 
             <View style={styles.link}>
-              <TouchableOpacity style={styles.orangeBackground} onPress={() => navigation.navigate('CancerTypes')}>
-                <Image style={styles.linkIcon} source={require('../Images/type_of_cancer.png')} />
+              <TouchableOpacity style={[styles.orangeBackground, { width: 85, height: 75 }]} onPress={() => navigation.navigate('CancerTypes')}>
+                <View style={styles.circleContainer}>
+                  <View style={styles.circle} />
+                </View>
+                <Image style={[styles.linkIcon, { width: 90, height: 75 }]} source={require('../Images/type_of_cancer.png')} />
               </TouchableOpacity>
               <Text style={styles.linkText}>Types</Text>
             </View>
 
             <View style={styles.link}>
-              <TouchableOpacity style={styles.orangeBackground} onPress={() => navigation.navigate('Causes')}>
-                <Image style={styles.linkIcon} source={require('../Images/reason.png')} />
+              <TouchableOpacity style={[styles.orangeBackground, { width: 85, height: 75 }]} onPress={() => navigation.navigate('Causes')}>
+                <View style={styles.circleContainer}>
+                  <View style={styles.circle} />
+                </View>
+                <Image style={[styles.linkIcon, { width: 80, height: 75 }]} source={require('../Images/reason.png')} />
               </TouchableOpacity>
               <Text style={styles.linkText}>Causes</Text>
             </View>
 
             <View style={styles.link}>
-              <TouchableOpacity style={styles.orangeBackground} onPress={() => navigation.navigate('Treatment')}>
-                <Image style={styles.linkIcon} source={require('../Images/treatment.png')} />
+              <TouchableOpacity style={[styles.orangeBackground, { width: 85, height: 75 }]} onPress={() => navigation.navigate('Treatment')}>
+                <View style={styles.circleContainer}>
+                  <View style={styles.circle} />
+                </View>
+                <Image style={[styles.linkIcon, { width: 45, height: 60 }]} source={require('../Images/treatment.png')} />
               </TouchableOpacity>
               <Text style={styles.linkText}>Treatment</Text>
             </View>
 
             <View style={styles.link}>
-              <TouchableOpacity style={styles.orangeBackground} onPress={() => navigation.navigate('SideEffects')}>
-                <Image style={styles.linkIcon} source={require('../Images/side_effect.png')} />
+              <TouchableOpacity style={[styles.orangeBackground, { width: 85, height: 75 }]} onPress={() => navigation.navigate('SideEffects')}>
+                <View style={styles.circleContainer}>
+                  <View style={styles.circle} />
+                </View>
+                <Image style={[styles.linkIcon, { width: 70, height: 75 }]} source={require('../Images/side_effect.png')} />
               </TouchableOpacity>
               <Text style={styles.linkText}>Side Effects</Text>
             </View>
 
             <View style={styles.link}>
-              <TouchableOpacity style={styles.orangeBackground} onPress={() => navigation.navigate('Survey')}>
-                <Image style={styles.linkIcon} source={require('../Images/survey.png')} />
+              <TouchableOpacity style={[styles.orangeBackground, { width: 85, height: 75 }]} onPress={() => navigation.navigate('Survey')}>
+                <View style={styles.circleContainer}>
+                  <View style={styles.circle} />
+                </View>
+                <Image style={[styles.linkIcon, { width: 50, height: 65 }]} source={require('../Images/survey.png')} />
               </TouchableOpacity>
               <Text style={styles.linkText}>Survey</Text>
             </View>
@@ -221,6 +239,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff914d',
     borderRadius: 8,
     padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative', // Add relative positioning for the circle
+  },
+  circleContainer: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+  },
+  circle: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#335E90',
   },
   centeredBooking: {
     alignItems: 'center', // Align the booking section in the center
@@ -233,10 +267,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 20,
     padding: 10,
-  },
-  linkIcon: {
-    width: 70,
-    height: 70,
   },
   linkIconSurvey: {
     width: 70,
