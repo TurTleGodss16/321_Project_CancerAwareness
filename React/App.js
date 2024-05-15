@@ -263,7 +263,7 @@ const App = () => {
                     headerTitle: 'Cancer Awareness',
                     headerTitleAlign: 'center',
                     headerLeft: () => (
-                      <TouchableOpacity style={{ marginLeft: 20 }} onPress={toggleMenu}>
+                      <TouchableOpacity style={{ marginLeft: -10 }} onPress={toggleMenu}>
                         <View style={{
                           width: 40, // Diameter of the outer circle
                           height: 40, // Diameter of the outer circle
