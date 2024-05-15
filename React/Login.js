@@ -81,7 +81,7 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>Cancer Awareness</Text>
+      <Text style={styles.logo}>SCSG Awareness App</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}

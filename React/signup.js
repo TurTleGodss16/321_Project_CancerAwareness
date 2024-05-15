@@ -96,7 +96,7 @@ const SignupScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>Cancer Awareness</Text>
+      <Text style={styles.logo}>SCSG Awareness App</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
@@ -145,14 +145,10 @@ const SignupScreen = () => {
         style={styles.progressBar}
       />
       <Text style={styles.passwordFeedback}>{passwordFeedback}</Text>
-      <TouchableOpacity style={styles.button}
-                        onPress={handleSignup}
-                        >
+      <TouchableOpacity style={styles.signupBtn} onPress={handleSignup}>
         <Text style={styles.buttonText}>Sign Up with Email</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.googleButton}
-                        onPress={handleGoogleSignup}
-                        >
+      <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignup}>
         <Text style={styles.buttonText}>Sign Up with Google</Text>
       </TouchableOpacity>
     </View>
@@ -162,19 +158,19 @@ const SignupScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
     fontWeight: 'bold',
     fontSize: 30,
-    color: '#000000',
-    marginBottom: 20, // Adjusted margin
+    color: '#333333',
+    marginBottom: 40,
   },
   googleButton: {
     width: '80%',
-    backgroundColor: '#db3236',
+    backgroundColor: '#FF914D',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
@@ -202,14 +198,14 @@ const styles = StyleSheet.create({
     height: 50,
     color: 'black',
   },
-  button: {
+  signupBtn: {
     width: '80%',
-    backgroundColor: '#0000FF',
+    backgroundColor: '#335E90',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 40,
+    marginTop: 20,
     marginBottom: 10,
   },
   buttonText: {
@@ -217,14 +213,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   progressBar: {
-    width: '50%', // Increased width
-    height: 20, // Adjusted height
-    borderRadius: 25, // Matching border radius
+    width: '80%',
+    height: 20,
+    borderRadius: 25,
   },
   passwordFeedback: {
-    maxWidth: '50%',
+    maxWidth: '80%',
     textAlign: 'center',
     marginTop: 10,
+    color: '#FF0000',
   },
 });
 
