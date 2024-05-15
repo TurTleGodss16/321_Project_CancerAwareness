@@ -167,8 +167,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logoImage: {
-    width: 100,
-    height: 100,
+    width: 250,
+    height: 250,
     marginBottom: 20,
   },
   logo: {
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
+    marginTop: -20,
     marginBottom: 10,
   },
   buttonText: {
