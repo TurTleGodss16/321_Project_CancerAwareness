@@ -138,7 +138,7 @@ const MainScreen = ({ navigation }) => {
           <TouchableOpacity style={styles.centeredBooking} onPress={() => navigation.navigate('Booking')}>
             <Text style={[styles.linkText, styles.dmSansFont]}>Booking a Screening</Text>
             <View style={[styles.linkBooking, styles.bookingBackground]}>
-              <Image style={[styles.linkIcon, {alignSelf: 'center', width: 200, height: 150}]} source={require('../Images/booking.png')} />
+              <Image style={[styles.linkIcon, {alignSelf: 'center', width: 325, height: 220}]} source={require('../Images/booking.png')} />
             </View>
           </TouchableOpacity>
         </View>
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
   },
   orangeBackground: {
     backgroundColor: '#ff914d',
-    borderRadius: 5,
+    borderRadius: 8,
     padding: 10,
   },
   centeredBooking: {
@@ -228,7 +228,10 @@ const styles = StyleSheet.create({
   },
   bookingBackground: {
     backgroundColor: '#BCE08A', // Green color for booking
-    borderRadius: 5,
+    width: 333,
+    height: 240,
+    borderRadius: 20,
+    marginTop: 20,
     padding: 10,
   },
   linkIcon: {
