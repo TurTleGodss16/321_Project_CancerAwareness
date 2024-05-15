@@ -30,9 +30,6 @@ const AccountScreen = ({ navigation }) => {
           <View style={styles.textBox}>
             <Text>{user.email}</Text>
           </View>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EditAccountScreen')}>
-            <Text style={styles.buttonText}>Edit</Text>
-          </TouchableOpacity>
         </View>
         {/* Rest of the component */}
       </ScrollView>

@@ -21,7 +21,6 @@ import AccountScreen from './AccountScreen';
 import AboutScreen from './AboutScreen';
 import SettingScreen from './SettingScreen';
 import BookmarkScreen from './BookmarkScreen';
-import EditAccountScreen from './EditAccountScreen';
 import Language from './Sub_SettingScreen/Language';
 import Notification from './Sub_SettingScreen/Notifications';
 import AboutApp from './Sub_AboutScreen/AboutApp';
@@ -361,14 +360,6 @@ const App = () => {
                   component={Notification}
                   options={{
                     headerTitle: 'Notification',
-                    headerTitleAlign: 'center',
-                  }}
-                />
-                <Stack.Screen
-                  name="EditAccountScreen"
-                  component={EditAccountScreen}
-                  options={{
-                    headerTitle: 'Edit Account',
                     headerTitleAlign: 'center',
                   }}
                 />
