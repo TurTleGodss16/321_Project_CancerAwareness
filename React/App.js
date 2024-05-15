@@ -405,7 +405,7 @@ const App = () => {
                   }}
                 />
                 <Stack.Screen
-                  name="Signup"
+                  name="signup"
                   component={SignupScreen}
                   options={{
                     headerTitle: 'Signup',
