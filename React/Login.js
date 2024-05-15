@@ -136,9 +136,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logoImage: {
-    width: 250,
-    height: 250,
-    marginBottom: 20,
+    width: 200,
+    height: 200,
   },
   googleButton: {
     width: '80%',
