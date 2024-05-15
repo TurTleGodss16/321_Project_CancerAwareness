@@ -8,6 +8,7 @@ import { auth, firestore } from './firebaseConfig'; // Import Firestore and Auth
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { doc, setDoc } from 'firebase/firestore'; // Import required functions from Firestore
+import { SafeAreaView } from 'react-native-safe-area-context'; // Import SafeAreaView
 
 const SignupScreen = () => {
   const navigation = useNavigation();
@@ -95,7 +96,7 @@ const SignupScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image 
         source={require('../Images/logo.png')} 
         style={styles.logoImage} 
@@ -155,7 +156,7 @@ const SignupScreen = () => {
       <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignup}>
         <Text style={styles.buttonText}>Sign Up with Google</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

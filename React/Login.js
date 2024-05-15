@@ -8,6 +8,7 @@ import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-si
 import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -80,7 +81,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image 
         source={require('../Images/logo.png')} 
         style={styles.logoImage} 
@@ -124,7 +125,7 @@ const LoginScreen = () => {
       <TouchableOpacity onPress={() => navigation.navigate('signup')}>
         <Text style={styles.signupText}>Don't have an account? Sign Up</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 
