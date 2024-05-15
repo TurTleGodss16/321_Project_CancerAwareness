@@ -229,26 +229,6 @@ const App = () => {
           style={styles.menuItem}
           onPress={() => {
             toggleMenu();
-            navigation.navigate('NearByClinic');
-          }}>
-          <Icon name="hospital-o" size={20} color="black" />
-          <Text style={styles.menuText}>Clinic</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => {
-            toggleMenu();
-            navigation.navigate('Articles');
-          }}>
-          <Icon name="newspaper-o" size={20} color="black" />
-          <Text style={styles.menuText}>Articles</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => {
-            toggleMenu();
             navigation.navigate('Login');
           }}>
           <Icon name="sign-out" size={20} color="black" />
