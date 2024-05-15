@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
-import { Text, TextInput, View, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { signInWithEmailAndPassword, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebaseConfig';
@@ -81,6 +81,10 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Image 
+        source={require('../Images/logo.png')} 
+        style={styles.logoImage} 
+      />
       <Text style={styles.logo}>SCSG Awareness App</Text>
       <View style={styles.inputView}>
         <TextInput
@@ -130,6 +134,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  logoImage: {
+    width: 100,
+    height: 100,
+    marginBottom: 20,
   },
   googleButton: {
     width: '80%',

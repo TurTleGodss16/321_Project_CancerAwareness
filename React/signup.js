@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable quotes */
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text, Alert, ProgressBarAndroid } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text, Alert, ProgressBarAndroid, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createUserWithEmailAndPassword, signInWithCredential, GoogleAuthProvider, sendEmailVerification } from 'firebase/auth';
 import { auth, firestore } from './firebaseConfig'; // Import Firestore and Auth from your config
@@ -96,6 +96,10 @@ const SignupScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Image 
+        source={require('../Images/logo.png')} 
+        style={styles.logoImage} 
+      />
       <Text style={styles.logo}>SCSG Awareness App</Text>
       <View style={styles.inputView}>
         <TextInput
@@ -161,6 +165,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  logoImage: {
+    width: 100,
+    height: 100,
+    marginBottom: 20,
   },
   logo: {
     fontWeight: 'bold',
