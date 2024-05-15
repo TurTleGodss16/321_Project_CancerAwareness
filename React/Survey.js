@@ -78,11 +78,12 @@ const SurveyScreen = ({ navigation }) => {
   const handleSubmit = () => {
     console.log('User Responses:', responses);
     const totalScore = calculateTotalScore();
-    if (totalScore >= 60) {
-      navigation.navigate('NearByClinic'); // Navigate to booking screen if score is 60 or above
-    } else {
-      navigation.navigate('Main'); // Navigate to main screen if score is below 60
-    }
+    // if (totalScore >= 60) {
+    //   navigation.navigate('NearByClinic'); // Navigate to booking screen if score is 60 or above
+    // } else {
+    //   navigation.navigate('Main'); // Navigate to main screen if score is below 60
+    // }
+    navigation.navigate('Result', {totalScore});
   };
 
   return (

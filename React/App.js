@@ -48,8 +48,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import messaging from '@react-native-firebase/messaging';
 import Articles from './Articles';
 import SurveyScreen from './Survey';
-import { doc, setDoc, collection } from 'firebase/firestore'; // Import required functions from Firestore
+import { doc, setDoc, collection, deleteDoc, getDocs } from 'firebase/firestore'; // Import required functions from Firestore
 import { firestore, auth } from './firebaseConfig'; // Make sure you export 'db' from your firebaseConfig file
+import ResultScreen from './Result';
 
 const Stack = createNativeStackNavigator();
 
@@ -98,6 +99,29 @@ const App = () => {
       }
     }
   };
+
+  useEffect(() => {
+    const fetchSavedArticles = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const userDocRef = doc(firestore, 'users', user.uid);
+        const articlesCollectionRef = collection(userDocRef, 'articles');
+        const querySnapshot = await getDocs(articlesCollectionRef);
+        const articles = [];
+        querySnapshot.forEach((doc) => {
+          articles.push(doc.id);
+        });
+        setSavedArticles(articles);
+        // Initialize bookmark colors based on saved articles
+        const initialBookmarkColors = {};
+        articles.forEach((article) => {
+          initialBookmarkColors[article] = 'red';
+        });
+        setBookmarkColors(initialBookmarkColors);
+      }
+    };
+    fetchSavedArticles();
+  }, []);
   
 
   const toggleMenu = () => {
@@ -557,6 +581,14 @@ const App = () => {
                   component={SurveyScreen}
                   options={{
                     headerTitle: 'Survey',
+                    headerTitleAlign: 'center',
+                  }}
+                />
+                <Stack.Screen
+                  name="Result"
+                  component={ResultScreen}
+                  options={{
+                    headerTitle: 'Result',
                     headerTitleAlign: 'center',
                   }}
                 />
