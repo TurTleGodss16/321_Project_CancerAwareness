@@ -105,13 +105,13 @@ const LoginScreen = () => {
           onChangeText={text => setPassword(text)}
         />
         <TouchableOpacity onPress={() => setPasswordVisibility(!passwordVisibility)}>
-          <Icon name={passwordVisibility ? 'eye-slash' : 'eye'} style={styles.icon} size = {20} color = "grey"/>
+          <Icon name={passwordVisibility ? 'eye-slash' : 'eye'} style={styles.icon} size={20} color="grey" />
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.loginBtn} onPress={handleAnonymousLogin}>
+      <TouchableOpacity style={styles.anonymousBtn} onPress={handleAnonymousLogin}>
         <Text style={styles.loginText}>LOGIN ANONYMOUSLY</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.googleButton} onPress={handleGoogleSignin}>
@@ -127,13 +127,13 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
   },
   googleButton: {
     width: '80%',
-    backgroundColor: '#db3236',
+    backgroundColor: '#FF914D',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
@@ -147,12 +147,12 @@ const styles = StyleSheet.create({
   logo: {
     fontWeight: 'bold',
     fontSize: 30,
-    color: '#000000',
+    color: '#333333', // Adjusted to match MainScreen's text color
     marginBottom: 40,
   },
   inputView: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     width: '80%',
     backgroundColor: '#d3d3d3',
     borderRadius: 25,
@@ -173,7 +173,17 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     width: '80%',
-    backgroundColor: '#0000FF',
+    backgroundColor: '#335E90', // Adjusted to match MainScreen's circle color
+    borderRadius: 25,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20, // Adjusted for consistency
+    marginBottom: 10, // Ensures consistent spacing between the buttons
+  },
+  anonymousBtn: {
+    width: '80%',
+    backgroundColor: '#BCE08A', // Green color for anonymous login
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
