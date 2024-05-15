@@ -135,7 +135,7 @@ const MainScreen = ({ navigation }) => {
             <Image style={styles.chatbotIcon} source={require('../Images/ChatbotIcon.png')} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.centeredBooking} onPress={() => navigation.navigate('Booking')}>
+          <TouchableOpacity style={styles.centeredBooking} onPress={() => navigation.navigate('NearByClinic')}>
             <Text style={[styles.linkText, styles.dmSansFont]}>Booking a Screening</Text>
             <View style={[styles.linkBooking, styles.bookingBackground]}>
               <Image style={[styles.linkIcon, {alignSelf: 'center', width: 325, height: 220}]} source={require('../Images/booking.png')} />
