@@ -3,7 +3,6 @@ import {
   StyleSheet,
   View,
   Text,
-  Button,
   PermissionsAndroid,
   ScrollView,
   Linking,
@@ -26,11 +25,7 @@ const requestLocationPermission = async () => {
         buttonPositive: 'OK',
       },
     );
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      return true;
-    } else {
-      return false;
-    }
+    return granted === PermissionsAndroid.RESULTS.GRANTED;
   } catch (err) {
     console.error('Error requesting location permission:', err);
     return false;
@@ -61,34 +56,32 @@ const findNearbyClinics = async (latitude, longitude, setClinics) => {
 const NearByClinic = () => {
   const [location, setLocation] = useState(null);
   const [clinics, setClinics] = useState([]);
-  const [showTable, setShowTable] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (location) {
-      findNearbyClinics(
-        location.coords.latitude,
-        location.coords.longitude,
-        setClinics,
-      );
-    }
-  }, [location]);
+    const getLocation = async () => {
+      const result = await requestLocationPermission();
+      if (result) {
+        Geolocation.getCurrentPosition(
+          position => {
+            setLocation(position);
+            findNearbyClinics(position.coords.latitude, position.coords.longitude, setClinics);
+            setLoading(false);
+          },
+          error => {
+            console.error('Error getting location:', error);
+            setLocation(null);
+            setLoading(false);
+          },
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
+        );
+      } else {
+        setLoading(false);
+      }
+    };
 
-  const getLocation = async () => {
-    const result = await requestLocationPermission();
-    if (result) {
-      Geolocation.getCurrentPosition(
-        position => {
-          setLocation(position);
-          setShowTable(true);
-        },
-        error => {
-          console.error('Error getting location:', error);
-          setLocation(null);
-        },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
-      );
-    }
-  };
+    getLocation();
+  }, []);
 
   const handleOpenGoogleMaps = clinic => {
     const { vicinity } = clinic;
@@ -100,25 +93,25 @@ const NearByClinic = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Find Nearby Clinics</Text>
-      <TouchableOpacity style={styles.findButton} onPress={getLocation}>
-        <Text style={styles.findButtonText}>Find Clinics</Text>
-      </TouchableOpacity>
-      <ScrollView style={styles.scrollView}>
-        {clinics.map((clinic, index) => (
-          <View style={styles.card} key={index}>
-            <Text style={styles.clinicName} onPress={() => handleOpenGoogleMaps(clinic)}>
-              {clinic.name}
-            </Text>
-            <Text style={styles.clinicAddress} onPress={() => handleOpenGoogleMaps(clinic)}>
-              {clinic.vicinity}
-            </Text>
-            <TouchableOpacity onPress={() => handleOpenGoogleMaps(clinic)}>
-              <Text style={styles.link}>Open in Google Maps</Text>
-            </TouchableOpacity>
-          </View>
-        ))}
-      </ScrollView>
+      {loading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <ScrollView style={styles.scrollView}>
+          {clinics.map((clinic, index) => (
+            <View style={styles.card} key={index}>
+              <Text style={styles.clinicName} onPress={() => handleOpenGoogleMaps(clinic)}>
+                {clinic.name}
+              </Text>
+              <Text style={styles.clinicAddress} onPress={() => handleOpenGoogleMaps(clinic)}>
+                {clinic.vicinity}
+              </Text>
+              <TouchableOpacity onPress={() => handleOpenGoogleMaps(clinic)}>
+                <Text style={styles.link}>Open in Google Maps</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 };
@@ -135,17 +128,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     color: '#335e90',
-  },
-  findButton: {
-    backgroundColor: '#ff914d',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 20,
-  },
-  findButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
   },
   scrollView: {
     width: '100%',
