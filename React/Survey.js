@@ -82,6 +82,7 @@ const SurveyScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
+        <Text style={styles.title}>Health Survey</Text>
         {questions.map((question, index) => (
           visibleQuestions[index] && (
             <View key={index} style={styles.questionContainer}>
