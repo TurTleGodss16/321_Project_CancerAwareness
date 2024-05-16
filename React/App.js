@@ -13,7 +13,7 @@ import {
   Alert,
   Image,
 } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer, useNavigation, useNavigationState } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { UserProvider } from './UserContext';
 import MainScreen from './MainScreen';
@@ -238,15 +238,45 @@ const App = () => {
     );
   };
 
+  const BottomNav = () => {
+    const navigation = useNavigation();
+    const routes = useNavigationState(state => state.routes);
+    const currentRoute = routes[routes.length - 1].name;
+
+    return (
+      <View style={styles.bottomNav}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => navigation.navigate('Main')}
+        >
+          <Icon name="home" size={20} color={currentRoute === 'Main' ? 'blue' : 'black'} />
+          <Text style={[styles.navText, currentRoute === 'Main' && styles.navTextActive]}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => navigation.navigate('Articles')}
+        >
+          <Icon name="file-text-o" size={20} color={currentRoute === 'Articles' ? 'blue' : 'black'} />
+          <Text style={[styles.navText, currentRoute === 'Articles' && styles.navTextActive]}>Articles</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => navigation.navigate('Survey')}
+        >
+          <Icon name="clipboard"           size={20} color={currentRoute === 'Survey' ? 'blue' : 'black'} />
+          <Text style={[styles.navText, currentRoute === 'Survey' && styles.navTextActive]}>Survey</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <UserProvider>
       <NavigationContainer>
         <SafeAreaView style={{ flex: 1 }}>
           <TouchableOpacity style={{ flex: 1 }} onPress={closeMenu} activeOpacity={1}>
             <View style={{ flex: 1, flexDirection: 'row' }}>
-              {isMenuOpen && (
-                <Menu />
-              )}
+              {isMenuOpen && <Menu />}
               <Stack.Navigator initialRouteName="Login">
                 <Stack.Screen
                   name="Login"
@@ -264,14 +294,16 @@ const App = () => {
                     headerTitleAlign: 'center',
                     headerLeft: () => (
                       <TouchableOpacity style={{ marginLeft: -10 }} onPress={toggleMenu}>
-                        <View style={{
-                          width: 40, // Diameter of the outer circle
-                          height: 40, // Diameter of the outer circle
-                          borderRadius: 20, // Radius to make it a perfect circle
-                          backgroundColor: 'black', // Background color of the circle
-                          justifyContent: 'center', // Center the icon elements vertically
-                          alignItems: 'center' // Center the icon elements horizontally
-                        }}>
+                        <View
+                          style={{
+                            width: 40, // Diameter of the outer circle
+                            height: 40, // Diameter of the outer circle
+                            borderRadius: 20, // Radius to make it a perfect circle
+                            backgroundColor: 'black', // Background color of the circle
+                            justifyContent: 'center', // Center the icon elements vertically
+                            alignItems: 'center', // Center the icon elements horizontally
+                          }}
+                        >
                           <Image
                             source={require('../Images/HamburgerButton.png')} // Ensure this path matches your file's location
                             style={{ width: 20, height: 20 }} // Adjust size as needed
@@ -566,6 +598,7 @@ const App = () => {
               </Stack.Navigator>
             </View>
           </TouchableOpacity>
+          <BottomNav />
         </SafeAreaView>
       </NavigationContainer>
     </UserProvider>
@@ -585,6 +618,26 @@ const styles = StyleSheet.create({
     color: 'black',
     marginLeft: 10,
   },
+  bottomNav: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 10,
+    borderTopWidth: 1,
+    borderColor: '#ddd',
+    backgroundColor: '#f8f8f8',
+  },
+  navItem: {
+    alignItems: 'center',
+  },
+  navText: {
+    fontSize: 12,
+    color: 'black',
+  },
+  navTextActive: {
+    color: 'blue',
+    fontWeight: 'bold',
+  },
 });
 
 export default App;
+

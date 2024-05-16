@@ -4,27 +4,26 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import {
-    View,
-    Text,
-    StyleSheet,
-    Image,
-    TouchableOpacity,
+    SafeAreaView,
     ScrollView,
-    SafeAreaView
+    Dimensions
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { WebView } from 'react-native-webview';
-import { Dimensions } from 'react-native';
 
 const screenHeight = Dimensions.get('window').height;
+const navBarHeight = 50;
+
 const CancerTypes = ({ navigation }) => {
     return(
-        <ScrollView style={{ flex: 1 }}>
-            <WebView nestedScrollEnabled
-                source={{ uri: 'https://www.cancercouncil.com.au/cancer-information/#types'}}
-                style={{ height: screenHeight * 0.90}}
-            />
-        </ScrollView>
+        <SafeAreaView style={{ flex: 1 }}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <WebView 
+                    nestedScrollEnabled
+                    source={{ uri: 'https://www.cancercouncil.com.au/cancer-information/#types'}}
+                    style={{ height: screenHeight * 0.93 - navBarHeight}}
+                />
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 

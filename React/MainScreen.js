@@ -161,23 +161,6 @@ const MainScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-
-      <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.bottomBarItem} onPress={() => navigation.navigate('MainScreen')}>
-          <Image style={styles.bottomBarIconHome} source={require('../Images/home.png')} />
-          <Text style={styles.bottomBarText}>Home</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.bottomBarItem} onPress={() => navigation.navigate('Articles')}>
-          <Image style={styles.bottomBarIcon} source={require('../Images/compass.png')} />
-          <Text style={styles.bottomBarText}>Articles</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.bottomBarItem} onPress={() => navigation.navigate('SurveyScreen')}>
-          <Image style={styles.bottomBarIcon} source={require('../Images/survey_bar.png')} />
-          <Text style={styles.bottomBarText}>Survey</Text>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 };
@@ -264,44 +247,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#BCE08A', // Green color for booking
     width: 333,
     height: 240,
-    borderRadius: 20,
-    marginTop: 20,
+    borderRadius: 20,    marginTop: 20,
     padding: 10,
   },
-  linkIconSurvey: {
-    width: 70,
-    height: 65,
+  linkIcon: {
+    alignSelf: 'center',
   },
   linkText: {
     color: '#333333',
     marginTop: 5,
-  },
-  bottomBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderTopWidth: 1,
-    borderColor: '#CCCCCC',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-  },
-  bottomBarItem: {
-    alignItems: 'center',
-    height: 45,
-  },
-  bottomBarIcon: {
-    width: 33.5,
-    height: 33,
-  },
-  bottomBarIconHome: {
-    width: 32,
-    height: 32,
-  },
-  bottomBarText: {
-    color: '#333333',
-    marginTop: 5,
-    fontSize: 12,
   },
   suggestion: {
     paddingVertical: 10,
@@ -320,16 +274,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 999,
   },
+  chatbotIcon: {
+    width: 60,
+    height: 60,
+  },
   dmSansFont: {
     fontFamily: 'DMSans_18pt-SemiBold',
     fontSize: 20,
   },
   loraFont: {
     fontFamily: 'Lora',
-  },
-  chatbotIcon: {
-    width: 60,
-    height: 60,
   },
 });
 

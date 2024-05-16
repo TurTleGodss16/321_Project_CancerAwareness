@@ -17,12 +17,14 @@ import { WebView } from 'react-native-webview';
 import { Dimensions } from 'react-native';
 
 const screenHeight = Dimensions.get('window').height;
+const navBarHeight = 50;
+
 const Articles = ({ navigation }) => {
     return(
         <ScrollView style={{ flex: 1 }}>
             <WebView nestedScrollEnabled
                 source={{ uri: 'https://www.cancer.org.au/cancer-information/types-of-cancer/bladder-cancer'}}
-                style={{ height: screenHeight * 0.90}}
+                style={{ height: screenHeight * 0.93 - navBarHeight}}
             />
         </ScrollView>
     );
