@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable react-native/no-inline-styles */
 import React, { useState, useRef, useEffect } from 'react';
 import {
   Text,
@@ -286,12 +284,7 @@ const App = () => {
                   name="Main"
                   component={MainScreen}
                   options={{
-                    headerTitle: 'SCSG Awareness App',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
+                    headerTitle: 'Cancer Awareness',
                     headerTitleAlign: 'center',
                     headerLeft: () => (
                       <TouchableOpacity style={{ marginLeft: -10 }} onPress={toggleMenu}>
@@ -319,91 +312,46 @@ const App = () => {
                   component={AccountScreen}
                   options={{
                     headerTitle: 'Account',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                   }}
                 />
                 <Stack.Screen
                   name="About"
                   component={AboutScreen}
-                  options={{ headerTitle: 'About', 
-                      headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center' }}
+                  options={{ headerTitle: 'About', headerTitleAlign: 'center' }}
                 />
                 <Stack.Screen
                   name="Setting"
                   component={SettingScreen}
-                  options={{ headerTitle: 'Setting', headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },headerTitleAlign: 'center' }}
+                  options={{ headerTitle: 'Setting', headerTitleAlign: 'center' }}
                 />
                 <Stack.Screen
                   name="Bookmark"
                   component={BookmarkScreen}
-                  options={{
-                    headerTitle: 'Bookmark',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center' }}
+                  options={{ headerTitle: 'Bookmark', headerTitleAlign: 'center' }}
                 />
                 <Stack.Screen
                   name="NearByClinic"
                   component={NearByClinic}
                   options={{
                     headerTitle: 'Near By Clinic',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                   }}
                 />
                 <Stack.Screen
                   name="Articles"
                   component={Articles}
-                  options={{ headerTitle: 'Articles', 
-                  headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center' }}
+                  options={{ headerTitle: 'Articles', headerTitleAlign: 'center' }}
                 />
                 <Stack.Screen
                   name="CancerDefinitions"
                   component={CancerDefinitions}
-                  options={{ 
-                  headerTitle: 'What is Cancer',
-                  headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },headerTitleAlign: 'center' }}
+                  options={{ headerTitle: 'What is Cancer', headerTitleAlign: 'center' }}
                 />
                 <Stack.Screen
                   name="CancerTypes"
                   component={CancerTypes}
-                  options={{ headerTitle: 'Cancer Types',
-                  headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center' }}
+                  options={{ headerTitle: 'Cancer Types', headerTitleAlign: 'center' }}
                 />
                 <Stack.Screen
                   name="Language"
@@ -426,11 +374,6 @@ const App = () => {
                   component={ResetPasswordScreen}
                   options={{
                     headerTitle: 'Reset Password',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                   }}
                 />
@@ -439,11 +382,6 @@ const App = () => {
                   component={SignupScreen}
                   options={{
                     headerTitle: 'Signup',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                   }}
                 />
@@ -452,11 +390,6 @@ const App = () => {
                   component={AnalCancer}
                   options={{
                     headerTitle: 'Anal Cancer',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                     headerRight: () => (
                       <Icon
@@ -479,11 +412,6 @@ const App = () => {
                   component={BladderCancer}
                   options={{
                     headerTitle: 'Bladder Cancer',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                     headerRight: () => (
                       <Icon
@@ -506,11 +434,6 @@ const App = () => {
                   component={BrainCancer}
                   options={{
                     headerTitle: 'Brain Cancer',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                     headerRight: () => (
                       <Icon
@@ -533,11 +456,6 @@ const App = () => {
                   component={BoneCancer}
                   options={{
                     headerTitle: 'Bone Cancer',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                     headerRight: () => (
                       <Icon
@@ -560,11 +478,6 @@ const App = () => {
                   component={BreastCancer}
                   options={{
                     headerTitle: 'Breast Cancer',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                     headerRight: () => (
                       <Icon
@@ -587,11 +500,6 @@ const App = () => {
                   component={LungCancer}
                   options={{
                     headerTitle: 'Lung Cancer',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                     headerRight: () => (
                       <Icon
@@ -614,11 +522,6 @@ const App = () => {
                   component={ChatbotScreen}
                   options={{
                     headerTitle: 'Chatbot',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                   }}
                 />
@@ -627,11 +530,6 @@ const App = () => {
                   component={Causes}
                   options={{
                     headerTitle: 'Causes',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                   }}
                 />
@@ -640,11 +538,6 @@ const App = () => {
                   component={Treatment}
                   options={{
                     headerTitle: 'Treatment',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                   }}
                 />
@@ -653,11 +546,6 @@ const App = () => {
                   component={SideEffects}
                   options={{
                     headerTitle: 'Side Effects',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                   }}
                 />
@@ -666,11 +554,6 @@ const App = () => {
                   component={SurveyScreen}
                   options={{
                     headerTitle: 'Survey',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                   }}
                 />
@@ -679,11 +562,6 @@ const App = () => {
                   component={ResultScreen}
                   options={{
                     headerTitle: 'Result',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },
                     headerTitleAlign: 'center',
                   }}
                 />
@@ -728,10 +606,6 @@ const styles = StyleSheet.create({
   navTextActive: {
     color: 'blue',
     fontWeight: 'bold',
-  },
-  dmSansFont: {
-    fontFamily: 'DMSans_18pt-SemiBold',
-    fontSize: 20,
   },
 });
 
