@@ -1,9 +1,8 @@
 /* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// Custom radio button component
 const RadioButton = ({ label, selected, onSelect }) => {
   return (
     <TouchableOpacity style={styles.radioButton} onPress={onSelect}>
@@ -16,8 +15,9 @@ const RadioButton = ({ label, selected, onSelect }) => {
 const SurveyScreen = ({ navigation }) => {
   const [responses, setResponses] = useState({});
   const [visibleQuestions, setVisibleQuestions] = useState([true, false, false, false, false]);
+  const [showResult, setShowResult] = useState(false);
+  const [totalScore, setTotalScore] = useState(0);
 
-  // Define scores for each question
   const scores = {
     'Question 1': 35,
     'Question 2': 10,
@@ -26,7 +26,6 @@ const SurveyScreen = ({ navigation }) => {
     'Question 5': 5,
   };
 
-  // Questions array
   const questions = [
     '1. Do any of your immediate family members (parents, siblings) have a history of cancer?',
     '2. Do you engage in regular physical activity or exercise?',
@@ -35,12 +34,10 @@ const SurveyScreen = ({ navigation }) => {
     '5. Do you often feel fatigued or weak?',
   ];
 
-  // Function to handle user response for a question
   const handleResponse = (question, answer) => {
     setResponses({ ...responses, [question]: answer });
   };
 
-  // Update visibility of questions based on responses
   useEffect(() => {
     const updatedVisibility = [true];
     for (let i = 1; i < questions.length; i++) {
@@ -55,16 +52,14 @@ const SurveyScreen = ({ navigation }) => {
     setVisibleQuestions(updatedVisibility);
   }, [responses]);
 
-  // Function to calculate total score
   const calculateTotalScore = () => {
     let totalScore = 0;
     for (const [question, answer] of Object.entries(responses)) {
       if (question === 'Question 2') {
-          if (answer === 'No') {
-            totalScore += scores[question];
-          }
+        if (answer === 'No') {
+          totalScore += scores[question];
         }
-      else {
+      } else {
         if (answer === 'Yes') {
           totalScore += scores[question];
         }
@@ -73,39 +68,78 @@ const SurveyScreen = ({ navigation }) => {
     return totalScore;
   };
 
-  // Function to handle submit button press
   const handleSubmit = () => {
     const totalScore = calculateTotalScore();
-    navigation.navigate('Result', { totalScore });
+    setTotalScore(totalScore);
+    setShowResult(true);
+  };
+
+  const renderResult = () => {
+    if (totalScore < 60) {
+      return (
+        <View style={styles.resultContainer}>
+          <Text style={styles.resultText}>Your total score is {totalScore}. You are at lower risk.</Text>
+          <TouchableOpacity style={styles.resultButton} onPress={() => navigation.navigate('Main')}>
+            <Text style={styles.resultButtonText}>Go to Main Page</Text>
+          </TouchableOpacity>
+          <Text style={styles.articleLinksHeader}>Recommended Articles:</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('CancerDefinitions')}>
+            <Text style={styles.articleLink}>What is Cancer?</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('CancerTypes')}>
+            <Text style={styles.articleLink}>Types of Cancer</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Causes')}>
+            <Text style={styles.articleLink}>Causes of Cancer</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.resultContainer}>
+          <Text style={styles.resultText}>Your total score is {totalScore}. You are at higher risk.</Text>
+          <TouchableOpacity style={styles.resultButton} onPress={() => navigation.navigate('NearByClinic')}>
+            <Text style={styles.resultButtonText}>Find Nearby Clinic</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.resultButton} onPress={() => navigation.navigate('Main')}>
+            <Text style={styles.resultButtonText}>Go to Main Page</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <Text style={styles.title}>Health Survey</Text>
-        {questions.map((question, index) => (
-          visibleQuestions[index] && (
-            <View key={index} style={styles.questionContainer}>
-              <Text style={styles.question}>{question}</Text>
-              <View style={styles.buttonGroup}>
-                <RadioButton
-                  label="Yes"
-                  selected={responses[`Question ${index + 1}`] === 'Yes'}
-                  onSelect={() => handleResponse(`Question ${index + 1}`, 'Yes')}
-                />
-                <RadioButton
-                  label="No"
-                  selected={responses[`Question ${index + 1}`] === 'No'}
-                  onSelect={() => handleResponse(`Question ${index + 1}`, 'No')}
-                />
+      {showResult ? (
+        renderResult()
+      ) : (
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          <Text style={styles.title}>Health Survey</Text>
+          {questions.map((question, index) => (
+            visibleQuestions[index] && (
+              <View key={index} style={styles.questionContainer}>
+                <Text style={styles.question}>{question}</Text>
+                <View style={styles.buttonGroup}>
+                  <RadioButton
+                    label="Yes"
+                    selected={responses[`Question ${index + 1}`] === 'Yes'}
+                    onSelect={() => handleResponse(`Question ${index + 1}`, 'Yes')}
+                  />
+                  <RadioButton
+                    label="No"
+                    selected={responses[`Question ${index + 1}`] === 'No'}
+                    onSelect={() => handleResponse(`Question ${index + 1}`, 'No')}
+                  />
+                </View>
               </View>
-            </View>
-          )
-        ))}
-        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-          <Text style={styles.submitButtonText}>Submit</Text>
-        </TouchableOpacity>
-      </ScrollView>
+            )
+          ))}
+          <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+            <Text style={styles.submitButtonText}>Submit</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      )}
     </SafeAreaView>
   );
 };
@@ -175,6 +209,44 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  resultContainer: {
+    padding: 20,
+    alignItems: 'center',
+  },
+  resultText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#335e90',
+    textAlign: 'center',
+  },
+  resultButton: {
+    backgroundColor: '#ff914d',
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  resultButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  articleLinksHeader: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 20,
+    color: '#335e90',
+    textAlign: 'center',
+  },
+  articleLink: {
+    color: '#bce08a',
+    textDecorationLine: 'underline',
+    fontSize: 16,
+    marginVertical: 5,
+    textAlign: 'center',
   },
 });
 
