@@ -1,6 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/no-unstable-nested-components */
 import React, { useState, useRef, useEffect } from 'react';
 import {
   Text,
@@ -240,8 +237,8 @@ const App = () => {
 
   const BottomNav = () => {
     const navigation = useNavigation();
-    const routes = useNavigationState(state => state.routes);
-    const currentRoute = routes[routes.length - 1].name;
+    const routes = useNavigationState(state => state?.routes || []);
+    const currentRoute = routes[routes.length - 1]?.name || '';
 
     return (
       <View style={styles.bottomNav}>
@@ -256,14 +253,14 @@ const App = () => {
           style={styles.navItem}
           onPress={() => navigation.navigate('Articles')}
         >
-          <Icon name="file-text-o" size={20} color={currentRoute === 'Articles' ? 'blue' : 'black'} />
+          <Icon name="file-text-o" size ={20} color={currentRoute === 'Articles' ? 'blue' : 'black'} />
           <Text style={[styles.navText, currentRoute === 'Articles' && styles.navTextActive]}>Articles</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.navItem}
           onPress={() => navigation.navigate('Survey')}
         >
-          <Icon name="clipboard"           size={20} color={currentRoute === 'Survey' ? 'blue' : 'black'} />
+          <Icon name="clipboard" size={20} color={currentRoute === 'Survey' ? 'blue' : 'black'} />
           <Text style={[styles.navText, currentRoute === 'Survey' && styles.navTextActive]}>Survey</Text>
         </TouchableOpacity>
       </View>
