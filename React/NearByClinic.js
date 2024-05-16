@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
-import { Picker } from '@react-native-picker/picker';
 
 const API_KEY = 'AIzaSyDWxI_qkI1ONKIW9wxiMY4u7qWASgO51bQ'; // Replace 'YOUR_API_KEY' with your Google Maps API key
 
@@ -33,7 +32,7 @@ const requestLocationPermission = async () => {
   }
 };
 
-const findNearbyClinics = async (latitude, longitude, radius, setClinics) => {
+const findNearbyClinics = async (latitude, longitude, setClinics) => {
   try {
     const response = await axios.get(
       'https://maps.googleapis.com/maps/api/place/nearbysearch/json',
@@ -41,7 +40,7 @@ const findNearbyClinics = async (latitude, longitude, radius, setClinics) => {
         params: {
           key: API_KEY,
           location: `${latitude},${longitude}`,
-          radius: radius, // Specify radius in meters
+          radius: 5000, // Specify radius in meters
           type: 'hospital', // Specify the type of place
         },
       },
@@ -58,7 +57,6 @@ const NearByClinic = () => {
   const [location, setLocation] = useState(null);
   const [clinics, setClinics] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [radius, setRadius] = useState(5000); // Default radius in meters
 
   useEffect(() => {
     const getLocation = async () => {
@@ -67,7 +65,7 @@ const NearByClinic = () => {
         Geolocation.getCurrentPosition(
           position => {
             setLocation(position);
-            findNearbyClinics(position.coords.latitude, position.coords.longitude, radius, setClinics);
+            findNearbyClinics(position.coords.latitude, position.coords.longitude, setClinics);
             setLoading(false);
           },
           error => {
@@ -83,7 +81,7 @@ const NearByClinic = () => {
     };
 
     getLocation();
-  }, [radius]);
+  }, []);
 
   const handleOpenGoogleMaps = clinic => {
     const { vicinity } = clinic;
@@ -95,19 +93,7 @@ const NearByClinic = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Select Search Radius:</Text>
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={radius}
-          style={styles.picker}
-          onValueChange={(itemValue) => setRadius(itemValue)}
-        >
-          <Picker.Item label="1 km" value={1000} />
-          <Picker.Item label="5 km" value={5000} />
-          <Picker.Item label="10 km" value={10000} />
-          <Picker.Item label="20 km" value={20000} />
-        </Picker>
-      </View>
+      <Text style={styles.title}>Find Nearby Clinics</Text>
       {loading ? (
         <Text>Loading...</Text>
       ) : (
@@ -143,24 +129,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     color: '#335e90',
-  },
-  label: {
-    fontSize: 18,
-    color: '#335e90',
-    marginBottom: 10,
-  },
-  pickerContainer: {
-    width: '80%',
-    backgroundColor: '#fff',
-    borderColor: '#335e90',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 20,
-    overflow: 'hidden',
-  },
-  picker: {
-    width: '100%',
-    height: 50,
   },
   scrollView: {
     width: '100%',
