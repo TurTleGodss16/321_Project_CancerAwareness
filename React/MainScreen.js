@@ -81,7 +81,7 @@ const MainScreen = ({ navigation }) => {
             keyExtractor={(item, index) => index.toString()}
           />
 
-          <Text style={[styles.headerText, styles.dmSansFont, {justifyContent: 'center', alignSelf: 'center'}]}>Quick Links</Text>
+          <Text style={[styles.linkText, styles.loraFont, {marginBottom: 10, alignSelf: 'center'}]}>Quick Links</Text>
 
           <View style={styles.linksContainer}>
             <View style={styles.link}>
@@ -283,7 +283,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   loraFont: {
-    fontFamily: 'Lora',
+    fontFamily: 'Lora-SemiBold',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 
