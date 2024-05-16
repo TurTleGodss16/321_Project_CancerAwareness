@@ -22,7 +22,7 @@ const Causes = ({ navigation }) => {
         <ScrollView style={{ flex: 1 }}>
             <WebView nestedScrollEnabled
                 source={{ uri: 'https://www.cancer.org.au/cancer-information/causes-and-prevention'}}
-                style={{ height: screenHeight }}
+                style={{ height: screenHeight * 0.90}}
             />
         </ScrollView>
     );

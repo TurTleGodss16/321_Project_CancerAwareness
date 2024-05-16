@@ -22,7 +22,7 @@ const CancerDefinitions = ({ navigation }) => {
         <ScrollView style={{ flex: 1 }}>
             <WebView nestedScrollEnabled
                 source={{ uri: 'https://www.cancercouncil.com.au/cancer-information/understanding-cancer/what-is-cancer/'}}
-                style={{ height: screenHeight }}
+                style={{ height: screenHeight * 0.90}}
             />
         </ScrollView>
     );

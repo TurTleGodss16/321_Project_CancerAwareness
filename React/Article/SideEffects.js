@@ -22,7 +22,7 @@ const SideEffects = ({ navigation }) => {
         <ScrollView style={{ flex: 1 }}>
             <WebView nestedScrollEnabled
                 source={{ uri: 'https://www.cancercouncil.com.au/cancer-information/managing-cancer-side-effects/'}}
-                style={{ height: screenHeight }}
+                style={{ height: screenHeight * 0.90}}
             />
         </ScrollView>
     );
