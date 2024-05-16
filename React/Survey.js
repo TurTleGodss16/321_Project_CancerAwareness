@@ -8,7 +8,7 @@ const RadioButton = ({ label, selected, onSelect }) => {
   return (
     <TouchableOpacity style={styles.radioButton} onPress={onSelect}>
       <View style={[styles.radioButtonCircle, selected && styles.radioButtonSelected]} />
-      <Text style={styles.radioButtonLabel}>{label}</Text>
+      <Text>{label}</Text>
     </TouchableOpacity>
   );
 };
@@ -16,6 +16,7 @@ const RadioButton = ({ label, selected, onSelect }) => {
 const SurveyScreen = ({ navigation }) => {
   const [responses, setResponses] = useState({});
   const [visibleQuestions, setVisibleQuestions] = useState([true, false, false, false, false]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   // Define scores for each question
   const scores = {
@@ -75,17 +76,23 @@ const SurveyScreen = ({ navigation }) => {
 
   // Function to handle submit button press
   const handleSubmit = () => {
+    console.log('User Responses:', responses);
     const totalScore = calculateTotalScore();
-    navigation.navigate('Result', { totalScore });
+    // if (totalScore >= 60) {
+    //   navigation.navigate('NearByClinic'); // Navigate to booking screen if score is 60 or above
+    // } else {
+    //   navigation.navigate('Main'); // Navigate to main screen if score is below 60
+    // }
+    navigation.navigate('Result', {totalScore});
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <Text style={styles.title}>Health Survey</Text>
+      <ScrollView>
+        {/* Render questions based on visibility */}
         {questions.map((question, index) => (
           visibleQuestions[index] && (
-            <View key={index} style={styles.questionContainer}>
+            <View key={index}>
               <Text style={styles.question}>{question}</Text>
               <View style={styles.buttonGroup}>
                 <RadioButton
@@ -102,9 +109,9 @@ const SurveyScreen = ({ navigation }) => {
             </View>
           )
         ))}
-        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-          <Text style={styles.submitButtonText}>Submit</Text>
-        </TouchableOpacity>
+
+        {/* Submit button */}
+        <Button title="Submit" onPress={handleSubmit} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -113,68 +120,34 @@ const SurveyScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
-  },
-  scrollView: {
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#335e90',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  questionContainer: {
-    marginBottom: 30,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   question: {
     fontSize: 18,
-    color: '#335e90',
-    marginBottom: 12,
+    marginBottom: 20,
   },
   buttonGroup: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+    marginBottom: 20,
   },
   radioButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginRight: 30,
+    marginLeft: 30,
   },
   radioButtonCircle: {
     width: 20,
     height: 20,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#bce08a',
-    marginRight: 10,
+    borderColor: 'blue', // Change border color as needed
+    marginRight: 5,
   },
   radioButtonSelected: {
-    backgroundColor: '#bce08a',
-  },
-  radioButtonLabel: {
-    fontSize: 16,
-    color: '#335e90',
-  },
-  submitButton: {
-    backgroundColor: '#ff914d',
-    borderRadius: 8,
-    paddingVertical: 12,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  submitButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
+    backgroundColor: 'blue', // Change color as needed
   },
 });
 
