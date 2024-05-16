@@ -220,16 +220,6 @@ const App = () => {
           <Icon name="bookmark" size={20} color="black" />
           <Text style={styles.menuText}>Bookmark</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => {
-            toggleMenu();
-            navigation.navigate('Login');
-          }}>
-          <Icon name="sign-out" size={20} color="black" />
-          <Text style={styles.menuText}>Logout</Text>
-        </TouchableOpacity>
       </Animated.View>
     );
   };

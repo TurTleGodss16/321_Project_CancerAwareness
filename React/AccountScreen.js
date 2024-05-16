@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { UserContext } from './UserContext';
 import { auth } from './firebaseConfig';
 
 const AccountScreen = ({ navigation }) => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [isAnonymous, setIsAnonymous] = useState(true);
 
   useEffect(() => {
@@ -17,6 +17,26 @@ const AccountScreen = ({ navigation }) => {
 
     checkUser();
   }, []);
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Logout', onPress: () => {
+            auth.signOut().then(() => {
+              setUser(null); // Clear user context
+              navigation.navigate('Login');
+            }).catch(error => {
+              Alert.alert('Error', error.message);
+            });
+          }
+        },
+      ],
+      { cancelable: true }
+    );
+  };
 
   if (!user) {
     return (
@@ -51,8 +71,10 @@ const AccountScreen = ({ navigation }) => {
           <View style={styles.textBox}>
             <Text>{user.email}</Text>
           </View>
+          <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
+            <Text style={styles.logoutBtnText}>Logout</Text>
+          </TouchableOpacity>
         </View>
-        {/* Rest of the component */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -95,56 +117,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: 'left',
   },
-  button: {
+  logoutBtn: {
     width: '100%',
-    backgroundColor: '#0000FF',
+    backgroundColor: '#ff0000',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
-    marginBottom: 10,
   },
-  buttonText: {
+  logoutBtnText: {
     color: 'white',
     fontWeight: 'bold',
-  },
-  recentArticles: {
-    width: '80%',
-    marginTop: 24,
-  },
-  recentArticle: {
-    marginTop: 12,
-  },
-  recentArticleTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  recentArticleExcerpt: {
-    fontSize: 12,
-    color: '#666',
-  },
-  bottomBar: {
-    backgroundColor: 'white',
-    height: 60,
-    alignSelf: 'center',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    borderTopWidth: 1,
-    flexDirection: 'row',
-  },
-  bottomBarIcon: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    alignSelf: 'center',
-  },
-  textDescription: {
-    textAlign: 'center',
-    fontSize: 12,
-    marginTop: 4,
   },
   anonymousContainer: {
     flex: 1,
