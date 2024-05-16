@@ -20,6 +20,7 @@
     "@react-native-firebase/firestore": "^19.1.1",
     "@react-native-firebase/messaging": "^19.1.1",
     "@react-native-google-signin/google-signin": "^10.1.2",
+    "@react-native-picker/picker": "^2.7.5",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "axios": "^1.6.8",
