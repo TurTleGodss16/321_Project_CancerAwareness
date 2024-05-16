@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
@@ -8,6 +7,7 @@ import {
   PermissionsAndroid,
   ScrollView,
   Linking,
+  TouchableOpacity,
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
@@ -58,8 +58,6 @@ const findNearbyClinics = async (latitude, longitude, setClinics) => {
   }
 };
 
-// Existing imports...
-
 const NearByClinic = () => {
   const [location, setLocation] = useState(null);
   const [clinics, setClinics] = useState([]);
@@ -103,24 +101,24 @@ const NearByClinic = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Find Nearby Clinics</Text>
-      <Button title="Find Clinics" onPress={getLocation} />
+      <TouchableOpacity style={styles.findButton} onPress={getLocation}>
+        <Text style={styles.findButtonText}>Find Clinics</Text>
+      </TouchableOpacity>
       <ScrollView style={styles.scrollView}>
-          {clinics.map((clinic, index) => (
-            <View style={styles.tableRow} key={index}>
-              <Text style={[styles.cell, styles.firstCell]} onPress={() => handleOpenGoogleMaps(clinic)}>
-                {clinic.name}
-              </Text>
-              <View style={styles.secondCell}>
-                <Text style={[styles.cell, styles.secondCellText]} onPress={() => handleOpenGoogleMaps(clinic)}>
-                  {clinic.vicinity}
-                </Text>
-                <Text style={styles.link} onPress={() => handleOpenGoogleMaps(clinic)}>
-                  Open in Google Maps
-                </Text>
-              </View>
-            </View>
-          ))}
-        </ScrollView>
+        {clinics.map((clinic, index) => (
+          <View style={styles.card} key={index}>
+            <Text style={styles.clinicName} onPress={() => handleOpenGoogleMaps(clinic)}>
+              {clinic.name}
+            </Text>
+            <Text style={styles.clinicAddress} onPress={() => handleOpenGoogleMaps(clinic)}>
+              {clinic.vicinity}
+            </Text>
+            <TouchableOpacity onPress={() => handleOpenGoogleMaps(clinic)}>
+              <Text style={styles.link}>Open in Google Maps</Text>
+            </TouchableOpacity>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 };
@@ -128,64 +126,56 @@ const NearByClinic = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f0f4f7',
     alignItems: 'center',
-    justifyContent: 'center',
     paddingVertical: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 20,
+    color: '#335e90',
   },
-  scrollView: {
-    flex: 1,
-    width: '100%',
-  },
-  table: {
-    width: '100%',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
+  findButton: {
+    backgroundColor: '#ff914d',
+    padding: 12,
+    borderRadius: 8,
     marginBottom: 20,
   },
-  tableRow: {
-    flexDirection: 'row',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  header: {
+  findButtonText: {
+    color: '#fff',
+    fontSize: 18,
     fontWeight: 'bold',
+  },
+  scrollView: {
+    width: '100%',
+    paddingHorizontal: 16,
+  },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 16,
+    marginBottom: 16,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 3,
+  },
+  clinicName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#335e90',
+    marginBottom: 8,
+  },
+  clinicAddress: {
     fontSize: 16,
-    textAlign: 'center',
-  },
-  firstHeader: {
-    flex: 2,
-  },
-  secondHeader: {
-    flex: 3,
-  },
-  cell: {
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  firstCell: {
-    flex: 2,
-  },
-  secondCell: {
-    flex: 3,
-    justifyContent: 'center',
-  },
-  secondCellText: {
-    textAlign: 'center',
+    color: '#555',
+    marginBottom: 8,
   },
   link: {
-    color: 'blue',
+    color: '#bce081',
     textDecorationLine: 'underline',
-    fontSize: 14,
-    textAlign: 'center',
+    fontSize: 16,
   },
 });
 
