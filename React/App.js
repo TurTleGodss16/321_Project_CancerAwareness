@@ -46,6 +46,7 @@ import SurveyScreen from './Survey';
 import { doc, setDoc, collection, deleteDoc, getDocs } from 'firebase/firestore'; // Import required functions from Firestore
 import { firestore, auth } from './firebaseConfig'; // Make sure you export 'db' from your firebaseConfig file
 import ResultScreen from './Result';
+import BottomNavigator from './BottomNavigator'; // Import BottomNavigator
 
 const Stack = createNativeStackNavigator();
 
@@ -189,558 +190,521 @@ const App = () => {
           }}>
           <Icon name="user" size={20} color="black" />
           <Text style={styles.menuText}>Account</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => {
-            toggleMenu();
-            navigation.navigate('About');
-          }}>
-          <Icon name="info" size={20} color="black" />
-          <Text style={styles.menuText}>About Us</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => {
-            toggleMenu();
-            navigation.navigate('Setting');
-          }}>
-          <Icon name="cog" size={20} color="black" />
-          <Text style={styles.menuText}>Setting</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => {
-            toggleMenu();
-            navigation.navigate('Bookmark', { savedArticles });
-          }}>
-          <Icon name="bookmark" size={20} color="black" />
-          <Text style={styles.menuText}>Bookmark</Text>
-        </TouchableOpacity>
-      </Animated.View>
-    );
-  };
-
-  const BottomNav = () => {
-    const navigation = useNavigation();
-    const routes = useNavigationState(state => state?.routes || []);
-    const currentRoute = routes[routes.length - 1]?.name || '';
-
-    // List of screens where BottomNav should not be shown
-    const hideBottomNavScreens = ['Login', 'ResetPassword', 'signup'];
-
-    if (hideBottomNavScreens.includes(currentRoute)) {
-      return null;
-    }
-
-    return (
-      <View style={styles.bottomNav}>
-        <TouchableOpacity
-          style={styles.navItem}
-          onPress={() => navigation.navigate('Main')}
-        >
-          <Icon name="home" size={20} color={currentRoute === 'Main' ? 'blue' : 'black'} />
-          <Text style={[styles.navText, currentRoute === 'Main' && styles.navTextActive]}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.navItem}
-          onPress={() => navigation.navigate('Articles')}
-        >
-          <Icon name="file-text-o" size={20} color={currentRoute === 'Articles' ? 'blue' : 'black'} />
-          <Text style={[styles.navText, currentRoute === 'Articles' && styles.navTextActive]}>Articles</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.navItem}
-          onPress={() => navigation.navigate('Survey')}
-        >
-          <Icon name="clipboard" size={20} color={currentRoute === 'Survey' ? 'blue' : 'black'} />
-          <Text style={[styles.navText, currentRoute === 'Survey' && styles.navTextActive]}>Survey</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
-  const routes = useNavigationState(state => state?.routes || []);
-  const currentRoute = routes[routes.length - 1]?.name || '';
-
-  return (
-    <UserProvider>
-      <NavigationContainer>
-        <SafeAreaView style={{ flex: 1 }}>
-          <TouchableOpacity style={{ flex: 1 }} onPress={closeMenu} activeOpacity={1}>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
-              {isMenuOpen && <Menu />}
-              <Stack.Navigator initialRouteName="Login">
-                <Stack.Screen
-                  name="Login"
-                  component={LoginScreen}
-                  options={{
-                    headerTitle: 'Login',
-                    headerTitleAlign: 'center',
-                  }}
-                />
-                <Stack.Screen
-                  name="Main"
-                  component={MainScreen}
-                  options={{
-                    headerTitle: 'SCSG Awareness App',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                    headerLeft: () => (
-                      <TouchableOpacity style={{ marginLeft: -10 }} onPress={toggleMenu}>
-                        <View
-                          style={{
-                            width: 40, // Diameter of the outer circle
-                            height: 40, // Diameter of the outer circle
-                            borderRadius: 20, // Radius to make it a perfect circle
-                            backgroundColor: 'black', // Background color of the circle
-                            justifyContent: 'center', // Center the icon elements vertically
-                            alignItems: 'center', // Center the icon elements horizontally
-                          }}
-                        >
-                          <Image
-                            source={require('../Images/HamburgerButton.png')} // Ensure this path matches your file's location
-                            style={{ width: 20, height: 20 }} // Adjust size as needed
-                          />
-                        </View>
-                      </TouchableOpacity>
-                    ),
-                  }}
-                />
-                <Stack.Screen
-                  name="Account"
-                  component={AccountScreen}
-                  options={{
-                    headerTitle: 'Account',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                  }}
-                />
-                <Stack.Screen
-                  name="About"
-                  component={AboutScreen}
-                  options={{
-                    headerTitle: 'About', 
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center' 
-                  }}
-                />
-                <Stack.Screen
-                  name="Setting"
-                  component={SettingScreen}
-                  options={{
-                    headerTitle: 'Setting', 
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },headerTitleAlign: 'center' }}
-                />
-                <Stack.Screen
-                  name="Bookmark"
-                  component={BookmarkScreen}
-                  options={{
-                    headerTitle: 'Bookmark',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center' 
-                  }}
-                />
-                <Stack.Screen
-                  name="NearByClinic"
-                  component={NearByClinic}
-                  options={{
-                    headerTitle: 'Near By Clinic',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                  }}
-                />
-                <Stack.Screen
-                  name="Articles"
-                  component={Articles}
-                  options={{ 
-                    headerTitle: 'Articles', 
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center' 
-                  }}
-                />
-                <Stack.Screen
-                  name="CancerDefinitions"
-                  component={CancerDefinitions}
-                  options={{ 
-                    headerTitle: 'What is Cancer',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },headerTitleAlign: 'center' }}
-                />
-                <Stack.Screen
-                  name="CancerTypes"
-                  component={CancerTypes}
-                  options={{ 
-                    headerTitle: 'Cancer Types',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center' 
-                  }}
-                />
-                <Stack.Screen
-                  name="Language"
-                  component={Language}
-                  options={{
-                    headerTitle: () => <MultiLineHeaderTitle />,
-                    headerTitleAlign: 'center',
-                  }}
-                />
-                <Stack.Screen
-                  name="Notification"
-                  component={Notification}
-                  options={{
-                    headerTitle: 'Notification',
-                    headerTitleAlign: 'center',
-                  }}
-                />
-                <Stack.Screen
-                  name="ResetPassword"
-                  component={ResetPasswordScreen}
-                  options={{
-                    headerTitle: 'Reset Password',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                  }}
-                />
-                <Stack.Screen
-                  name="signup"
-                  component={SignupScreen}
-                  options={{
-                    headerTitle: 'Signup',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                  }}
-                />
-                <Stack.Screen
-                  name="AnalCancer"
-                  component={AnalCancer}
-                  options={{
-                    headerTitle: 'Anal Cancer',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                    headerRight: () => (
-                      <Icon
-                        name="bookmark"
-                        size={20}
-                        color={bookmarkColors.AnalCancer}
-                        onPress={() => {
-                          toggleBookmarkColor('AnalCancer');
-                          setSavedArticles([
-                            ...savedArticles,
-                            { name: 'Anal Cancer', type: 'AnalCancer' },
-                          ]);
-                        }} // Toggle color on press
-                      />
-                    ),
-                  }}
-                />
-                <Stack.Screen
-                  name="BladderCancer"
-                  component={BladderCancer}
-                  options={{
-                    headerTitle: 'Bladder Cancer',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                    headerRight: () => (
-                      <Icon
-                        name="bookmark"
-                        size={20}
-                        color={bookmarkColors.BladderCancer}
-                        onPress={() => {
-                          toggleBookmarkColor('BladderCancer');
-                          setSavedArticles([
-                            ...savedArticles,
-                            { name: 'Bladder Cancer', type: 'BladderCancer' },
-                          ]);
-                        }} // Toggle color on press
-                      />
-                    ),
-                  }}
-                />
-                <Stack.Screen
-                  name="BrainCancer"
-                  component={BrainCancer}
-                  options={{
-                    headerTitle: 'Brain Cancer',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                    headerRight: () => (
-                      <Icon
-                        name="bookmark"
-                        size={20}
-                        color={bookmarkColors.BrainCancer}
-                        onPress={() => {
-                          toggleBookmarkColor('BrainCancer');
-                          setSavedArticles([
-                            ...savedArticles,
-                            { name: 'Brain Cancer', type: 'BrainCancer' },
-                          ]);
-                        }} // Toggle color on press
-                      />
-                    ),
-                  }}
-                />
-                <Stack.Screen
-                  name="BoneCancer"
-                  component={BoneCancer}
-                  options={{
-                    headerTitle: 'Bone Cancer',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                    headerRight: () => (
-                      <Icon
-                        name="bookmark"
-                        size={20}
-                        color={bookmarkColors.BoneCancer}
-                        onPress={() => {
-                          toggleBookmarkColor('BoneCancer');
-                          setSavedArticles([
-                            ...savedArticles,
-                            { name: 'Bone Cancer', type: 'BoneCancer' },
-                          ]);
-                        }} // Toggle color on press
-                      />
-                    ),
-                  }}
-                />
-                <Stack.Screen
-                  name="BreastCancer"
-                  component={BreastCancer}
-                  options={{
-                    headerTitle: 'Breast Cancer',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                    headerRight: () => (
-                      <Icon
-                        name="bookmark"
-                        size={20}
-                        color={bookmarkColors.BreastCancer}
-                        onPress={() => {
-                          toggleBookmarkColor('BreastCancer');
-                          setSavedArticles([
-                            ...savedArticles,
-                            { name: 'Breast Cancer', type: 'BreastCancer' },
-                          ]);
-                        }} // Toggle color on press
-                      />
-                    ),
-                  }}
-                />
-                <Stack.Screen
-                  name="LungCancer"
-                  component={LungCancer}
-                  options={{
-                    headerTitle: 'Lung Cancer',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                    headerRight: () => (
-                      <Icon
-                        name="bookmark"
-                        size={20}
-                        color={bookmarkColors.LungCancer}
-                        onPress={() => {
-                          toggleBookmarkColor('LungCancer');
-                          setSavedArticles([
-                            ...savedArticles,
-                            { name: 'Lung Cancer', type: 'LungCancer' },
-                          ]);
-                        }} // Toggle color on press
-                      />
-                    ),
-                  }}
-                />
-                <Stack.Screen
-                  name="Chatbot"
-                  component={ChatbotScreen}
-                  options={{
-                    headerTitle: 'Chatbot',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                  }}
-                />
-                <Stack.Screen
-                  name="Causes"
-                  component={Causes}
-                  options={{
-                    headerTitle: 'Causes',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                  }}
-                />
-                <Stack.Screen
-                  name="Treatment"
-                  component={Treatment}
-                  options={{
-                    headerTitle: 'Treatment',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                  }}
-                />
-                <Stack.Screen
-                  name="SideEffects"
-                  component={SideEffects}
-                  options={{
-                    headerTitle: 'Side Effects',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                  }}
-                />
-                <Stack.Screen
-                  name="Survey"
-                  component={SurveyScreen}
-                  options={{
-                    headerTitle: 'Survey',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                  }}
-                />
-                <Stack.Screen
-                  name="Result"
-                  component={ResultScreen}
-                  options={{
-                    headerTitle: 'Result',
-                    headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      // fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                  }}
-                />
-              </Stack.Navigator>
-            </View>
           </TouchableOpacity>
-          {!['Login', 'ResetPassword', 'signup'].includes(currentRoute) && <BottomNav />}
-        </SafeAreaView>
-      </NavigationContainer>
-    </UserProvider>
-  );
+
+<TouchableOpacity
+  style={styles.menuItem}
+  onPress={() => {
+    toggleMenu();
+    navigation.navigate('About');
+  }}>
+  <Icon name="info" size={20} color="black" />
+  <Text style={styles.menuText}>About Us</Text>
+</TouchableOpacity>
+
+<TouchableOpacity
+  style={styles.menuItem}
+  onPress={() => {
+    toggleMenu();
+    navigation.navigate('Setting');
+  }}>
+  <Icon name="cog" size={20} color="black" />
+  <Text style={styles.menuText}>Setting</Text>
+</TouchableOpacity>
+
+<TouchableOpacity
+  style={styles.menuItem}
+  onPress={() => {
+    toggleMenu();
+    navigation.navigate('Bookmark', { savedArticles });
+  }}>
+  <Icon name="bookmark" size={20} color="black" />
+  <Text style={styles.menuText}>Bookmark</Text>
+</TouchableOpacity>
+</Animated.View>
+);
+};
+
+return (
+<UserProvider>
+<NavigationContainer>
+<SafeAreaView style={{ flex: 1 }}>
+  <TouchableOpacity style={{ flex: 1 }} onPress={closeMenu} activeOpacity={1}>
+    <View style={{ flex: 1, flexDirection: 'row' }}>
+      {isMenuOpen && <Menu />}
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            headerTitle: 'Login',
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="Main"
+          component={MainScreen}
+          options={{
+            headerTitle: 'SCSG Awareness App',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <TouchableOpacity style={{ marginLeft: -10 }} onPress={toggleMenu}>
+                <View
+                  style={{
+                    width: 40, // Diameter of the outer circle
+                    height: 40, // Diameter of the outer circle
+                    borderRadius: 20, // Radius to make it a perfect circle
+                    backgroundColor: 'black', // Background color of the circle
+                    justifyContent: 'center', // Center the icon elements vertically
+                    alignItems: 'center', // Center the icon elements horizontally
+                  }}
+                >
+                  <Image
+                    source={require('../Images/HamburgerButton.png')} // Ensure this path matches your file's location
+                    style={{ width: 20, height: 20 }} // Adjust size as needed
+                  />
+                </View>
+              </TouchableOpacity>
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Account"
+          component={AccountScreen}
+          options={{
+            headerTitle: 'Account',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="About"
+          component={AboutScreen}
+          options={{
+            headerTitle: 'About', 
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center' 
+          }}
+        />
+        <Stack.Screen
+          name="Setting"
+          component={SettingScreen}
+          options={{
+            headerTitle: 'Setting', 
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center' 
+          }}
+        />
+        <Stack.Screen
+          name="Bookmark"
+          component={BookmarkScreen}
+          options={{
+            headerTitle: 'Bookmark',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center' 
+          }}
+        />
+        <Stack.Screen
+          name="NearByClinic"
+          component={NearByClinic}
+          options={{
+            headerTitle: 'Near By Clinic',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="Articles"
+          component={Articles}
+          options={{ 
+            headerTitle: 'Articles', 
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center' 
+          }}
+        />
+        <Stack.Screen
+          name="CancerDefinitions"
+          component={CancerDefinitions}
+          options={{ 
+            headerTitle: 'What is Cancer',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center' 
+          }}
+        />
+        <Stack.Screen
+          name="CancerTypes"
+          component={CancerTypes}
+          options={{ 
+            headerTitle: 'Cancer Types',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center' 
+          }}
+        />
+        <Stack.Screen
+          name="Language"
+          component={Language}
+          options={{
+            headerTitle: () => <MultiLineHeaderTitle />,
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="Notification"
+          component={Notification}
+          options={{
+            headerTitle: 'Notification',
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="ResetPassword"
+          component={ResetPasswordScreen}
+          options={{
+            headerTitle: 'Reset Password',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="signup"
+          component={SignupScreen}
+          options={{
+            headerTitle: 'Signup',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="AnalCancer"
+          component={AnalCancer}
+          options={{
+            headerTitle: 'Anal Cancer',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <Icon
+                name="bookmark"
+                size={20}
+                color={bookmarkColors.AnalCancer}
+                onPress={() => {
+                  toggleBookmarkColor('AnalCancer');
+                  setSavedArticles([
+                    ...savedArticles,
+                    { name: 'Anal Cancer', type: 'AnalCancer' },
+                  ]);
+                }} // Toggle color on press
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="BladderCancer"
+          component={BladderCancer}
+          options={{
+            headerTitle: 'Bladder Cancer',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <Icon
+                name="bookmark"
+                size={20}
+                color={bookmarkColors.BladderCancer}
+                onPress={() => {
+                  toggleBookmarkColor('BladderCancer');
+                  setSavedArticles([
+                    ...savedArticles,
+                    { name: 'Bladder Cancer', type: 'BladderCancer' },
+                  ]);
+                }} // Toggle color on press
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="BrainCancer"
+          component={BrainCancer}
+          options={{
+            headerTitle: 'Brain Cancer',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <Icon
+                name="bookmark"
+                size={20}
+                color={bookmarkColors.BrainCancer}
+                onPress={() => {
+                  toggleBookmarkColor('BrainCancer');
+                  setSavedArticles([
+                    ...savedArticles,
+                    { name: 'Brain Cancer', type: 'BrainCancer' },
+                  ]);
+                }} // Toggle color on press
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="BoneCancer"
+          component={BoneCancer}
+          options={{
+            headerTitle: 'Bone Cancer',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <Icon
+                name="bookmark"
+                size={20}
+                color={bookmarkColors.BoneCancer}
+                onPress={() => {
+                  toggleBookmarkColor('BoneCancer');
+                  setSavedArticles([
+                    ...savedArticles,
+                    { name: 'Bone Cancer', type: 'BoneCancer' },
+                  ]);
+                }} // Toggle color on press
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="BreastCancer"
+          component={BreastCancer}
+          options={{
+            headerTitle: 'Breast Cancer',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <Icon
+                name="bookmark"
+                size={20}
+                color={bookmarkColors.BreastCancer}
+                onPress={() => {
+                  toggleBookmarkColor('BreastCancer');
+                  setSavedArticles([
+                    ...savedArticles,
+                    { name: 'Breast Cancer', type: 'BreastCancer' },
+                  ]);
+                }} // Toggle color on press
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="LungCancer"
+          component={LungCancer}
+          options={{
+            headerTitle: 'Lung Cancer',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+            headerRight: () => (
+              <Icon
+                name="bookmark"
+                size={20}
+                color={bookmarkColors.LungCancer}
+                onPress={() => {
+                  toggleBookmarkColor('LungCancer');
+                  setSavedArticles([
+                    ...savedArticles,
+                    { name: 'Lung Cancer', type: 'LungCancer' },
+                  ]);
+                }} // Toggle color on press
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Chatbot"
+          component={ChatbotScreen}
+          options={{
+            headerTitle: 'Chatbot',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="Causes"
+          component={Causes}
+          options={{
+            headerTitle: 'Causes',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="Treatment"
+          component={Treatment}
+          options={{
+            headerTitle: 'Treatment',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="SideEffects"
+          component={SideEffects}
+          options={{
+            headerTitle: 'Side Effects',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="Survey"
+          component={SurveyScreen}
+          options={{
+            headerTitle: 'Survey',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+        <Stack.Screen
+          name="Result"
+          component={ResultScreen}
+          options={{
+            headerTitle: 'Result',
+            headerTitleStyle: {
+              fontFamily: 'Lora-SemiBold',
+              fontSize: 22,
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+        />
+      </Stack.Navigator>
+    </View>
+  </TouchableOpacity>
+</SafeAreaView>
+</NavigationContainer>
+</UserProvider>
+);
 };
 
 const styles = StyleSheet.create({
-  menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
-  menuText: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    color: 'black',
-    marginLeft: 10,
-  },
-  bottomNav: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: 10,
-    borderTopWidth: 1,
-    borderColor: '#ddd',
-    backgroundColor: '#f8f8f8',
-  },
-  navItem: {
-    alignItems: 'center',
-  },
-  navText: {
-    fontSize: 12,
-    color: 'black',
-  },
-  navTextActive: {
-    color: 'blue',
-    fontWeight: 'bold',
-  },
-  dmSansFont: {
-    fontFamily: 'DMSans_18pt-SemiBold',
-    fontSize: 20,
-  },
+menuItem: {
+flexDirection: 'row',
+alignItems: 'center',
+paddingVertical: 10,
+paddingHorizontal: 20,
+},
+menuText: {
+fontWeight: 'bold',
+fontSize: 16,
+color: 'black',
+marginLeft: 10,
+},
+bottomNav: {
+flexDirection: 'row',
+justifyContent: 'space-around',
+paddingVertical: 10,
+borderTopWidth: 1,
+borderColor: '#ddd',
+backgroundColor: '#f8f8f8',
+},
+navItem: {
+alignItems: 'center',
+},
+navText: {
+fontSize: 12,
+color: 'black',
+},
+navTextActive: {
+color: 'blue',
+fontWeight: 'bold',
+},
+dmSansFont: {
+fontFamily: 'DMSans_18pt-SemiBold',
+fontSize: 20,
+},
 });
 
 export default App;
+

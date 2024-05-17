@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Text, Image, TouchableOpacity, FlatList, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import BottomNavigator from './BottomNavigator';
 
 const MainScreen = ({ navigation }) => {
   const [searchText, setSearchText] = useState('');
@@ -161,6 +162,9 @@ const MainScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
+      <TouchableOpacity>
+        <BottomNavigator/>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
