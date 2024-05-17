@@ -289,7 +289,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                     headerLeft: () => (
@@ -321,7 +321,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -334,7 +334,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center' 
                   }}
@@ -348,9 +348,7 @@ const App = () => {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
                       fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center' 
-                  }}
+                    },headerTitleAlign: 'center' }}
                 />
                 <Stack.Screen
                   name="Bookmark"
@@ -360,7 +358,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center' 
                   }}
@@ -373,7 +371,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -386,7 +384,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center' 
                   }}
@@ -400,9 +398,7 @@ const App = () => {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
                       fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center' 
-                  }}
+                    },headerTitleAlign: 'center' }}
                 />
                 <Stack.Screen
                   name="CancerTypes"
@@ -412,7 +408,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center' 
                   }}
@@ -441,7 +437,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -454,7 +450,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -467,7 +463,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                     headerRight: () => (
@@ -494,7 +490,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                     headerRight: () => (
@@ -521,7 +517,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                     headerRight: () => (
@@ -548,7 +544,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                     headerRight: () => (
@@ -575,7 +571,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                     headerRight: () => (
@@ -602,7 +598,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                     headerRight: () => (
@@ -629,7 +625,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -642,7 +638,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -655,7 +651,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -668,7 +664,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -681,7 +677,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -694,7 +690,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}

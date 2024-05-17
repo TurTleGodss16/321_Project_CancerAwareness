@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
   loraFont: {
     fontFamily: 'Lora-SemiBold',
     fontSize: 20,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
   },
 });
 
