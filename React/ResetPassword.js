@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from './FirebaseConfig'; // Make sure this points to your Firebase config file
+import { auth } from './firebaseConfig'; // Make sure this points to your Firebase config file
 
 const ResetPasswordScreen = () => {
   const [email, setEmail] = useState('');
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     width: '80%',
-    backgroundColor: '#0000FF',
+    backgroundColor: '#334e90',
     borderRadius: 25,
     height: 50,
     alignItems: 'center',
