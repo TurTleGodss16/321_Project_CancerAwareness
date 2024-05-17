@@ -229,6 +229,13 @@ const App = () => {
     const routes = useNavigationState(state => state?.routes || []);
     const currentRoute = routes[routes.length - 1]?.name || '';
 
+    // List of screens where BottomNav should not be shown
+    const hideBottomNavScreens = ['Login', 'ResetPassword', 'signup'];
+
+    if (hideBottomNavScreens.includes(currentRoute)) {
+      return null;
+    }
+
     return (
       <View style={styles.bottomNav}>
         <TouchableOpacity
@@ -242,7 +249,7 @@ const App = () => {
           style={styles.navItem}
           onPress={() => navigation.navigate('Articles')}
         >
-          <Icon name="file-text-o" size ={20} color={currentRoute === 'Articles' ? 'blue' : 'black'} />
+          <Icon name="file-text-o" size={20} color={currentRoute === 'Articles' ? 'blue' : 'black'} />
           <Text style={[styles.navText, currentRoute === 'Articles' && styles.navTextActive]}>Articles</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -255,6 +262,8 @@ const App = () => {
       </View>
     );
   };
+  const routes = useNavigationState(state => state?.routes || []);
+  const currentRoute = routes[routes.length - 1]?.name || '';
 
   return (
     <UserProvider>
@@ -320,22 +329,28 @@ const App = () => {
                 <Stack.Screen
                   name="About"
                   component={AboutScreen}
-                  options={{ headerTitle: 'About', 
-                      headerTitleStyle: {
+                  options={{
+                    headerTitle: 'About', 
+                    headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
                       fontWeight: 'bold',
                     },
-                    headerTitleAlign: 'center' }}
+                    headerTitleAlign: 'center' 
+                  }}
                 />
                 <Stack.Screen
                   name="Setting"
                   component={SettingScreen}
-                  options={{ headerTitle: 'Setting', headerTitleStyle: {
+                  options={{
+                    headerTitle: 'Setting', 
+                    headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
                       fontWeight: 'bold',
-                    },headerTitleAlign: 'center' }}
+                    },
+                    headerTitleAlign: 'center' 
+                  }}
                 />
                 <Stack.Screen
                   name="Bookmark"
@@ -347,7 +362,8 @@ const App = () => {
                       fontSize: 22,
                       fontWeight: 'bold',
                     },
-                    headerTitleAlign: 'center' }}
+                    headerTitleAlign: 'center' 
+                  }}
                 />
                 <Stack.Screen
                   name="NearByClinic"
@@ -365,35 +381,41 @@ const App = () => {
                 <Stack.Screen
                   name="Articles"
                   component={Articles}
-                  options={{ headerTitle: 'Articles', 
-                  headerTitleStyle: {
+                  options={{ 
+                    headerTitle: 'Articles', 
+                    headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
                       fontWeight: 'bold',
                     },
-                    headerTitleAlign: 'center' }}
+                    headerTitleAlign: 'center' 
+                  }}
                 />
                 <Stack.Screen
                   name="CancerDefinitions"
                   component={CancerDefinitions}
                   options={{ 
-                  headerTitle: 'What is Cancer',
-                  headerTitleStyle: {
-                      fontFamily: 'Lora-SemiBold',
-                      fontSize: 22,
-                      fontWeight: 'bold',
-                    },headerTitleAlign: 'center' }}
-                />
-                <Stack.Screen
-                  name="CancerTypes"
-                  component={CancerTypes}
-                  options={{ headerTitle: 'Cancer Types',
-                  headerTitleStyle: {
+                    headerTitle: 'What is Cancer',
+                    headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
                       fontWeight: 'bold',
                     },
-                    headerTitleAlign: 'center' }}
+                    headerTitleAlign: 'center' 
+                  }}
+                />
+                <Stack.Screen
+                  name="CancerTypes"
+                  component={CancerTypes}
+                  options={{ 
+                    headerTitle: 'Cancer Types',
+                    headerTitleStyle: {
+                      fontFamily: 'Lora-SemiBold',
+                      fontSize: 22,
+                      fontWeight: 'bold',
+                    },
+                    headerTitleAlign: 'center' 
+                  }}
                 />
                 <Stack.Screen
                   name="Language"
@@ -680,7 +702,7 @@ const App = () => {
               </Stack.Navigator>
             </View>
           </TouchableOpacity>
-          <BottomNav />
+          {!['Login', 'ResetPassword', 'signup'].includes(currentRoute) && <BottomNav />}
         </SafeAreaView>
       </NavigationContainer>
     </UserProvider>
