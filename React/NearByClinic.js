@@ -10,8 +10,7 @@ import {
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
-import { Picker } from '@react-native-picker/picker';
-
+import {Picker} from '@react-native-picker/picker';
 const API_KEY = 'AIzaSyDWxI_qkI1ONKIW9wxiMY4u7qWASgO51bQ'; // Replace 'YOUR_API_KEY' with your Google Maps API key
 
 const requestLocationPermission = async () => {
