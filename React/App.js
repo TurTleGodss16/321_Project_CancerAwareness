@@ -1260,7 +1260,6 @@ const App = () => {
               </Stack.Navigator>
             </View>
           </TouchableOpacity>
-          <BottomNav />
         </SafeAreaView>
       </NavigationContainer>
     </UserProvider>
@@ -1279,14 +1278,6 @@ fontWeight: 'bold',
 fontSize: 16,
 color: 'black',
 marginLeft: 10,
-},
-bottomNav: {
-flexDirection: 'row',
-justifyContent: 'space-around',
-paddingVertical: 10,
-borderTopWidth: 1,
-borderColor: '#ddd',
-backgroundColor: '#f8f8f8',
 },
 navItem: {
 alignItems: 'center',
