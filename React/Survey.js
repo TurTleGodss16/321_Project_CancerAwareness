@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import BottomNavigator from './BottomNavigator'; // Ensure the path is correct
 
 const RadioButton = ({ label, selected, onSelect }) => {
   return (
@@ -78,7 +79,7 @@ const SurveyScreen = ({ navigation }) => {
     if (totalScore < 60) {
       return (
         <View style={styles.resultContainer}>
-          <Text style={styles.resultText}>Your total score is {totalScore}. You are at lower risk.</Text>
+          <Text style={styles.resultText}>Based on your answers you may be less predisposed to Cancer.</Text>
           <TouchableOpacity style={styles.resultButton} onPress={() => navigation.navigate('Main')}>
             <Text style={styles.resultButtonText}>Go to Main Page</Text>
           </TouchableOpacity>
@@ -97,7 +98,7 @@ const SurveyScreen = ({ navigation }) => {
     } else {
       return (
         <View style={styles.resultContainer}>
-          <Text style={styles.resultText}>Your total score is {totalScore}. You are at higher risk.</Text>
+          <Text style={styles.resultText}>Based on your answers you may be predisposed to Cancer.</Text>
           <TouchableOpacity style={styles.resultButton} onPress={() => navigation.navigate('NearByClinic')}>
             <Text style={styles.resultButtonText}>Find Nearby Clinic</Text>
           </TouchableOpacity>
@@ -140,6 +141,9 @@ const SurveyScreen = ({ navigation }) => {
           </TouchableOpacity>
         </ScrollView>
       )}
+      <View style={styles.bottomNavigatorContainer}>
+        <BottomNavigator />
+      </View>
     </SafeAreaView>
   );
 };
@@ -152,6 +156,7 @@ const styles = StyleSheet.create({
   scrollView: {
     paddingVertical: 20,
     paddingHorizontal: 16,
+    paddingBottom: 80, // Ensure there is space for the bottom navigator
   },
   title: {
     fontSize: 24,
@@ -248,6 +253,12 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     textAlign: 'center',
   },
+  bottomNavigatorContainer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
 });
 
-export default SurveyScreen;
+export default SurveyScreen

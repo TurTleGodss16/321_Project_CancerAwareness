@@ -7,7 +7,8 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import BottomNavigator from './BottomNavigator'; // Ensure this path is correct
 
 const Articles = () => {
   const navigation = useNavigation();
@@ -18,7 +19,7 @@ const Articles = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <TouchableOpacity
           style={[styles.itemContainer, styles.analCancer]}
           onPress={() => navigateToScreen('AnalCancer')}>
@@ -54,7 +55,9 @@ const Articles = () => {
           onPress={() => navigateToScreen('LungCancer')}>
           <Text style={styles.headerText}>Lung Cancer</Text>
         </TouchableOpacity>
+        {/* Add more cancer types as needed */}
       </ScrollView>
+      <BottomNavigator />
     </SafeAreaView>
   );
 };
@@ -63,6 +66,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f0f0f0',
+  },
+  scrollViewContent: {
     paddingHorizontal: 20,
     paddingTop: 20,
   },

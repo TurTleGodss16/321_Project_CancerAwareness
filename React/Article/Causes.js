@@ -5,29 +5,40 @@
 import React from 'react';
 import {
     View,
-    Text,
     StyleSheet,
-    Image,
-    TouchableOpacity,
-    ScrollView,
+    Dimensions,
     SafeAreaView
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { WebView } from 'react-native-webview';
-import { Dimensions } from 'react-native';
+import BottomNavigator from '../BottomNavigator';
 
 const screenHeight = Dimensions.get('window').height;
-const navBarHeight = 50;
 
 const Causes = ({ navigation }) => {
-    return(
-        <ScrollView style={{ flex: 1 }}>
-            <WebView nestedScrollEnabled
-                source={{ uri: 'https://www.cancer.org.au/cancer-information/causes-and-prevention'}}
-                style={{ height: screenHeight * 0.91 - navBarHeight}}
-            />
-        </ScrollView>
+    return (
+        <SafeAreaView style={styles.container}>
+            <View style={styles.webViewContainer}>
+                <WebView 
+                    nestedScrollEnabled
+                    source={{ uri: 'https://www.cancer.org.au/cancer-information/causes-and-prevention' }}
+                    style={styles.webView}
+                />
+            </View>
+            <BottomNavigator />
+        </SafeAreaView>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    webViewContainer: {
+        flex: 1,
+    },
+    webView: {
+        flex: 1,
+    },
+});
 
 export default Causes;

@@ -1,8 +1,10 @@
+/* eslint-disable prettier/prettier */
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { UserContext } from './UserContext';
 import { auth } from './firebaseConfig';
+import BottomNavigator from './BottomNavigator'; // Ensure the path is correct
 
 const AccountScreen = ({ navigation }) => {
   const { user, setUser } = useContext(UserContext);
@@ -51,6 +53,7 @@ const AccountScreen = ({ navigation }) => {
             <Text style={styles.loginBtnText}>Login with Email</Text>
           </TouchableOpacity>
         </View>
+        <BottomNavigator />
       </SafeAreaView>
     );
   }
@@ -76,6 +79,7 @@ const AccountScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <BottomNavigator />
     </SafeAreaView>
   );
 };

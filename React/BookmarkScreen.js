@@ -7,10 +7,12 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  SafeAreaView
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { collection, query, where, getDocs, doc} from 'firebase/firestore';
-import { firestore, auth} from './firebaseConfig';
+import { collection, query, where, getDocs, doc } from 'firebase/firestore';
+import { firestore, auth } from './firebaseConfig';
+import BottomNavigator from './BottomNavigator'; // Ensure this path is correct
 
 const BookmarkScreen = () => {
   const navigation = useNavigation();
@@ -50,7 +52,7 @@ const BookmarkScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {savedArticles.length === 0 ? (
         <View style={styles.noBookmarkContainer}>
           <Image
@@ -69,7 +71,7 @@ const BookmarkScreen = () => {
               key={index}
               style={[
                 styles.itemContainer,
-                {backgroundColor: cancerColors[article.type]},
+                { backgroundColor: cancerColors[article.type] },
               ]}
               onPress={() => navigateToScreen(article.type)}>
               <Text style={styles.headerText}>{article.name}</Text>
@@ -78,9 +80,8 @@ const BookmarkScreen = () => {
         </ScrollView>
       )}
 
-      {/* Bottom navigation bar */}
-      <View style={styles.bottomBar}>{/* Your bottom navigation items */}</View>
-    </View>
+      <BottomNavigator />
+    </SafeAreaView>
   );
 };
 
@@ -122,19 +123,6 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     marginBottom: 20,
-  },
-  bottomBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    borderTopWidth: 1,
-    borderTopColor: 'gray',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'white',
-    paddingVertical: 10,
   },
 });
 
