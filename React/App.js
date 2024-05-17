@@ -280,7 +280,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                     headerLeft: () => (
@@ -312,7 +312,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -324,7 +324,7 @@ const App = () => {
                       headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center' }}
                 />
@@ -334,7 +334,7 @@ const App = () => {
                   options={{ headerTitle: 'Setting', headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },headerTitleAlign: 'center' }}
                 />
                 <Stack.Screen
@@ -345,7 +345,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center' }}
                 />
@@ -357,7 +357,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -369,7 +369,7 @@ const App = () => {
                   headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center' }}
                 />
@@ -381,7 +381,7 @@ const App = () => {
                   headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },headerTitleAlign: 'center' }}
                 />
                 <Stack.Screen
@@ -391,7 +391,7 @@ const App = () => {
                   headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center' }}
                 />
@@ -419,7 +419,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -432,7 +432,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -445,7 +445,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                     headerRight: () => (
@@ -472,7 +472,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                     headerRight: () => (
@@ -499,7 +499,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                     headerRight: () => (
@@ -526,7 +526,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                     headerRight: () => (
@@ -553,7 +553,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                     headerRight: () => (
@@ -580,7 +580,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                     headerRight: () => (
@@ -607,7 +607,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -620,7 +620,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -633,7 +633,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -646,7 +646,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -659,7 +659,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
@@ -672,7 +672,7 @@ const App = () => {
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
-                      fontWeight: 'bold',
+                      // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
                   }}
