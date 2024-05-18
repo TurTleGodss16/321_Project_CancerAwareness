@@ -83,7 +83,7 @@ const Articles = () => {
         <TouchableOpacity
           style={[styles.itemContainer, styles.breastCancer]}
           onPress={() => navigateToScreen('HodgkinCancer')}>
-          <Text style={styles.headerText}>Hodgkin Cancer</Text>
+          <Text style={styles.headerText}>Hodgkin's Lymphoma</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -109,6 +109,72 @@ const Articles = () => {
           onPress={() => navigateToScreen('LungCancer')}>
           <Text style={styles.headerText}>Lung Cancer</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.itemContainer, styles.lungCancer]}
+          onPress={() => navigateToScreen('LymphomaCancer')}>
+          <Text style={styles.headerText}>Lymphoma Cancer</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.itemContainer, styles.lungCancer]}
+          onPress={() => navigateToScreen('MelanomaCancer')}>
+          <Text style={styles.headerText}>Melanoma Cancer</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.itemContainer, styles.lungCancer]}
+          onPress={() => navigateToScreen('MouthCancer')}>
+          <Text style={styles.headerText}>Mouth Cancer</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.itemContainer, styles.lungCancer]}
+          onPress={() => navigateToScreen('MyelomaCancer')}>
+          <Text style={styles.headerText}>Myeloma Cancer</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.itemContainer, styles.lungCancer]}
+          onPress={() => navigateToScreen('OvarianCancer')}>
+          <Text style={styles.headerText}>Ovarian Cancer</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.itemContainer, styles.lungCancer]}
+          onPress={() => navigateToScreen('PenileCancer')}>
+          <Text style={styles.headerText}>Penile Cancer</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.itemContainer, styles.lungCancer]}
+          onPress={() => navigateToScreen('ProstateCancer')}>
+          <Text style={styles.headerText}>Prostate Cancer</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.itemContainer, styles.lungCancer]}
+          onPress={() => navigateToScreen('SkinCancer')}>
+          <Text style={styles.headerText}>Skin Cancer</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.itemContainer, styles.lungCancer]}
+          onPress={() => navigateToScreen('ThyroidCancer')}>
+          <Text style={styles.headerText}>Thyroid Cancer</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.itemContainer, styles.lungCancer]}
+          onPress={() => navigateToScreen('VaginalCancer')}>
+          <Text style={styles.headerText}>Vaginal Cancer</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.itemContainer, styles.lungCancer]}
+          onPress={() => navigateToScreen('VulvarCancer')}>
+          <Text style={styles.headerText}>Vulvar Cancer</Text>
+        </TouchableOpacity>
       </ScrollView>
       <BottomNavigator />
     </SafeAreaView>
@@ -128,7 +194,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 100,
-    borderRadius: 10,
+    width: 350,
+    marginLeft: 30,
+    borderRadius: 20,
     marginBottom: 20,
   },
   headerText: {

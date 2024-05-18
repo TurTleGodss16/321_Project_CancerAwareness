@@ -247,11 +247,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   articleLink: {
-    color: '#bce08a',
+    color: '#D37506',
     textDecorationLine: 'underline',
-    fontSize: 16,
-    marginVertical: 5,
+    fontSize: 18,
+    marginVertical: 10,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   bottomNavigatorContainer: {
     position: 'absolute',
