@@ -155,7 +155,7 @@ const MainScreen = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.centeredBooking} onPress={() => navigation.navigate('NearByClinic')}>
-            <Text style={[styles.linkText, {fontFamily: 'DMSans_18pt-SemiBold', fontSize: 18}]}>Booking a Screening</Text>
+            <Text style={[styles.linkText, {fontFamily: 'Lora-SemiBold', fontSize: 18}]}>Booking a Screening</Text>
             <View style={[styles.linkBooking, styles.bookingBackground]}>
               <Image style={[styles.linkIcon, {alignSelf: 'center', width: 325, height: 220}]} source={require('../Images/booking.png')} />
             </View>

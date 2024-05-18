@@ -332,7 +332,7 @@ const App = () => {
                 <Stack.Screen
                   name="About"
                   component={AboutScreen}
-                  options={{ headerTitle: 'About', 
+                  options={{ headerTitle: 'About',
                       headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
