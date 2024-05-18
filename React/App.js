@@ -65,7 +65,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import messaging from '@react-native-firebase/messaging';
 import Articles from './Articles';
 import SurveyScreen from './Survey';
-import { doc, setDoc, collection, deleteDoc, getDocs } from 'firebase/firestore'; // Import required functions from Firestore
+import { doc, setDoc, collection, deleteDoc, getDocs, getDoc } from 'firebase/firestore'; // Import required functions from Firestore
 import { firestore, auth } from './firebaseConfig'; // Make sure you export 'db' from your firebaseConfig file
 import ResultScreen from './Result';
 import BottomNavigator from './BottomNavigator'; // Import BottomNavigator
@@ -104,62 +104,91 @@ const App = () => {
     VulvarCancer: 'black',
   });
   const [savedArticles, setSavedArticles] = useState([]);
+  const [user, setUser] = useState(null); // New state for user
+  const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(false); // New state to check if user is authenticated (has email and name)
   const menuAnimation = useRef(new Animated.Value(0)).current;
 
   const toggleBookmarkColor = articleName => {
+    console.log("Testing user: ", user.uid);
+    if (!user) return; // Exit function if user is not authenticated
+
     const newBookmarkColors = {
       ...bookmarkColors,
       [articleName]: bookmarkColors[articleName] === 'black' ? 'red' : 'black',
     };
-  
+
     setBookmarkColors(newBookmarkColors);
-  
+
     const isBookmarked = newBookmarkColors[articleName] === 'red';
-  
+
     if (isBookmarked) {
       // Save the article to Firestore
-      const user = auth.currentUser;
-      if (user) {
-        const userDocRef = doc(firestore, "users", user.uid);
-        const articlesCollectionRef = collection(userDocRef, "articles");
-        setDoc(doc(articlesCollectionRef, articleName), { name: articleName, type: articleName })
-          .then(() => console.log("Article saved to Firestore"))
-          .catch(error => console.error("Error saving article to Firestore: ", error));
-      }
+      const userDocRef = doc(firestore, "users", user.uid);
+      const articlesCollectionRef = collection(userDocRef, "articles");
+      setDoc(doc(articlesCollectionRef, articleName), { name: articleName, type: articleName })
+        .then(() => console.log("Article saved to Firestore"))
+        .catch(error => console.error("Error saving article to Firestore: ", error));
     } else {
       // Remove the article from Firestore
-      const user = auth.currentUser;
-      if (user) {
-        const userDocRef = doc(firestore, "users", user.uid);
-        const articleDocRef = doc(collection(userDocRef, "articles"), articleName);
-        deleteDoc(articleDocRef)
-          .then(() => console.log("Article removed from Firestore"))
-          .catch(error => console.error("Error removing article from Firestore: ", error));
-      }
+      const userDocRef = doc(firestore, "users", user.uid);
+      const articleDocRef = doc(collection(userDocRef, "articles"), articleName);
+      deleteDoc(articleDocRef)
+        .then(() => console.log("Article removed from Firestore"))
+        .catch(error => console.error("Error removing article from Firestore: ", error));
     }
   };
 
   useEffect(() => {
     const fetchSavedArticles = async () => {
-      const user = auth.currentUser;
-      if (user) {
-        const userDocRef = doc(firestore, 'users', user.uid);
-        const articlesCollectionRef = collection(userDocRef, 'articles');
-        const querySnapshot = await getDocs(articlesCollectionRef);
-        const articles = [];
-        querySnapshot.forEach((doc) => {
-          articles.push(doc.id);
-        });
-        setSavedArticles(articles);
-        // Initialize bookmark colors based on saved articles
-        const initialBookmarkColors = {};
-        articles.forEach((article) => {
-          initialBookmarkColors[article] = 'red';
-        });
-        setBookmarkColors(initialBookmarkColors);
-      }
+      if (!user) return; // Exit function if user is not authenticated
+
+      const userDocRef = doc(firestore, 'users', user.uid);
+      const articlesCollectionRef = collection(userDocRef, 'articles');
+      const querySnapshot = await getDocs(articlesCollectionRef);
+      const articles = [];
+      querySnapshot.forEach((doc) => {
+        articles.push(doc.id);
+      });
+      setSavedArticles(articles);
+      // Initialize bookmark colors based on saved articles
+      const initialBookmarkColors = {};
+      articles.forEach((article) => {
+        initialBookmarkColors[article] = 'red';
+      });
+      setBookmarkColors(initialBookmarkColors);
     };
     fetchSavedArticles();
+  }, [user]);
+
+  useEffect(() => {
+    const checkUserAuthentication = async (currentUser) => {
+      if (!currentUser) {
+        setIsAuthenticatedUser(false);
+        return;
+      }
+
+      const userDocRef = doc(firestore, 'users', currentUser.uid);
+      const userDoc = await getDoc(userDocRef);
+
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        if (userData.email && userData.name) {
+          setIsAuthenticatedUser(true);
+        } else {
+          setIsAuthenticatedUser(false);
+        }
+      } else {
+        setIsAuthenticatedUser(false);
+      }
+    };
+
+    // Check user authentication status
+    const unsubscribe = auth.onAuthStateChanged(async currentUser => {
+      setUser(currentUser);
+      await checkUserAuthentication(currentUser);
+    });
+
+    return unsubscribe;
   }, []);
   
 
@@ -460,7 +489,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -487,7 +516,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -514,7 +543,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -541,7 +570,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -568,7 +597,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -595,7 +624,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -622,7 +651,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -649,7 +678,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -676,7 +705,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -703,7 +732,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -730,7 +759,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -757,7 +786,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -784,7 +813,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -811,7 +840,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -838,7 +867,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -865,7 +894,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -892,7 +921,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -919,7 +948,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -946,7 +975,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -973,7 +1002,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -1000,7 +1029,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -1027,7 +1056,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -1054,7 +1083,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -1081,7 +1110,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -1108,7 +1137,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -1135,7 +1164,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
@@ -1162,7 +1191,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
-                    headerRight: () => (
+                    headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
                         size={20}
