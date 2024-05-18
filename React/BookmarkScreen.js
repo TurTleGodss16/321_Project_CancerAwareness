@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -7,24 +7,26 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { collection, query, where, getDocs, doc } from 'firebase/firestore';
+import { collection, getDocs, doc } from 'firebase/firestore';
 import { firestore, auth } from './firebaseConfig';
 import BottomNavigator from './BottomNavigator'; // Ensure this path is correct
+import { UserContext } from './UserContext'; // Import the UserContext
 
 const BookmarkScreen = () => {
   const navigation = useNavigation();
   const [savedArticles, setSavedArticles] = useState([]);
+  const { user } = useContext(UserContext); // Use the UserContext
 
   useEffect(() => {
     // Function to fetch articles associated with the user from Firestore
     const fetchArticles = async () => {
-      const user = auth.currentUser;
-      if (user) {
-        const userDocRef = doc(firestore, "users", user.uid);
-        const articlesCollectionRef = collection(userDocRef, "articles");
+      const currentUser = auth.currentUser;
+      if (currentUser && !currentUser.isAnonymous) {
+        const userDocRef = doc(firestore, 'users', currentUser.uid);
+        const articlesCollectionRef = collection(userDocRef, 'articles');
         const querySnapshot = await getDocs(articlesCollectionRef);
         const articles = [];
         querySnapshot.forEach((doc) => {
@@ -37,7 +39,7 @@ const BookmarkScreen = () => {
     fetchArticles();
   }, []);
 
-  const navigateToScreen = screenName => {
+  const navigateToScreen = (screenName) => {
     navigation.navigate(screenName);
   };
 
@@ -79,7 +81,18 @@ const BookmarkScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {savedArticles.length === 0 ? (
+      {auth.currentUser?.isAnonymous ? (
+        <View style={styles.anonymousContainer}>
+          <Text style={styles.anonymousText}>You are logged in anonymously.</Text>
+          <Text style={styles.anonymousPrompt}>Please log in with your email address to access all features.</Text>
+          <TouchableOpacity 
+            style={styles.loginBtn} 
+            onPress={() => navigation.navigate('Login')}
+          >
+            <Text style={styles.loginBtnText}>Login with Email</Text>
+          </TouchableOpacity>
+        </View>
+      ) : savedArticles.length === 0 ? (
         <View style={styles.noBookmarkContainer}>
           <Image
             style={styles.image}
@@ -149,6 +162,35 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     marginBottom: 20,
+  },
+  anonymousContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
+  anonymousText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  anonymousPrompt: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  loginBtn: {
+    width: '80%',
+    backgroundColor: '#335E90',
+    borderRadius: 25,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  loginBtnText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 
