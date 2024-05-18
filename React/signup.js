@@ -72,7 +72,7 @@ const SignupScreen = () => {
       setPasswordFeedback('');
       return 1; // Strong
     } else if (mediumRegex.test(password)) {
-      setPasswordFeedback('Add special characters and numbers for stronger password');
+      setPasswordFeedback('Add special characters and numbers for a stronger password');
       return 0.5; // Medium
     } else {
       setPasswordFeedback('Password must be at least 8 characters long with special characters, numbers, uppercase, and lowercase letters');
@@ -172,9 +172,8 @@ const styles = StyleSheet.create({
     height: 200
   },
   logo: {
-    fontWeight: 'bold',
     fontSize: 30,
-    color: '#333333',
+    color: '#333333', // Adjusted to match MainScreen's text color
     marginBottom: 40,
   },
   googleButton: {
@@ -185,6 +184,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
+    marginBottom: 50,
   },
   icon: {
     position: 'absolute',
@@ -206,6 +206,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 50,
     color: 'black',
+    fontFamily: 'DMSans_18pt-SemiBold',
   },
   signupBtn: {
     width: '80%',
@@ -220,6 +221,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+    fontFamily: 'DMSans_18pt-SemiBold',
   },
   progressBar: {
     width: '80%',
@@ -231,6 +233,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
     color: '#FF0000',
+    fontFamily: 'DMSans_18pt-SemiBold',
   },
 });
 
