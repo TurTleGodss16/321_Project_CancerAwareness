@@ -108,33 +108,32 @@ const App = () => {
   const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(false); // New state to check if user is authenticated (has email and name)
   const menuAnimation = useRef(new Animated.Value(0)).current;
 
-  const toggleBookmarkColor = articleName => {
-    console.log("Testing user: ", user.uid);
-    if (!user) return; // Exit function if user is not authenticated
+  const toggleBookmarkColor = async articleName => {
+    if (!isAuthenticatedUser) return; // Exit function if user is not authenticated
 
+    const isBookmarked = bookmarkColors[articleName] === 'black';
     const newBookmarkColors = {
       ...bookmarkColors,
-      [articleName]: bookmarkColors[articleName] === 'black' ? 'red' : 'black',
+      [articleName]: isBookmarked ? 'red' : 'black',
     };
 
     setBookmarkColors(newBookmarkColors);
 
-    const isBookmarked = newBookmarkColors[articleName] === 'red';
+    const userDocRef = doc(firestore, "users", user.uid);
+    const articlesCollectionRef = collection(userDocRef, "articles");
 
-    if (isBookmarked) {
-      // Save the article to Firestore
-      const userDocRef = doc(firestore, "users", user.uid);
-      const articlesCollectionRef = collection(userDocRef, "articles");
-      setDoc(doc(articlesCollectionRef, articleName), { name: articleName, type: articleName })
-        .then(() => console.log("Article saved to Firestore"))
-        .catch(error => console.error("Error saving article to Firestore: ", error));
-    } else {
-      // Remove the article from Firestore
-      const userDocRef = doc(firestore, "users", user.uid);
-      const articleDocRef = doc(collection(userDocRef, "articles"), articleName);
-      deleteDoc(articleDocRef)
-        .then(() => console.log("Article removed from Firestore"))
-        .catch(error => console.error("Error removing article from Firestore: ", error));
+    try {
+      if (isBookmarked) {
+        // Save the article to Firestore
+        await setDoc(doc(articlesCollectionRef, articleName), { name: articleName, type: articleName });
+        console.log("Article saved to Firestore");
+      } else {
+        // Remove the article from Firestore
+        await deleteDoc(doc(articlesCollectionRef, articleName));
+        console.log("Article removed from Firestore");
+      }
+    } catch (error) {
+      console.error("Error updating article in Firestore: ", error);
     }
   };
 
