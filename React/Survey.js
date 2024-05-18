@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BottomNavigator from './BottomNavigator'; // Ensure the path is correct
 
@@ -262,4 +262,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SurveyScreen
+export default SurveyScreen;
