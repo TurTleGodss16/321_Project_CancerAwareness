@@ -101,7 +101,7 @@ const SignupScreen = () => {
         source={require('../Images/logo.png')} 
         style={styles.logoImage} 
       />
-      <Text style={styles.logo}>SCSG Awareness App</Text>
+      <Text style={[styles.logo, {fontFamily: 'Lora-SemiBold'}]}>SCSG Awareness App</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
