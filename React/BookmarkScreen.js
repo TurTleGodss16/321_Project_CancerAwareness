@@ -173,11 +173,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: 'black', // Ensure text color contrasts with background
+    textAlign: 'center',
   },
   anonymousPrompt: {
     fontSize: 16,
     textAlign: 'center',
     marginBottom: 20,
+    color: 'black', // Ensure text color contrasts with background
   },
   loginBtn: {
     width: '80%',
