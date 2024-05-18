@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
   },
   chatbotButton: {
     position: 'absolute',
-    top: 650,
+    top: 600, // Adjust this value to move the icon higher
     right: 25,
     width: 60,
     height: 60,
@@ -277,6 +277,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 999,
+    shadowColor: '#000', // Shadow color
+    shadowOffset: { width: 0, height: 2 }, // Shadow offset
+    shadowOpacity: 0.8, // Shadow opacity
+    shadowRadius: 2, // Shadow radius
+    elevation: 5, // Elevation for Android
   },
   chatbotIcon: {
     width: 60,
