@@ -92,7 +92,7 @@ const MainScreen = ({ navigation }) => {
                 </View>
                 <Image style={[styles.linkIcon, { width: 70, height: 80 }]} source={require('../Images/cancer_symbol.png')} />
               </TouchableOpacity>
-              <Text style={styles.linkText}>What is Cancer</Text>
+              <Text style={[styles.linkText, styles.dmSansFont]}>What is Cancer</Text>
             </View>
 
             <View style={styles.link}>
@@ -102,7 +102,7 @@ const MainScreen = ({ navigation }) => {
                 </View>
                 <Image style={[styles.linkIcon, { width: 90, height: 75 }]} source={require('../Images/type_of_cancer.png')} />
               </TouchableOpacity>
-              <Text style={styles.linkText}>Types</Text>
+              <Text style={[styles.linkText, styles.dmSansFont]}>Types</Text>
             </View>
 
             <View style={styles.link}>
@@ -112,7 +112,7 @@ const MainScreen = ({ navigation }) => {
                 </View>
                 <Image style={[styles.linkIcon, { width: 80, height: 75 }]} source={require('../Images/reason.png')} />
               </TouchableOpacity>
-              <Text style={styles.linkText}>Causes</Text>
+              <Text style={[styles.linkText, styles.dmSansFont]}>Causes</Text>
             </View>
 
             <View style={styles.link}>
@@ -122,7 +122,7 @@ const MainScreen = ({ navigation }) => {
                 </View>
                 <Image style={[styles.linkIcon, { width: 45, height: 60 }]} source={require('../Images/treatment.png')} />
               </TouchableOpacity>
-              <Text style={styles.linkText}>Treatment</Text>
+              <Text style={[styles.linkText, styles.dmSansFont]}>Treatment</Text>
             </View>
 
             <View style={styles.link}>
@@ -132,7 +132,7 @@ const MainScreen = ({ navigation }) => {
                 </View>
                 <Image style={[styles.linkIcon, { width: 70, height: 75 }]} source={require('../Images/side_effect.png')} />
               </TouchableOpacity>
-              <Text style={styles.linkText}>Side Effects</Text>
+              <Text style={[styles.linkText, styles.dmSansFont]}>Side Effects</Text>
             </View>
 
             <View style={styles.link}>
@@ -142,7 +142,7 @@ const MainScreen = ({ navigation }) => {
                 </View>
                 <Image style={[styles.linkIcon, { width: 50, height: 65 }]} source={require('../Images/survey.png')} />
               </TouchableOpacity>
-              <Text style={styles.linkText}>Survey</Text>
+              <Text style={[styles.linkText, styles.dmSansFont]}>Survey</Text>
             </View>
           </View>
 
@@ -155,7 +155,7 @@ const MainScreen = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.centeredBooking} onPress={() => navigation.navigate('NearByClinic')}>
-            <Text style={[styles.linkText, styles.dmSansFont]}>Booking a Screening</Text>
+            <Text style={[styles.linkText, {fontFamily: 'Lora-SemiBold', fontSize: 18}]}>Booking a Screening</Text>
             <View style={[styles.linkBooking, styles.bookingBackground]}>
               <Image style={[styles.linkIcon, {alignSelf: 'center', width: 325, height: 220}]} source={require('../Images/booking.png')} />
             </View>
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
   },
   centeredBooking: {
     alignItems: 'center', // Align the booking section in the center
-    bottom: 20, // Add space between booking and bottom bar
+    bottom: 20,
   },
   bookingBackground: {
     backgroundColor: '#BCE08A', // Green color for booking
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
   },
   dmSansFont: {
     fontFamily: 'DMSans_18pt-SemiBold',
-    fontSize: 20,
+    fontSize: 12,
   },
   loraFont: {
     fontFamily: 'Lora-SemiBold',

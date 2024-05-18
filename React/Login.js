@@ -86,7 +86,7 @@ const LoginScreen = () => {
         source={require('../Images/logo.png')} 
         style={styles.logoImage} 
       />
-      <Text style={styles.logo}>SCSG Awareness App</Text>
+      <Text style={[styles.logo, {fontFamily: 'Lora-SemiBold'}]}>SCSG Awareness App</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.inputText}
@@ -154,7 +154,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   logo: {
-    fontWeight: 'bold',
     fontSize: 30,
     color: '#333333', // Adjusted to match MainScreen's text color
     marginBottom: 40,

@@ -245,7 +245,7 @@ const App = () => {
   <Text style={styles.menuText}>About Us</Text>
 </TouchableOpacity>
 
-<TouchableOpacity
+{/* <TouchableOpacity
   style={styles.menuItem}
   onPress={() => {
     toggleMenu();
@@ -253,7 +253,7 @@ const App = () => {
   }}>
   <Icon name="cog" size={20} color="black" />
   <Text style={styles.menuText}>Setting</Text>
-</TouchableOpacity>
+</TouchableOpacity> */}
 
 <TouchableOpacity
   style={styles.menuItem}
@@ -332,7 +332,7 @@ const App = () => {
                 <Stack.Screen
                   name="About"
                   component={AboutScreen}
-                  options={{ headerTitle: 'About', 
+                  options={{ headerTitle: 'About',
                       headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
@@ -353,7 +353,7 @@ const App = () => {
                   name="Bookmark"
                   component={BookmarkScreen}
                   options={{
-                    headerTitle: 'Bookmark',
+                    headerTitle: 'Bookmarks',
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
@@ -751,7 +751,7 @@ const App = () => {
                   name="HeadNeckCancer"
                   component={HeadNeckCancer}
                   options={{
-                    headerTitle: 'HeadNeck Cancer',
+                    headerTitle: 'Head & Neck Cancer',
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
@@ -778,7 +778,7 @@ const App = () => {
                   name="HodgkinCancer"
                   component={HodgkinCancer}
                   options={{
-                    headerTitle: 'Hodgkin Cancer',
+                    headerTitle: "Hodgkin's Lymphoma",
                     headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
