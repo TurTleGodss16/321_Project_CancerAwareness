@@ -19,7 +19,7 @@ const Articles = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <TouchableOpacity
           style={[styles.itemContainer, styles.analCancer]}
           onPress={() => navigateToScreen('AnalCancer')}>
@@ -27,7 +27,7 @@ const Articles = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.analCancer]}
+          style={[styles.itemContainer, styles.appendixCancer]}
           onPress={() => navigateToScreen('AppendixCancer')}>
           <Text style={styles.headerText}>Appendix Cancer</Text>
         </TouchableOpacity>
@@ -45,7 +45,7 @@ const Articles = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.boneCancer]}
+          style={[styles.itemContainer, styles.bowelCancer]}
           onPress={() => navigateToScreen('BowelCancer')}>
           <Text style={styles.headerText}>Bowel Cancer</Text>
         </TouchableOpacity>
@@ -63,43 +63,43 @@ const Articles = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.breastCancer]}
+          style={[styles.itemContainer, styles.cervicalCancer]}
           onPress={() => navigateToScreen('CervicalCancer')}>
           <Text style={styles.headerText}>Cervical Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.breastCancer]}
+          style={[styles.itemContainer, styles.gallbladderCancer]}
           onPress={() => navigateToScreen('GallbladderCancer')}>
           <Text style={styles.headerText}>Gallbladder Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.breastCancer]}
+          style={[styles.itemContainer, styles.headNeckCancer]}
           onPress={() => navigateToScreen('HeadNeckCancer')}>
           <Text style={styles.headerText}>Head & Neck Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.breastCancer]}
+          style={[styles.itemContainer, styles.hodgkinCancer]}
           onPress={() => navigateToScreen('HodgkinCancer')}>
           <Text style={styles.headerText}>Hodgkin's Lymphoma</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.breastCancer]}
+          style={[styles.itemContainer, styles.kidneyCancer]}
           onPress={() => navigateToScreen('KidneyCancer')}>
           <Text style={styles.headerText}>Kidney Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.breastCancer]}
+          style={[styles.itemContainer, styles.leukaemiaCancer]}
           onPress={() => navigateToScreen('LeukaemiaCancer')}>
           <Text style={styles.headerText}>Leukaemia Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.breastCancer]}
+          style={[styles.itemContainer, styles.liverCancer]}
           onPress={() => navigateToScreen('LiverCancer')}>
           <Text style={styles.headerText}>Liver Cancer</Text>
         </TouchableOpacity>
@@ -111,67 +111,67 @@ const Articles = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.lungCancer]}
+          style={[styles.itemContainer, styles.lymphomaCancer]}
           onPress={() => navigateToScreen('LymphomaCancer')}>
           <Text style={styles.headerText}>Lymphoma Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.lungCancer]}
+          style={[styles.itemContainer, styles.melanomaCancer]}
           onPress={() => navigateToScreen('MelanomaCancer')}>
           <Text style={styles.headerText}>Melanoma Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.lungCancer]}
+          style={[styles.itemContainer, styles.mouthCancer]}
           onPress={() => navigateToScreen('MouthCancer')}>
           <Text style={styles.headerText}>Mouth Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.lungCancer]}
+          style={[styles.itemContainer, styles.myelomaCancer]}
           onPress={() => navigateToScreen('MyelomaCancer')}>
           <Text style={styles.headerText}>Myeloma Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.lungCancer]}
+          style={[styles.itemContainer, styles.ovarianCancer]}
           onPress={() => navigateToScreen('OvarianCancer')}>
           <Text style={styles.headerText}>Ovarian Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.lungCancer]}
+          style={[styles.itemContainer, styles.penileCancer]}
           onPress={() => navigateToScreen('PenileCancer')}>
           <Text style={styles.headerText}>Penile Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.lungCancer]}
+          style={[styles.itemContainer, styles.prostateCancer]}
           onPress={() => navigateToScreen('ProstateCancer')}>
           <Text style={styles.headerText}>Prostate Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.lungCancer]}
+          style={[styles.itemContainer, styles.skinCancer]}
           onPress={() => navigateToScreen('SkinCancer')}>
           <Text style={styles.headerText}>Skin Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.lungCancer]}
+          style={[styles.itemContainer, styles.thyroidCancer]}
           onPress={() => navigateToScreen('ThyroidCancer')}>
           <Text style={styles.headerText}>Thyroid Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.lungCancer]}
+          style={[styles.itemContainer, styles.vaginalCancer]}
           onPress={() => navigateToScreen('VaginalCancer')}>
           <Text style={styles.headerText}>Vaginal Cancer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.itemContainer, styles.lungCancer]}
+          style={[styles.itemContainer, styles.vulvarCancer]}
           onPress={() => navigateToScreen('VulvarCancer')}>
           <Text style={styles.headerText}>Vulvar Cancer</Text>
         </TouchableOpacity>
@@ -194,10 +194,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 100,
-    width: 350,
-    marginLeft: 30,
+    width: '100%',
+    marginVertical: 10,
     borderRadius: 20,
-    marginBottom: 20,
   },
   headerText: {
     fontWeight: 'bold',
@@ -207,11 +206,17 @@ const styles = StyleSheet.create({
   analCancer: {
     backgroundColor: '#ff7f50', // Example color for Anal Cancer
   },
+  appendixCancer: {
+    backgroundColor: '#ff7f50', // Example color for Appendix Cancer
+  },
   bladderCancer: {
     backgroundColor: '#6495ed', // Example color for Bladder Cancer
   },
   boneCancer: {
     backgroundColor: '#ff6347', // Example color for Bone Cancer
+  },
+  bowelCancer: {
+    backgroundColor: '#ff6347', // Example color for Bowel Cancer
   },
   brainCancer: {
     backgroundColor: '#8a2be2', // Example color for Brain Cancer
@@ -219,10 +224,63 @@ const styles = StyleSheet.create({
   breastCancer: {
     backgroundColor: '#ff69b4', // Example color for Breast Cancer
   },
+  cervicalCancer: {
+    backgroundColor: '#ff69b4', // Example color for Cervical Cancer
+  },
+  gallbladderCancer: {
+    backgroundColor: '#ff69b4', // Example color for Gallbladder Cancer
+  },
+  headNeckCancer: {
+    backgroundColor: '#ff69b4', // Example color for Head & Neck Cancer
+  },
+  hodgkinCancer: {
+    backgroundColor: '#ff69b4', // Example color for Hodgkin's Lymphoma
+  },
+  kidneyCancer: {
+    backgroundColor: '#ff69b4', // Example color for Kidney Cancer
+  },
+  leukaemiaCancer: {
+    backgroundColor: '#ff69b4', // Example color for Leukaemia Cancer
+  },
+  liverCancer: {
+    backgroundColor: '#ff69b4', // Example color for Liver Cancer
+  },
   lungCancer: {
     backgroundColor: '#20b2aa', // Example color for Lung Cancer
   },
-  // Add styles for other cancer types
+  lymphomaCancer: {
+    backgroundColor: '#20b2aa', // Example color for Lymphoma Cancer
+  },
+  melanomaCancer: {
+    backgroundColor: '#20b2aa', // Example color for Melanoma Cancer
+  },
+  mouthCancer: {
+    backgroundColor: '#20b2aa', // Example color for Mouth Cancer
+  },
+  myelomaCancer: {
+    backgroundColor: '#20b2aa', // Example color for Myeloma Cancer
+  },
+  ovarianCancer: {
+    backgroundColor: '#20b2aa', // Example color for Ovarian Cancer
+  },
+  penileCancer: {
+    backgroundColor: '#20b2aa', // Example color for Penile Cancer
+  },
+  prostateCancer: {
+    backgroundColor: '#20b2aa', // Example color for Prostate Cancer
+  },
+  skinCancer: {
+    backgroundColor: '#20b2aa', // Example color for Skin Cancer
+  },
+  thyroidCancer: {
+    backgroundColor: '#20b2aa', // Example color for Thyroid Cancer
+  },
+  vaginalCancer: {
+    backgroundColor: '#20b2aa', // Example color for Vaginal Cancer
+  },
+  vulvarCancer: {
+    backgroundColor: '#20b2aa', // Example color for Vulvar Cancer
+  },
 });
 
 export default Articles;
