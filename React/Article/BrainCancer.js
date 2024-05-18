@@ -6,7 +6,7 @@ import React from 'react';
 import {
     View,
     StyleSheet,
-    Dimensions,
+    Dimensions
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import BottomNavigator from '../BottomNavigator';
@@ -16,13 +16,11 @@ const screenHeight = Dimensions.get('window').height;
 const Articles = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <View style={styles.webViewContainer}>
-                <WebView 
-                    nestedScrollEnabled
-                    source={{ uri: 'https://www.cancer.org.au/cancer-information/types-of-cancer/brain-cancer' }}
-                    style={styles.webView}
-                />
-            </View>
+            <WebView 
+                nestedScrollEnabled
+                source={{ uri: 'https://www.cancer.org.au/cancer-information/types-of-cancer/brain-cancer' }}
+                style={styles.webView}
+            />
             <BottomNavigator />
         </View>
     );
@@ -31,9 +29,7 @@ const Articles = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    webViewContainer: {
-        flex: 1,
+        flexDirection: 'column',
     },
     webView: {
         flex: 1,

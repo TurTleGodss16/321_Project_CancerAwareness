@@ -4,23 +4,36 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import {
-    ScrollView
+    View,
+    StyleSheet,
+    Dimensions
 } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { Dimensions } from 'react-native';
+import BottomNavigator from '../BottomNavigator';
 
 const screenHeight = Dimensions.get('window').height;
-const navBarHeight = 50;
 
-const Articles = ({}) => {
-    return(
-        <ScrollView style={{ flex: 1 }}>
-            <WebView nestedScrollEnabled
+const Articles = ({ navigation }) => {
+    return (
+        <View style={styles.container}>
+            <WebView 
+                nestedScrollEnabled
                 source={{ uri: 'https://www.cancer.org.au/cancer-information/types-of-cancer/bowel-cancer'}}
-                style={{ height: screenHeight * 0.93 - navBarHeight}}
+                style={styles.webView}
             />
-        </ScrollView>
+            <BottomNavigator />
+        </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+    },
+    webView: {
+        flex: 1,
+    },
+});
 
 export default Articles;
