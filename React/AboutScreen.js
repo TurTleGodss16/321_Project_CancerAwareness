@@ -1,12 +1,13 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { ScrollView, Text, View, StyleSheet, SafeAreaView } from 'react-native';
+import { ScrollView, Text, View, StyleSheet, SafeAreaView, Pressable} from 'react-native';
 import BottomNavigator from './BottomNavigator'; // Ensure this path is correct
 
 const AboutScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <Pressable>
         <Text style={styles.header}>About Us</Text>
         <View style={styles.section}>
           <Text style={styles.paragraph}>
@@ -41,6 +42,7 @@ const AboutScreen = ({ navigation }) => {
             Join us in our mission to raise awareness and support those affected by cancer. Whether you're interested in volunteering, contributing content, or spreading the word about our app, there are plenty of ways to get involved and make a difference.
           </Text>
         </View>
+        </Pressable>        
       </ScrollView>
       <BottomNavigator />
     </SafeAreaView>
@@ -48,10 +50,12 @@ const AboutScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  scrollViewContent: {
     flexGrow: 1,
     padding: 20,
-    backgroundColor: '#fff', // Background color
+  },
+  container: {
+    flex: 1,
   },
   header: {
     fontSize: 24,
