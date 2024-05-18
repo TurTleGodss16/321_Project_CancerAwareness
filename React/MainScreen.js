@@ -162,9 +162,9 @@ const MainScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-      {/* <TouchableOpacity>
+      <TouchableOpacity>
         <BottomNavigator/>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
