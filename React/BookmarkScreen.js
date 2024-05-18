@@ -72,6 +72,11 @@ const BookmarkScreen = () => {
     LungCancer: '#20b2aa',
   };
 
+  // Function to format the article name
+  const formatArticleName = (name) => {
+    return name.replace(/([a-z])([A-Z])/g, '$1 $2');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {savedArticles.length === 0 ? (
@@ -95,7 +100,7 @@ const BookmarkScreen = () => {
                 { backgroundColor: cancerColors[article.type] },
               ]}
               onPress={() => navigateToScreen(article.type)}>
-              <Text style={styles.headerText}>{article.name}</Text>
+              <Text style={styles.headerText}>{formatArticleName(article.name)}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
