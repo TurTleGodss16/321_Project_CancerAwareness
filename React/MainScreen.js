@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Text, Image, TouchableOpacity, FlatList, SafeAreaView } from 'react-native';
+import { View, TextInput, StyleSheet, Text, Image, TouchableOpacity, FlatList, SafeAreaView, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import BottomNavigator from './BottomNavigator';
 
@@ -61,7 +61,7 @@ const MainScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.contentContainer}>
+      <ScrollView style={styles.contentContainer}>
         <View style={styles.searchContainer}>
           <View style={styles.inputContainer}>
             <TextInput
@@ -72,7 +72,7 @@ const MainScreen = ({ navigation }) => {
             />
             <Icon name="search1" size={24} style={styles.iconCustom} />
           </View>
-          <FlatList
+          <View
             data={suggestions}
             renderItem={({ item }) => (
               <TouchableOpacity onPress={() => navigateToCancerArticle(item)}>
@@ -161,7 +161,7 @@ const MainScreen = ({ navigation }) => {
             </View>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
       <TouchableOpacity>
         <BottomNavigator/>
       </TouchableOpacity>
