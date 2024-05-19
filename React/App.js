@@ -65,12 +65,25 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import messaging from '@react-native-firebase/messaging';
 import Articles from './Articles';
 import SurveyScreen from './Survey';
+import {Ionicons} from 'react-native-vector-icons';
 import { doc, setDoc, collection, deleteDoc, getDocs, getDoc } from 'firebase/firestore'; // Import required functions from Firestore
 import { firestore, auth } from './firebaseConfig'; // Make sure you export 'db' from your firebaseConfig file
 import ResultScreen from './Result';
 import BottomNavigator from './BottomNavigator'; // Import BottomNavigator
 
 const Stack = createNativeStackNavigator();
+const CustomBackImage = () => {
+  const navigation = useNavigation();
+
+  return (
+    <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+      <Image
+        source={require('../Images/back_arrow.png')} // Ensure the correct path
+        style={{ width: 30, height: 30 }} // Adjust the size as needed
+      />
+    </TouchableOpacity>
+  );
+};
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -110,18 +123,18 @@ const App = () => {
 
   const toggleBookmarkColor = async articleName => {
     if (!isAuthenticatedUser) return; // Exit function if user is not authenticated
-
+  
     const isBookmarked = bookmarkColors[articleName] === 'black';
     const newBookmarkColors = {
       ...bookmarkColors,
       [articleName]: isBookmarked ? 'red' : 'black',
     };
-
+  
     setBookmarkColors(newBookmarkColors);
-
+  
     const userDocRef = doc(firestore, "users", user.uid);
     const articlesCollectionRef = collection(userDocRef, "articles");
-
+  
     try {
       if (isBookmarked) {
         // Save the article to Firestore
@@ -136,11 +149,11 @@ const App = () => {
       console.error("Error updating article in Firestore: ", error);
     }
   };
-
+  
   useEffect(() => {
     const fetchSavedArticles = async () => {
       if (!user) return; // Exit function if user is not authenticated
-
+  
       const userDocRef = doc(firestore, 'users', user.uid);
       const articlesCollectionRef = collection(userDocRef, 'articles');
       const querySnapshot = await getDocs(articlesCollectionRef);
@@ -158,17 +171,17 @@ const App = () => {
     };
     fetchSavedArticles();
   }, [user]);
-
+  
   useEffect(() => {
     const checkUserAuthentication = async (currentUser) => {
       if (!currentUser) {
         setIsAuthenticatedUser(false);
         return;
       }
-
+  
       const userDocRef = doc(firestore, 'users', currentUser.uid);
       const userDoc = await getDoc(userDocRef);
-
+  
       if (userDoc.exists()) {
         const userData = userDoc.data();
         if (userData.email && userData.name) {
@@ -180,15 +193,15 @@ const App = () => {
         setIsAuthenticatedUser(false);
       }
     };
-
+  
     // Check user authentication status
     const unsubscribe = auth.onAuthStateChanged(async currentUser => {
       setUser(currentUser);
       await checkUserAuthentication(currentUser);
     });
-
+  
     return unsubscribe;
-  }, []);
+  }, []);  
   
 
   const toggleMenu = () => {
@@ -355,6 +368,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                   }}
                 />
                 <Stack.Screen
@@ -366,7 +380,9 @@ const App = () => {
                       fontSize: 22,
                       // fontWeight: 'bold',
                     },
-                    headerTitleAlign: 'center' }}
+                    headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
+                  }}
                 />
                 <Stack.Screen
                   name="Setting"
@@ -387,7 +403,9 @@ const App = () => {
                       fontSize: 22,
                       // fontWeight: 'bold',
                     },
-                    headerTitleAlign: 'center' }}
+                    headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
+                  }}
                 />
                 <Stack.Screen
                   name="NearByClinic"
@@ -400,18 +418,21 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                   }}
                 />
                 <Stack.Screen
                   name="Articles"
                   component={Articles}
-                  options={{ headerTitle: 'Articles', 
+                  options={{ headerTitle: 'Articles',
                   headerTitleStyle: {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
                       // fontWeight: 'bold',
                     },
-                    headerTitleAlign: 'center' }}
+                    headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
+                  }}
                 />
                 <Stack.Screen
                   name="CancerDefinitions"
@@ -422,7 +443,7 @@ const App = () => {
                       fontFamily: 'Lora-SemiBold',
                       fontSize: 22,
                       // fontWeight: 'bold',
-                    },headerTitleAlign: 'center' }}
+                    },headerTitleAlign: 'center', headerLeft: () => <CustomBackImage />,}}
                 />
                 <Stack.Screen
                   name="CancerTypes"
@@ -433,7 +454,7 @@ const App = () => {
                       fontSize: 22,
                       // fontWeight: 'bold',
                     },
-                    headerTitleAlign: 'center' }}
+                    headerTitleAlign: 'center', headerLeft: () => <CustomBackImage />, }}
                 />
                 <Stack.Screen
                   name="Language"
@@ -462,6 +483,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                   }}
                 />
                 <Stack.Screen
@@ -475,6 +497,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                   }}
                 />
                 <Stack.Screen
@@ -488,6 +511,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -515,6 +539,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -542,6 +567,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -569,6 +595,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -596,6 +623,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -623,6 +651,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -650,6 +679,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -677,6 +707,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -704,6 +735,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -731,6 +763,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -758,6 +791,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -785,6 +819,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -812,6 +847,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -839,6 +875,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -866,6 +903,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -893,6 +931,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -920,6 +959,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -947,6 +987,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -974,6 +1015,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -1001,6 +1043,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -1028,6 +1071,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -1055,6 +1099,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -1082,6 +1127,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -1109,6 +1155,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -1136,6 +1183,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -1163,6 +1211,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -1190,6 +1239,7 @@ const App = () => {
                       fontSize: 22,
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                     headerRight: () => isAuthenticatedUser && (
                       <Icon
                         name="bookmark"
@@ -1218,6 +1268,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                   }}
                 />
                 <Stack.Screen
@@ -1231,6 +1282,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                   }}
                 />
                 <Stack.Screen
@@ -1244,6 +1296,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                   }}
                 />
                 <Stack.Screen
@@ -1257,6 +1310,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                   }}
                 />
                 <Stack.Screen
@@ -1270,6 +1324,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                   }}
                 />
                 <Stack.Screen
@@ -1283,6 +1338,7 @@ const App = () => {
                       // fontWeight: 'bold',
                     },
                     headerTitleAlign: 'center',
+                    headerLeft: () => <CustomBackImage />,
                   }}
                 />
               </Stack.Navigator>
@@ -1295,33 +1351,37 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-menuItem: {
-flexDirection: 'row',
-alignItems: 'center',
-paddingVertical: 10,
-paddingHorizontal: 20,
-},
-menuText: {
-fontWeight: 'bold',
-fontSize: 16,
-color: 'black',
-marginLeft: 10,
-},
-navItem: {
-alignItems: 'center',
-},
-navText: {
-fontSize: 12,
-color: 'black',
-},
-navTextActive: {
-color: 'blue',
-fontWeight: 'bold',
-},
-dmSansFont: {
-fontFamily: 'DMSans_18pt-SemiBold',
-fontSize: 20,
-},
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  menuText: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: 'black',
+    marginLeft: 10,
+  },
+  navItem: {
+    alignItems: 'center',
+  },
+  navText: {
+    fontSize: 12,
+    color: 'black',
+  },
+  navTextActive: {
+    color: 'blue',
+    fontWeight: 'bold',
+  },
+  dmSansFont: {
+    fontFamily: 'DMSans_18pt-SemiBold',
+    fontSize: 20,
+  },
+  backButton: {
+    padding: 10, // Increase padding to make it easier to click
+    marginLeft: 10, // Optional: add margin if needed
+  },
 });
 
 export default App;

@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Text, Image, TouchableOpacity, FlatList, SafeAreaView, ScrollView } from 'react-native';
+import { View, TextInput, StyleSheet, Text, Image, TouchableOpacity, FlatList, SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import BottomNavigator from './BottomNavigator';
 
@@ -10,21 +10,45 @@ const MainScreen = ({ navigation }) => {
   const [suggestions, setSuggestions] = useState([]);
 
   const cancerTypes = [
+    'Adenoid Cancer',
     'Anal Cancer',
+    'Appendix Cancer',
     'Bladder Cancer',
     'Bone Cancer',
     'Brain Cancer',
+    'Bowel Cancer',
     'Breast Cancer',
+    'Cancer Definitions',
+    'Cancer Types',
+    'Causes',
+    'Cervical Cancer',
+    'Gallbladder Cancer',
+    'Head & Neck Cancer',
+    'Hodgkin Lyphoma',
+    'Kidney Cancer',
+    'Leukaemia Cancer',
+    'Liver Cancer',
+    'Lymphoma Cancer',
+    'Melanoma Cancer',
     'Lung Cancer',
+    'Mouth Cancer',
+    'Myeloma Cancer',
+    'Ovarian Cancer',
+    'Penile Cancer',
+    'Prostate Cancer',
+    'Side Effects',
+    'Skin Cancer',
+    'Thyroid Cancer',
+    'Treament',
+    'Vaginal Cancer',
+    'Vulvar Cancer',
   ];
 
   const handleSearch = text => {
     setSearchText(text);
-    // If search text is empty, reset the suggestions
     if (text === '') {
       setSuggestions([]);
     } else {
-      // Filter cancer types based on input text for autocomplete suggestions
       const filteredSuggestions = cancerTypes.filter(cancerType =>
         cancerType.toLowerCase().includes(text.toLowerCase())
       );
@@ -33,7 +57,6 @@ const MainScreen = ({ navigation }) => {
   };
 
   const navigateToCancerArticle = cancerType => {
-    // Based on the selected cancer type, navigate to the corresponding article
     switch (cancerType) {
       case 'Anal Cancer':
         navigation.navigate('AnalCancer');
@@ -53,7 +76,6 @@ const MainScreen = ({ navigation }) => {
       case 'Lung Cancer':
         navigation.navigate('LungCancer');
         break;
-      // Add cases for other cancer types and navigate to respective screens
       default:
         break;
     }
@@ -61,18 +83,19 @@ const MainScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.contentContainer}>
+      <View style={styles.contentContainer}>
         <View style={styles.searchContainer}>
           <View style={styles.inputContainer}>
             <TextInput
               style={styles.input}
               placeholder="Search..."
+              placeholderTextColor="#999"
               value={searchText}
               onChangeText={handleSearch}
             />
             <Icon name="search1" size={24} style={styles.iconCustom} />
           </View>
-          <View
+          <FlatList
             data={suggestions}
             renderItem={({ item }) => (
               <TouchableOpacity onPress={() => navigateToCancerArticle(item)}>
@@ -82,7 +105,7 @@ const MainScreen = ({ navigation }) => {
             keyExtractor={(item, index) => index.toString()}
           />
 
-          <Text style={[styles.linkText, styles.loraFont, {marginBottom: 10, alignSelf: 'center'}]}>Quick Links</Text>
+          <Text style={[styles.linkText, styles.loraFont, { marginBottom: 10, alignSelf: 'center' }]}>Quick Links</Text>
 
           <View style={styles.linksContainer}>
             <View style={styles.link}>
@@ -146,24 +169,23 @@ const MainScreen = ({ navigation }) => {
             </View>
           </View>
 
-          {/* Remaining components */}
           <TouchableOpacity
-            style={[styles.chatbotButton]} // Apply orange background
+            style={[styles.chatbotButton]}
             onPress={() => navigation.navigate('Chatbot')}
           >
             <Image style={styles.chatbotIcon} source={require('../Images/ChatbotIcon.png')} />
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.centeredBooking} onPress={() => navigation.navigate('NearByClinic')}>
-            <Text style={[styles.linkText, {fontFamily: 'Lora-SemiBold', fontSize: 18}]}>Booking a Screening</Text>
+            <Text style={[styles.linkText, { fontFamily: 'Lora-SemiBold', fontSize: 18 }]}>Booking a Screening</Text>
             <View style={[styles.linkBooking, styles.bookingBackground]}>
-              <Image style={[styles.linkIcon, {alignSelf: 'center', width: 325, height: 220}]} source={require('../Images/booking.png')} />
+              <Image style={[styles.linkIcon, { alignSelf: 'center', width: 325, height: 220 }]} source={require('../Images/booking.png')} />
             </View>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
       <TouchableOpacity>
-        <BottomNavigator/>
+        <BottomNavigator />
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -188,15 +210,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 20,
+    backgroundColor: '#FFF',
+    paddingRight: 10, // Ensure padding inside the container
   },
   input: {
     flex: 1,
     height: 40,
     paddingHorizontal: 10,
+    color: '#000', // Set the text color to black
   },
   iconCustom: {
-    marginLeft: 10,
-    marginRight: 10,
     color: '#CCCCCC',
   },
   headerText: {
@@ -228,7 +251,7 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative', // Add relative positioning for the circle
+    position: 'relative',
   },
   circleContainer: {
     position: 'absolute',
@@ -244,14 +267,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#335E90',
   },
   centeredBooking: {
-    alignItems: 'center', // Align the booking section in the center
+    alignItems: 'center',
     bottom: 20,
   },
   bookingBackground: {
-    backgroundColor: '#BCE08A', // Green color for booking
+    backgroundColor: '#BCE08A',
     width: 333,
     height: 240,
-    borderRadius: 20,    marginTop: 20,
+    borderRadius: 20,
+    marginTop: 20,
     padding: 10,
   },
   linkIcon: {
@@ -294,7 +318,6 @@ const styles = StyleSheet.create({
   loraFont: {
     fontFamily: 'Lora-SemiBold',
     fontSize: 20,
-    // fontWeight: 'bold',
   },
 });
 

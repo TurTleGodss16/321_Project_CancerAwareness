@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, FlatList, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import BottomNavigator from './BottomNavigator'; // Ensure the path is correct
 
@@ -117,6 +117,7 @@ const SurveyScreen = ({ navigation }) => {
       ) : (
         <ScrollView contentContainerStyle={styles.scrollView}>
           <Pressable>
+          <Pressable>
           <Text style={styles.title}>Health Survey</Text>
           {questions.map((question, index) => (
             visibleQuestions[index] && (
@@ -141,6 +142,7 @@ const SurveyScreen = ({ navigation }) => {
           <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
             <Text style={styles.submitButtonText}>Submit</Text>
           </TouchableOpacity>
+          </Pressable>
         </ScrollView>
       )}
       <View style={styles.bottomNavigatorContainer}>

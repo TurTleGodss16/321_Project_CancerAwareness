@@ -8,3 +8,7 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
+-keep class * extends android.webkit.WebView { *; }
+-keep class * extends android.webkit.WebViewClient { *; }
+-keep class * extends android.webkit.WebChromeClient { *; }
+-keepattributes *Annotation*
