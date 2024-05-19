@@ -162,11 +162,20 @@ const App = () => {
         articles.push(doc.id);
       });
       setSavedArticles(articles);
+      
       // Initialize bookmark colors based on saved articles
       const initialBookmarkColors = {};
       articles.forEach((article) => {
         initialBookmarkColors[article] = 'red';
       });
+      
+      // Set bookmark colors to black for articles that are not saved
+      Object.keys(bookmarkColors).forEach((article) => {
+        if (!articles.includes(article)) {
+          initialBookmarkColors[article] = 'black';
+        }
+      });
+      
       setBookmarkColors(initialBookmarkColors);
     };
     fetchSavedArticles();
