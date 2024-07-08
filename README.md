@@ -1,4 +1,6 @@
-# Google Drive link: <mark> https://drive.google.com/drive/folders/1Yl_SQW6o2slSf9_H0TcT9CII8lxtZ0AB?usp=sharing </mark>
+# Google Drive link:
+The Google Drive link also contains the APK for the SCSG Awareness App
+<mark> https://drive.google.com/drive/folders/1Yl_SQW6o2slSf9_H0TcT9CII8lxtZ0AB?usp=sharing </mark>
 # Running the app:
    Running a simulator device in Android studio first (recommend the simulator with API >= 26) <br />
    **OR**<br />
